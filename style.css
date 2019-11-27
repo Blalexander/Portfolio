@@ -1,0 +1,580 @@
+* {
+  box-sizing: border-box;
+  /* font-family: 'Roboto Slab', serif; */
+  font-family: 'Lora', serif; 
+  transition: .5s;
+  
+  transition-timing-function: ease-out;
+  text-align: center;
+  outline: 1px solid transparent;
+  -webkit-backface-visibility: hidden;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  background-size: cover; 
+  width: 100%;
+  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}
+
+h1, h2 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size-adjust: 1.3;
+}
+
+#name {
+  font-size-adjust: 3;
+  transform: translate3d(-100%, 0, 100px);
+}
+
+
+
+
+/*------------------- SIDE NAV ---------------------*/
+nav {
+  height: 100vh;
+  width: 100vw;
+  left: 0%;
+  z-index: 5;
+  padding-top: 10vh;
+  transform: scale(1);
+  scroll-snap-align: center;
+  box-shadow: 0 0 50px 5px rgba(0, 0, 128, .5);
+  perspective: 1000px;
+}
+
+nav.landing-animation {
+  animation-name: nav-landing;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
+}
+
+@keyframes nav-landing {
+  0% {transform: scale(1.2)}
+  75% {transform: scale(1.2)}
+  90% {transform: scale(0.9)}
+  100% {transform: scale(1)}
+}
+
+.landing-animation #name {
+  animation-name: landing;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(.9,-0.11,.73,1.07);
+}
+
+@keyframes landing {
+  0% {transform: translate3d(0%, -50%, 500px); opacity: 0}
+  50% {transform: translate3d(0%, 0%, 100px)}
+  100% {transform: translate3d(0%, 0, 0px)}
+}
+  
+
+
+
+
+/*------------------- PROJECTS ---------------------*/
+.project-one-container, .project-two-container, .project-three-container {
+  height: 100vh;
+  width: 100%;
+  margin-top: 5vh;
+  pointer-events: auto;
+  position: relative;
+  font-size-adjust: 0.6;
+  border-radius: 15px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  scroll-snap-align: center;
+}
+
+.project-buttons-container {
+  margin-top: 10vh;
+  width: 90%;
+}
+
+.project-buttons {
+  border-radius: 15px;
+  border: 2px solid white;
+  background-color: rgba(0, 0, 255, 0.1);
+  cursor: pointer;
+  font-size-adjust: 0.5;
+  height: 5vh;
+  width: 10vw;
+}
+
+.project-buttons:hover {
+  border: 2px solid rgba(0, 0, 255, 0.1);
+  background-color: navy;
+  color: white;
+}
+
+.project-one-container {
+  z-index: 0;
+}
+
+.project1-overview {
+  width: 40vw;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.project-title {
+  margin-top: 10vh;
+}
+
+.project-description {
+  width: 30vw;
+  text-align: center;
+}
+
+.project-one {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  right: 1vw;
+  height: 95vh;
+  width: 60vw;
+  transition: 0.35s;
+}
+
+.project-one .monitor {
+  background-image: url(/screenshots/DMT1.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.project-one .screen {
+  background-image: url(/screenshots/dmtmob.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.in-focus .computer-demo, .in-focus .phone-demo {
+  opacity: 1;
+}
+
+.project-two-container {
+  z-index: 0;
+  transform-origin: 50% 110%;
+  transform-style: preserve-3d;
+}
+
+.project2-overview {
+  width: 40vw;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.project-two {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  right: 1vw;
+  height: 95vh;
+  width: 60vw;
+  transition: 0.5s;
+}
+
+.project-two .monitor {
+  background-image: url(/screenshots/fbsbpc.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.project-two .screen {
+  background-image: url(/screenshots/fbsbmob.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.project-three-container {
+  z-index: 0;
+  transform-origin: 50% 110%;
+  transform-style: preserve-3d;
+}
+
+.project3-overview {
+  width: 40vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.project-three {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  right: 1vw;
+  height: 95vh;
+  width: 60vw;
+  transition: 0.5s;
+}
+
+.project-three .monitor {
+  background-image: url(/GLSfinal1.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.project-three .screen {
+  background-image: url(/GLSfinal2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+/* --------------- FOOTER -------------------- */
+footer {
+  position: relative;
+}
+
+.about-me-container {
+  display: flex;
+  flex-flow: column nowrap;
+  padding-left: 35vw;
+  padding-right: 35vw;
+  height: 100vh;
+  width: 100%;
+  margin-top: 5vh;
+  pointer-events: auto;
+  position: relative;
+  font-size-adjust: 0.6;
+  border-radius: 15px;
+  scroll-snap-align: center;
+  z-index: 1;
+}
+
+.about-me-container.in-focus:before {
+  content: '';
+  position: absolute;
+  height: 80vh;
+  width: 100%;
+  bottom: 0vh;
+  clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 100%, 0% 100%);
+  z-index: -1;
+}
+
+.about-me-container:before {
+  content: '';
+  position: absolute;
+  height: 20vh;
+  width: 100%;
+  bottom: 0vh;
+  clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 100%, 0% 100%);
+  z-index: -1;
+}
+
+.about-me-label {
+  text-align: center;
+  margin-top: 40%;
+}
+
+.about-me {
+  text-align: center;
+  line-height: 180%;
+  z-index: 1;
+}
+
+.contact-me {
+  position: absolute;
+  height: 15vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .8);
+  bottom: 0vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3vh;
+  pointer-events: auto;
+  z-index: 30;
+}
+
+.contact-me:after {
+  content: '';
+  height: 3vh;
+  width: 100%;
+  bottom: 0vh;
+  position: absolute;
+}
+
+i {
+  font-size-adjust: 2;
+  padding: 2vh;
+  border-radius: 15px;
+  opacity: 0.5;
+}
+  
+i:hover {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+/* ------------ COMPUTER AND PHONE DISPLAYS ------------- */
+.computer-demo {
+  display: inline-flex;
+  align-items: center;
+  flex-flow: column nowrap;
+  margin-top: 1vh;
+  opacity: 0;
+  transition: opacity .5s .25s;
+}
+
+.computer {
+  border: 5px solid black;
+  border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.monitor {
+  height: 305px;
+  width: 400px;
+  background-color: white;
+  background-position: center;
+}
+
+.stand {
+  height: 4vh;
+  width: 2vw;
+  border-radius: 0;
+  background-color: black;
+  margin-top: -1vh;
+}
+
+.base {
+  width: 15vw;
+}
+
+.phone-demo {
+  display: inline-flex;
+  align-items: center;
+  flex-flow: column nowrap;
+  float: right;
+  opacity: 0;
+  transition: opacity .5s .4s;
+}
+
+.phone {
+  border: 5px solid black;
+  border-radius: 15px;
+  box-shadow: 0 0px 5px rgba(0, 0, 0, .5);
+}
+
+.screen {
+  height: 390px;
+  width: 190px;
+  border-top: 1vh solid black;
+  border-bottom: 1vh solid black;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  background-color: white;
+  background-position: center;
+}
+
+.speaker {
+  position: absolute;
+  border: 2px solid white;
+  width: 4vw;
+  margin-top: -1.5vh;
+  height: 12px;
+  display: none;
+}
+
+.home-button {
+  border: 10px solid white;
+  margin-top: 29vh;
+  display: none;
+}
+
+
+
+
+
+
+
+/* ------------------ TECH SVGS ---------------------- */
+.tech-used {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  width: 35vw;
+  height: 10vh;
+  padding-top: 2vh;
+  position: absolute;
+  left: 2.5vw;
+  bottom: 10vh;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 255, 0.5);
+}
+
+.tech {
+  height: 10vh;
+}
+
+svg {
+  height: 5vh;
+}
+
+.mongodb-svg {
+  height: 6vh;
+  margin-top: 1vh;
+  transform: translate3d(10%, 0, 0);
+}
+
+.jquery-svg {
+  margin-top: 1vh;
+  transform: translate3d(30%, 0, 0);
+}
+
+.nodejs-svg {
+  height: 8vh;
+  margin-top: 1vh;
+  transform: translate3d(30%, 0, 0);
+}
+
+.mongodb-svg, .nodejs-svg, .jquery-svg {
+
+}
+
+
+
+
+
+
+/* ---------------- MOBILE & SMALL SCREEN SIZING ----------------- */
+@media only screen and (max-width:900px) {
+  #name {
+    font-size: 150%;
+  }
+  
+  .about-me-container {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+  
+  .project-buttons-container {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: unset;
+    width: unset;
+  }
+  
+  .project-buttons {
+    border-radius: 15px;
+    border: 2px solid white;
+    background-color: rgba(0, 0, 255, 0.1);
+    cursor: pointer;
+    font-size-adjust: 0.5;
+    height: unset;
+    width: unset;
+  }
+
+  .project-buttons:hover {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    background-color: navy;
+    color: white;
+  }
+  
+  .project-title {
+    margin-top: unset;
+  }
+  
+  .project-description {
+    width: unset;
+  }
+  
+  .project-one-container, .project-two-container, .project-three-container {
+    z-index: 0;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  .project1-overview, .project2-overview, .project3-overview {
+    width: 100%;
+    height: 50%;
+  }
+
+  .project-one, .project-two, .project-three {
+    position: absolute;
+    bottom: 30vh;
+    height: 30vh;
+    width: 100%;
+    transition: 0.35s;
+  }
+  
+  
+  .monitor {
+    height: 20vh;
+    min-height: 200px;
+    width: 30vw;
+    min-width: 200px;
+  }
+  
+  .base {
+    width: 50%;
+  }
+  
+  .screen {
+    height: 230px;
+    width: 100px;
+  }
+  
+  .tech-used {
+    bottom: -2vh;
+    left: unset;
+    width: 100%;
+  }
+
+}
+
+@media only screen and (max-width:500px) {
+  #name {
+    font-size: 100%;
+  }
+  .project-one, .project-two, .project-three {
+    position: absolute;
+    bottom: 15vh;
+    height: 30vh;
+    width: 100%;
+    transition: 0.35s;
+  }
+}
+
