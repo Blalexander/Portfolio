@@ -156,14 +156,14 @@ nav.landing-animation {
 }
 
 .project-one .monitor {
-  background-image: url(/screenshots/DMT1.png);
+  background-image: url(./screenshots/DMT1.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .project-one .screen {
-  background-image: url(/screenshots/dmtmob.png);
+  background-image: url(./screenshots/dmtmob.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -199,14 +199,14 @@ nav.landing-animation {
 }
 
 .project-two .monitor {
-  background-image: url(/screenshots/fbsbpc.png);
+  background-image: url(./screenshots/fbsbpc.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .project-two .screen {
-  background-image: url(/screenshots/fbsbmob.png);
+  background-image: url(./screenshots/fbsbmob.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -239,13 +239,13 @@ nav.landing-animation {
 }
 
 .project-three .monitor {
-  background-image: url(/GLSfinal1.png);
+  background-image: url(./screenshots/GLSfinal1.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .project-three .screen {
-  background-image: url(/GLSfinal2.png);
+  background-image: url(./screenshots/GLSfinal2.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
