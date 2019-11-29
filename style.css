@@ -110,7 +110,9 @@ nav.landing-animation {
   border: 2px solid white;
   background-color: rgba(0, 0, 255, 0.1);
   cursor: pointer;
-  font-size-adjust: 0.5;
+/*   font-size-adjust: 0.7; */
+  font-size: 20px;
+  font-family: 'Fjalla One', sans-serif;
   height: 5vh;
   width: 10vw;
 }
