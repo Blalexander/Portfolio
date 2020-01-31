@@ -2,7 +2,7 @@
   box-sizing: border-box;
   /* font-family: 'Roboto Slab', serif; */
   font-family: 'Lora', serif; 
-  transition: .5s;
+/*   transition: .5s; */
   
   transition-timing-function: ease-out;
   text-align: center;
@@ -21,7 +21,7 @@ html {
 }
 
 body {
-  height: 100%;
+  height: 320vh;
   width: 100%;
   z-index: 10;
 }
@@ -34,6 +34,7 @@ h1, h2 {
 #name {
   font-size-adjust: 3;
   transform: translate3d(-100%, 0, 100px);
+  margin-top: 10vh;
 }
 
 
@@ -43,13 +44,14 @@ h1, h2 {
 nav {
   height: 100vh;
   width: 100vw;
+  top: 0;
   left: 0%;
   z-index: 5;
-  padding-top: 10vh;
+/*   padding-top: 10vh; */
   transform: scale(1);
   scroll-snap-align: center;
   box-shadow: 0 0 50px 5px rgba(0, 0, 128, .5);
-  perspective: 1000px;
+  position: absolute;
 }
 
 nav.landing-animation {
@@ -57,6 +59,61 @@ nav.landing-animation {
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-iteration-count: 1;
+}
+
+.be-my-top-bar {
+  top: 110vh;
+  height: 10vh;
+  width: 100vw;
+  box-shadow: unset;
+}
+
+.be-my-top-bar #name {
+  transform: translate3d(0, 0, 0);
+  font-size-adjust: 0.5;
+  text-align: left;
+  margin-top: 0vh;
+  z-index: -1;
+  animation: slide-from-left 1s 0.5s forwards;
+  transform: translate3d(-100%, 0, 0)
+}
+
+.be-my-top-bar .project-selector-buttons {
+  animation: slide-from-right 1s 0.5s forwards;
+}
+
+.be-my-top-bar:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7vh;
+  width: 100%;
+  opacity: 0;
+  border-bottom: 2px solid gray;
+  animation: slide-from-left 1s 0.5s forwards;
+  transform: translate3d(-100%, 0, 0)
+}
+
+.be-my-top-bar:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -85vh;
+  width: 100%;
+  opacity: 0;
+  border-bottom: 2px solid gray;
+  animation: slide-from-left 1s 0.6s forwards;
+  transform: translate3d(-100%, 0, 0)
+}
+
+@keyframes slide-from-left {
+  from{transform: translate3d(-100%, 0, 0)}
+  to{opacity: 1; transform: translate3d(0, 0, 0)}
+}
+
+@keyframes slide-from-right {
+  from{transform: translate3d(100%, 0, 0)}
+  to{opacity: 1; transform: translate3d(0, 0, 0)}
 }
 
 @keyframes nav-landing {
@@ -80,77 +137,275 @@ nav.landing-animation {
   50% {transform: translate3d(0%, 0%, 100px)}
   100% {transform: translate3d(0%, 0, 0px)}
 }
+
+.project-selector-buttons {
+  height: 6.5vh;
+  width: 15vw;
+  right: 0;
+  top: 0.5vh;
+  position: absolute;
+  display: grid;
+/*   grid-template-areas: "one blank blank" "blank two blank" "blank blank three"; */
+/*   align-items: center; */
+/*   align-self: flex-end; */
+/*   margin-top: 10vh; */
+/*   margin-right: 10vw; */
+/*   background-color: red; */
+  transform: translate3d(100%, 0, 0);
+}
+
+.nav-buttons {
+  border-radius: 100px;
+  height: 2vh;
+  width: 3vh;
+}
+
+.nav-buttons:hover {
+  cursor: pointer;
+}
+
+.custom-nav {
+/*   display: block; */
+  position: relative;
+/*   padding-left: 35px; */
+/*   margin-bottom: 12px; */
+  cursor: pointer;
+/*   font-size: 22px; */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+/*   background-color: red; */
+  height: 2vh;
+  width: 10vw;
+}
+
+.custom-nav.p1 {
+/*   grid-area: one; */
+}
+
+.custom-nav.p2 {
+/*   grid-area: two; */
+  margin-left: 3vw;
+}
+
+.custom-nav.p3 {
+/*   grid-area: three; */
+  margin-left: 6vw;
+}
+
+/* Hide the browser's default radio button */
+.custom-nav input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.nav-check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2vh;
+  width: 2vh;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.custom-nav:hover input ~ .nav-check {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.custom-nav input:checked ~ .nav-check {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.nav-check:after {
+  content: "";
+  position: absolute;
+  display: none;
+  height: 5vh;
+  width: 5vw;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.custom-nav input:checked ~ .nav-check:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.custom-nav .nav-check:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
   
 
 
 
 
 /*------------------- PROJECTS ---------------------*/
+.project-containers {
+/*   background-color: red; */
+  height: 100vh;
+  width: 300vw;
+  margin-top: 110vh;
+  margin-bottom: 10vh;
+/*   padding-top: 10vh; */
+/*   padding-bottom: 10vh; */
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto auto;
+  transition: 0.5s;
+}
+
 .project-one-container, .project-two-container, .project-three-container {
   height: 100vh;
-  width: 100%;
-  margin-top: 5vh;
-  pointer-events: auto;
-  position: relative;
+  width: 100vw;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+/*   padding-right: 5vw; */
+  padding-left: 5vw;
   font-size-adjust: 0.6;
   border-radius: 15px;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
+  display: grid;
+  grid-template-areas: "heading display" "title display" "details display" "description display" "buttons tech";
   scroll-snap-align: center;
 }
 
+.project-one, .project-two, .project-three {
+  grid-area: display;
+/*   background-color: red; */
+}
+
 .project-buttons-container {
-  margin-top: 10vh;
-  width: 90%;
+  grid-area: buttons;
+  height: 15vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+/*   align-items: center; */
+/*   margin-top: 10vh; */
+/*   width: 90%; */
+  margin-left: -0.5vw;
+  position: relative;
 }
 
 .project-buttons {
   border-radius: 15px;
   border: 2px solid white;
-  background-color: rgba(0, 0, 255, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+  background-color: transparent;
   cursor: pointer;
-/*   font-size-adjust: 0.7; */
-  font-size: 20px;
-  font-family: 'Fjalla One', sans-serif;
+  text-align: left;
+  font-size-adjust: 0.5;
+  font-weight: bold;
+/*   font-family: 'Fjalla One', sans-serif; */
   height: 5vh;
-  width: 10vw;
+  width: max-content;
+  transition: 0.2s;
+}
+
+.project-buttons:before {
+  content: '';
+  height: 1.3em;
+  width: 2vw;
+  left: 0;
+  background-color: rgba(33, 150, 243, 1);
+  position: absolute;
+  transform: translate3d(-200%, 0, 0);
+  transition: 0.3s;
+  transition-timing-function: cubic-bezier(.11, .87, .3, .86);
+  clip-path: polygon(47% 5%, 5% 5%, 5% 0%, 95% 0%, 95% 5%, 53% 5%, 53% 95%, 95% 95%, 95% 100%, 5% 100%, 5% 95%, 47% 95%);
+  opacity: 0;
+/*   clip-path: polygon(100% 0, 100% 5%, 5% 5%, 5% 95%, 100% 95%, 100% 100%, 0 100%, 0 0); */
+}
+
+.project-buttons:after {
+  content: '';
+  height: 1.3em;
+  width: 2vw;
+  right: 70%;
+  background-color: rgba(33, 150, 243, 1);
+  position: absolute;
+  transform: translate3d(200%, 0, 0);
+  transition: 0.3s;
+  transition-timing-function: cubic-bezier(.11, .87, .3, .86);
+  clip-path: polygon(47% 5%, 5% 5%, 5% 0%, 95% 0%, 95% 5%, 53% 5%, 53% 95%, 95% 95%, 95% 100%, 5% 100%, 5% 95%, 47% 95%);
+  opacity: 0;
+/*   clip-path: polygon(0 5%, 5% 0, 100% 0, 100% 100%, 0 100%, 0 95%, 95% 95%, 95% 5%); */
 }
 
 .project-buttons:hover {
-  border: 2px solid rgba(0, 0, 255, 0.1);
-  background-color: navy;
-  color: white;
+  color: black;
+  position: relative;
+}
+
+.project-buttons:hover.project-buttons:before {
+  left: unset;
+  right: -10%;
+  transform: translate3d(0, 0, 0);
+  clip-path: polygon(0 5%, 5% 0, 100% 0, 100% 100%, 0 100%, 0 95%, 95% 95%, 95% 5%);
+  opacity: 1;
+}
+
+.project-buttons:hover.project-buttons:after {
+  right: unset;
+  left: 10%;
+  transform: translate3d(-80%, 0, 0);
+  clip-path: polygon(100% 0, 100% 5%, 5% 5%, 5% 95%, 100% 95%, 100% 100%, 0 100%, 0 0);
+  opacity: 1;
 }
 
 .project-one-container {
   z-index: 0;
+  transform: translate3d(0%, 0, 0);
 }
 
-.project1-overview {
-  width: 40vw;
-  height: 100%;
+.project-heading { 
+  grid-area: heading;
+  color: rgba(0, 0, 0, 0.6);
+  text-align: left;
   display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
+  align-self: flex-end;
 }
 
 .project-title {
-  margin-top: 10vh;
+  grid-area: title;
+  text-align: left;
+/*   margin-top: 10vh; */
+}
+
+.project-details {
+  grid-area: details;
+  color: rgba(0, 0, 0, 0.6);
+  text-align: left;
+  display: flex;
+  align-self: flex-end;
 }
 
 .project-description {
-  width: 30vw;
-  text-align: center;
+  grid-area: description;
+/*   width: 30vw; */
+  padding-right: 5vw;
+  text-align: left;
 }
 
 .project-one {
   display: flex;
-  justify-content: space-evenly;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
   align-items: center;
-  position: absolute;
-  right: 1vw;
-  height: 95vh;
+/*   padding-top: 10vh; */
+/*   position: absolute; */
+/*   right: 1vw; */
+  height: 65vh;
   width: 60vw;
   transition: 0.35s;
 }
@@ -169,29 +424,18 @@ nav.landing-animation {
   background-position: center;
 }
 
-.in-focus .computer-demo, .in-focus .phone-demo {
-  opacity: 1;
-}
-
 .project-two-container {
   z-index: 0;
   transform-origin: 50% 110%;
   transform-style: preserve-3d;
-}
-
-.project2-overview {
-  width: 40vw;
-  height: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
+/*   transform: translate3d(100%, 0, 0); */
 }
 
 .project-two {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  position: absolute;
+/*   position: absolute; */
   right: 1vw;
   height: 95vh;
   width: 60vw;
@@ -217,23 +461,16 @@ nav.landing-animation {
   z-index: 0;
   transform-origin: 50% 110%;
   transform-style: preserve-3d;
-}
-
-.project3-overview {
-  width: 40vw;
-  height: 100vh;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
+/*   transform: translate3d(200%, 0, 0); */
 }
 
 .project-three {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  position: absolute;
-  right: 1vw;
-  height: 95vh;
+/*   position: absolute; */
+/*   right: 1vw; */
+/*   height: 95vh; */
   width: 60vw;
   transition: 0.5s;
 }
@@ -355,7 +592,9 @@ i:hover {
   flex-flow: column nowrap;
   margin-top: 1vh;
   opacity: 0;
-  transition: opacity .5s .25s;
+  transition: opacity .2s;
+  position: absolute;
+  pointer-events: none;
 }
 
 .computer {
@@ -365,8 +604,8 @@ i:hover {
 }
 
 .monitor {
-  height: 305px;
-  width: 400px;
+  height: 450px;
+  width: 800px;
   background-color: white;
   background-position: center;
 }
@@ -377,10 +616,12 @@ i:hover {
   border-radius: 0;
   background-color: black;
   margin-top: -1vh;
+  z-index: -1;
 }
 
 .base {
   width: 15vw;
+  border-radius: 15px 15px 0px 0px;
 }
 
 .phone-demo {
@@ -388,8 +629,11 @@ i:hover {
   align-items: center;
   flex-flow: column nowrap;
   float: right;
+  margin-bottom: -5vh;
   opacity: 0;
-  transition: opacity .5s .4s;
+  transition: opacity .2s;
+  position: absolute;
+  pointer-events: none;
 }
 
 .phone {
@@ -399,8 +643,8 @@ i:hover {
 }
 
 .screen {
-  height: 390px;
-  width: 190px;
+  height: 600px;
+  width: 275px;
   border-top: 1vh solid black;
   border-bottom: 1vh solid black;
   display: flex;
@@ -425,7 +669,77 @@ i:hover {
   display: none;
 }
 
+.computer-or-phone-buttons {
+  display: flex;
+  width: 10vw;
+  height: 4vh;
+  justify-content: center;
+  position: absolute;
+  top: 14vh;
+}
 
+.CoP-button {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-radio {
+  display: block;
+  position: relative;
+  height: 3vh;
+  width: 3vw;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkmark {
+  display: inline-block;
+  border: 3px solid black;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-radio .checkmark:after {
+  border-radius: 50%;
+}
+
+.custom-radio:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.custom-radio input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.custom-radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkmark.computer {
+  border-radius: 5px;
+  height: 2vh;
+  width: 3vh;
+  margin-top: 0.5vh;
+}
+
+.checkmark.phone {
+  border-radius: 5px;
+  height: 3vh;
+  width: 2vh;
+}
+
+.focused {
+  opacity: 1;
+}
 
 
 
@@ -433,43 +747,43 @@ i:hover {
 
 /* ------------------ TECH SVGS ---------------------- */
 .tech-used {
+  grid-area: tech;
   display: flex;
-  flex-flow: column wrap;
+  align-self: flex-end;
+  flex-flow: row nowrap;
   justify-content: space-evenly;
-  width: 35vw;
-  height: 10vh;
-  padding-top: 2vh;
-  position: absolute;
-  left: 2.5vw;
-  bottom: 10vh;
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  align-items: center;
+  height: 5vh;
+  width: 60%;
+  margin-left: 20%;
+/*   border: 2px solid rgba(0, 0, 0, 0.5); */
   border-radius: 15px;
-  box-shadow: inset 0px 0px 5px rgba(0, 0, 255, 0.5);
+/*   box-shadow: inset 0px 0px 5px rgba(0, 0, 255, 0.5); */
 }
 
 .tech {
-  height: 10vh;
+  height: 50%;
 }
 
 svg {
-  height: 5vh;
+  height: 100%;
 }
 
 .mongodb-svg {
-  height: 6vh;
-  margin-top: 1vh;
+  height: 4vh;
+/*   margin-top: 1vh; */
   transform: translate3d(10%, 0, 0);
 }
 
 .jquery-svg {
-  margin-top: 1vh;
-  transform: translate3d(30%, 0, 0);
+/*   margin-top: 1vh; */
+  transform: translate3d(20%, 20%, 0);
 }
 
 .nodejs-svg {
-  height: 8vh;
-  margin-top: 1vh;
-  transform: translate3d(30%, 0, 0);
+  height: 5vh;
+/*   margin-top: 1vh; */
+  transform: translate3d(20%, -5%, 0);
 }
 
 .mongodb-svg, .nodejs-svg, .jquery-svg {
