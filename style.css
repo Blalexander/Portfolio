@@ -16,14 +16,14 @@ html {
   scroll-behavior: smooth;
   background-size: cover; 
   width: 100%;
-  scroll-snap-type: y mandatory;
-  scroll-snap-type: y proximity;
+/*   scroll-snap-type: y mandatory; */
+/*   scroll-snap-type: y proximity; */
 }
 
 body {
   height: 320vh;
   width: 100%;
-  z-index: 10;
+  pointer-events: none;
 }
 
 h1, h2 {
@@ -32,9 +32,14 @@ h1, h2 {
 }
 
 #name {
-  font-size-adjust: 3;
-  transform: translate3d(-100%, 0, 100px);
-  margin-top: 10vh;
+  font-size-adjust: 0.5;
+  position: fixed;
+  top: 2vh;
+  left: 5vw;
+  margin: 0;
+  text-align: left;
+/*   z-index: -1; */
+  opacity: 1;
 }
 
 
@@ -46,12 +51,15 @@ nav {
   width: 100vw;
   top: 0;
   left: 0%;
-  z-index: 5;
-/*   padding-top: 10vh; */
   transform: scale(1);
-  scroll-snap-align: center;
   box-shadow: 0 0 50px 5px rgba(0, 0, 128, .5);
-  position: absolute;
+  position: fixed;
+  z-index: -1;
+}
+
+@keyframes move-to-top {
+  0% {transform: translate3d(0, 0, 0)}
+  100% {transform: translate3d(0, 0, -1000px); background-color: red;}
 }
 
 nav.landing-animation {
@@ -61,69 +69,22 @@ nav.landing-animation {
   animation-iteration-count: 1;
 }
 
-.be-my-top-bar {
-  top: 110vh;
-  height: 10vh;
-  width: 100vw;
-  box-shadow: unset;
-}
-
-.be-my-top-bar #name {
-  transform: translate3d(0, 0, 0);
-  font-size-adjust: 0.5;
-  text-align: left;
-  margin-top: 0vh;
-  z-index: -1;
-  animation: slide-from-left 1s 0.5s forwards;
-  transform: translate3d(-100%, 0, 0)
-}
-
-.be-my-top-bar .project-selector-buttons {
-  animation: slide-from-right 1s 0.5s forwards;
-}
-
-.be-my-top-bar:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 7vh;
-  width: 100%;
-  opacity: 0;
-  border-bottom: 2px solid gray;
-  animation: slide-from-left 1s 0.5s forwards;
-  transform: translate3d(-100%, 0, 0)
-}
-
-.be-my-top-bar:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -85vh;
-  width: 100%;
-  opacity: 0;
-  border-bottom: 2px solid gray;
-  animation: slide-from-left 1s 0.6s forwards;
-  transform: translate3d(-100%, 0, 0)
-}
-
-@keyframes slide-from-left {
-  from{transform: translate3d(-100%, 0, 0)}
-  to{opacity: 1; transform: translate3d(0, 0, 0)}
-}
-
-@keyframes slide-from-right {
-  from{transform: translate3d(100%, 0, 0)}
-  to{opacity: 1; transform: translate3d(0, 0, 0)}
-}
-
 @keyframes nav-landing {
   0% {transform: scale(1.2)}
-  75% {transform: scale(1.2)}
-  90% {transform: scale(0.9)}
-  100% {transform: scale(1)}
+  65% {transform: scale(1.2)}
+  80% {transform: scale(0.9)}
+  90% {transform: scale(1); box-shadow: 0 0 50px 5px rgba(0, 0, 128, .5);}
+  100% {box-shadow: unset}
 }
 
 .landing-animation #name {
+  font-size-adjust: 3;
+/*   transform: translate3d(-100%, 0, 100px); */
+  margin-top: 15vh;
+  width: 50vw;
+  margin-left: 20%;
+  line-height: 15vh;
+  text-align: center;
   animation-name: landing;
   animation-duration: 2s;
   animation-fill-mode: forwards;
@@ -140,18 +101,35 @@ nav.landing-animation {
 
 .project-selector-buttons {
   height: 6.5vh;
-  width: 15vw;
-  right: 0;
-  top: 0.5vh;
-  position: absolute;
+  width: 90vw;
+  right: 5vw;
+  top: 6vh;
+  position: fixed;
   display: grid;
-/*   grid-template-areas: "one blank blank" "blank two blank" "blank blank three"; */
-/*   align-items: center; */
-/*   align-self: flex-end; */
-/*   margin-top: 10vh; */
-/*   margin-right: 10vw; */
-/*   background-color: red; */
-  transform: translate3d(100%, 0, 0);
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: auto auto auto;
+  grid-gap: 30px;
+/*   border: 3px solid black; */
+  border-bottom: none;
+  box-shadow: 0px -4px 5px rgba(0, 0, 0, 0.4);
+  z-index: 6;
+  pointer-events: auto;
+  transition: 0.5s;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.in-focus.project-selector-buttons {
+  animation: slide-from-right 1s 0.5s forwards;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@keyframes slide-from-right {
+  from{transform: translate3d(100%, 0, 0);}
+  to{opacity: 1; transform: translate3d(0, 0, 0)}
 }
 
 .nav-buttons {
@@ -165,19 +143,17 @@ nav.landing-animation {
 }
 
 .custom-nav {
-/*   display: block; */
+  z-index: 6;
+  pointer-events: auto;
   position: relative;
-/*   padding-left: 35px; */
-/*   margin-bottom: 12px; */
   cursor: pointer;
-/*   font-size: 22px; */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-/*   background-color: red; */
-  height: 2vh;
-  width: 10vw;
+/*   border: 3px solid red; */
+  height: 4vh;
+  width: 4vw;
 }
 
 .custom-nav.p1 {
@@ -186,12 +162,12 @@ nav.landing-animation {
 
 .custom-nav.p2 {
 /*   grid-area: two; */
-  margin-left: 3vw;
+/*   margin-left: 3vw; */
 }
 
 .custom-nav.p3 {
 /*   grid-area: three; */
-  margin-left: 6vw;
+/*   margin-left: 6vw; */
 }
 
 /* Hide the browser's default radio button */
@@ -206,10 +182,10 @@ nav.landing-animation {
   position: absolute;
   top: 0;
   left: 0;
-  height: 2vh;
-  width: 2vh;
+  height: 4vh;
+  width: 4vw;
   background-color: #eee;
-  border-radius: 50%;
+/*   border-radius: 50%; */
 }
 
 /* On mouse-over, add a grey background color */
@@ -238,12 +214,16 @@ nav.landing-animation {
 
 /* Style the indicator (dot/circle) */
 .custom-nav .nav-check:after {
- 	top: 9px;
-	left: 9px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
+/*  	top: 9px; */
+/* 	left: 9px; */
+	width: 3.5vw;
+	height: 3.5vh;
+  margin-left: 0.25vw;
+  margin-top: 0.25vh;
+/* 	border-radius: 50%; */
+/* 	background: white; */
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9);
+/*   border: 2px solid white; */
 }
   
 
@@ -253,30 +233,71 @@ nav.landing-animation {
 /*------------------- PROJECTS ---------------------*/
 .project-containers {
 /*   background-color: red; */
-  height: 100vh;
+  height: 90vh;
   width: 300vw;
-  margin-top: 110vh;
-  margin-bottom: 10vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 /*   padding-top: 10vh; */
 /*   padding-bottom: 10vh; */
+  position: fixed;
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: auto auto auto;
   transition: 0.5s;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.in-focus.project-containers:before {
+  content: '';
+  position: absolute;
+  left: 5vw;
+  top: 7vh;
+  width: 90vw;
+  opacity: 0;
+  border-bottom: 2px solid gray;
+  animation: slide-from-left 1s 0.5s forwards;
+  transform: translate3d(-100%, 0, 0)
+}
+
+@keyframes slide-from-left {
+  from{transform: translate3d(-100%, 0, 0)}
+  to{opacity: 1; transform: translate3d(0, 0, 0)}
+}
+
+.project-containers.in-focus {
+  opacity: 1;
+/*   z-index: 1; */
+/*   pointer-events: auto; */
 }
 
 .project-one-container, .project-two-container, .project-three-container {
-  height: 100vh;
-  width: 100vw;
-  padding-top: 10vh;
+  height: 85vh;
+  width: 90vw;
+  margin-top: 7vh;
   padding-bottom: 10vh;
+/*   background-color: red; */
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.4);
+/*   border: 3px solid black; */
+  border-top: 2px solid gray;
 /*   padding-right: 5vw; */
   padding-left: 5vw;
+  margin-left: 5vw;
   font-size-adjust: 0.6;
-  border-radius: 15px;
+  transition: 0.5s;
   display: grid;
   grid-template-areas: "heading display" "title display" "details display" "description display" "buttons tech";
-  scroll-snap-align: center;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+/*   scroll-snap-align: center; */
+}
+
+.in-focus .project-one-container, .in-focus .project-two-container, .in-focus .project-three-container {
+  opacity: 1;
+  z-index: 1;
+  pointer-events: auto;
 }
 
 .project-one, .project-two, .project-three {
@@ -299,7 +320,7 @@ nav.landing-animation {
 
 .project-buttons {
   border-radius: 15px;
-  border: 2px solid white;
+  border: unset;
   color: rgba(0, 0, 0, 0.6);
   background-color: transparent;
   cursor: pointer;
@@ -345,6 +366,7 @@ nav.landing-animation {
 .project-buttons:hover {
   color: black;
   position: relative;
+/*   text-decoration: underline overline rgba(33, 150, 243, 1); */
 }
 
 .project-buttons:hover.project-buttons:before {
@@ -495,7 +517,23 @@ nav.landing-animation {
 
 /* --------------- FOOTER -------------------- */
 footer {
-  position: relative;
+  position: fixed;
+  height: 91vh;
+  width: 90vw;
+  margin-top: 6vh;
+  margin-left: 5vw;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  transition: 0.5s;
+  background-color: white;
+/*   border: 3px solid red; */
+}
+
+footer.in-focus {
+  opacity: 1;
+  z-index: 1;
+  pointer-events: auto;
 }
 
 .about-me-container {
@@ -506,11 +544,11 @@ footer {
   height: 100vh;
   width: 100%;
   margin-top: 5vh;
-  pointer-events: auto;
+/*   pointer-events: auto; */
   position: relative;
   font-size-adjust: 0.6;
   border-radius: 15px;
-  scroll-snap-align: center;
+/*   scroll-snap-align: center; */
   z-index: 1;
 }
 
@@ -555,7 +593,7 @@ footer {
   justify-content: center;
   align-items: center;
   padding-bottom: 3vh;
-  pointer-events: auto;
+/*   pointer-events: auto; */
   z-index: 30;
 }
 
@@ -610,6 +648,15 @@ i:hover {
   background-position: center;
 }
 
+.focused .monitor {
+  animation: transform-to-phone 0.5s;
+}
+
+@keyframes transform-to-phone {
+  from {transform: rotate(90deg); height: 600px; width: 275px;}
+  to {transform: rotate(0deg)}
+}
+
 .stand {
   height: 4vh;
   width: 2vw;
@@ -652,6 +699,17 @@ i:hover {
   align-items: center;
   background-color: white;
   background-position: center;
+/*   transform: rotate(90deg); */
+}
+
+
+.focused .screen {
+  animation: transform-to-monitor 0.5s;
+}
+
+@keyframes transform-to-monitor {
+  from {transform: rotate(90deg); height: 450px;  width: 800px;}
+  to {transform: rotate(0deg)}
 }
 
 .speaker {
@@ -797,9 +855,9 @@ svg {
 
 /* ---------------- MOBILE & SMALL SCREEN SIZING ----------------- */
 @media only screen and (max-width:900px) {
-  #name {
+/*   #name {
     font-size: 150%;
-  }
+  } */
   
   .about-me-container {
     padding-left: 5vw;
@@ -807,52 +865,55 @@ svg {
   }
   
   .project-buttons-container {
-    display: flex;
-    flex-flow: row nowrap;
-    margin-top: unset;
-    width: unset;
+/*     display: flex; */
+/*     flex-flow: row nowrap; */
+/*     margin-top: unset; */
+/*     width: unset; */
   }
   
   .project-buttons {
-    border-radius: 15px;
-    border: 2px solid white;
-    background-color: rgba(0, 0, 255, 0.1);
-    cursor: pointer;
-    font-size-adjust: 0.5;
-    height: unset;
-    width: unset;
+/*     border-radius: 15px; */
+/*     border: 2px solid white; */
+/*     background-color: rgba(0, 0, 255, 0.1); */
+/*     cursor: pointer; */
+/*     font-size-adjust: 0.5; */
+/*     height: unset; */
+/*     width: unset; */
   }
 
-  .project-buttons:hover {
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    background-color: navy;
-    color: white;
-  }
+/*   .project-buttons:hover { */
+/*     border: 2px solid rgba(0, 0, 0, 0.1); */
+/*     background-color: navy; */
+/*     color: white; */
+/*   } */
   
   .project-title {
-    margin-top: unset;
+    margin-top: 0;
+    font-size-adjust: 0.8;
   }
   
   .project-description {
-    width: unset;
+/*     width: unset; */
+    margin-top: 0;
+    font-size-adjust: 0.4;
   }
   
   .project-one-container, .project-two-container, .project-three-container {
     z-index: 0;
-    display: flex;
-    flex-flow: column nowrap;
+/*     display: flex; */
+/*     flex-flow: column nowrap; */
   }
 
   .project1-overview, .project2-overview, .project3-overview {
-    width: 100%;
-    height: 50%;
+/*     width: 100%; */
+/*     height: 50%; */
   }
 
   .project-one, .project-two, .project-three {
-    position: absolute;
-    bottom: 30vh;
-    height: 30vh;
-    width: 100%;
+/*     position: absolute; */
+/*     bottom: 30vh; */
+/*     height: 30vh; */
+/*     width: 100%; */
     transition: 0.35s;
   }
   
@@ -860,7 +921,7 @@ svg {
   .monitor {
     height: 20vh;
     min-height: 200px;
-    width: 30vw;
+    width: 90vw;
     min-width: 200px;
   }
   
@@ -883,14 +944,66 @@ svg {
 
 @media only screen and (max-width:500px) {
   #name {
+    font-size: 150%;
+/*     font-size-adjust: 0.4; */
+  }
+  .landing-animation #name {
+    width: 100%;
     font-size: 100%;
+    margin-left: 0;
+    left: 0;
+  }
+  .project-selector-buttons {
+    width: 100%;
+    right: 0;
+    left: 0;
+  }
+  .project-containers {
+    width: 100vw;
+/*     margin-left: 0; */
+  }
+  .project-one-container, .project-two-container, .project-three-container {
+    width: 100vw;
+    margin-left: 0;
+    padding: 2vw;
+    grid-template-areas: "display" "display" "tech" "heading" "title" "details" "description" "buttons";
+  }
+  .project-heading {
+    margin-bottom: 1vh;
+  }
+  .project-title {
+    margin-bottom: 0;
+  }
+  .project-details {
+    margin-bottom: 1vh;
+  }
+  .project-buttons-container {
+    height: 10vh;
   }
   .project-one, .project-two, .project-three {
-    position: absolute;
-    bottom: 15vh;
-    height: 30vh;
+/*     position: absolute; */
+/*     bottom: 15vh; */
+    height: 35vh;
     width: 100%;
-    transition: 0.35s;
+    margin-left: 0;
+/*     transition: 0.35s; */
+  }
+  .project-buttons {
+    padding-left: 0;
+  }
+  .computer-demo {
+    top: 4vh;
+  }
+  .phone-demo {
+    top: 6vh;
+  }
+  .computer-or-phone-buttons {
+    top: 0vh;
+    width: 20vw;
+    justify-content: space-evenly;
+  }
+  .tech-used {
+    margin-left: 0;
   }
 }
 

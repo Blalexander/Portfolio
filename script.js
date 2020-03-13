@@ -42,25 +42,34 @@ function sticktothetop() {
   if(window_top === 0) {
     setTimeout(() => {$('#name-plate')[0].classList.add('landing-animation')}, 250);
     $('#name-plate')[0].style.transform = "scale(1)";
-  }
-
-  else if(window_top != 0 && !window_top === document.querySelector('.project-containers').offsetTop) {
-    $('#name-plate')[0].style.transform = "scale(0.9)";
-  }
-
-  if(window_top > documentHeight * 0.20) {
-    $('#name-plate')[0].classList.remove('landing-animation');
-  }
-
-  if(window_top === document.querySelector('.project-containers').offsetTop) {
-    $('#name-plate')[0].classList.add('be-my-top-bar');
-    $('#name-plate')[0].style.transform = "scale(1)";
-    $('.project-containers')[0].classList.add('in-focus');
-  }
-  else if(window_top !== document.querySelector('.project-containers').offsetTop) {
-    $('#name-plate')[0].classList.remove('be-my-top-bar');
+    $('.project-selector-buttons')[0].classList.remove('in-focus');
     $('.project-containers')[0].classList.remove('in-focus');
   }
+
+  else if(window_top != 0) {
+    $('#name-plate')[0].classList.remove('landing-animation');
+    $('.project-selector-buttons')[0].classList.add('in-focus');
+    $('.project-containers')[0].classList.add('in-focus');
+    $('footer')[0].classList.remove('in-focus');
+  }
+
+  if(window_top > documentHeight * 0.60) {
+    $('.project-selector-buttons')[0].classList.remove('in-focus');
+    $('.project-containers')[0].classList.remove('in-focus');
+    $('footer')[0].classList.add('in-focus');
+
+    // $('#name-plate')[0].classList.remove('landing-animation');
+  }
+
+  // if(window_top === document.querySelector('.project-containers').offsetTop) {
+  //   $('#name-plate')[0].classList.add('be-my-top-bar');
+  //   $('#name-plate')[0].style.transform = "scale(1)";
+  //   $('.project-containers')[0].classList.add('in-focus');
+  // }
+  // else if(window_top !== document.querySelector('.project-containers').offsetTop) {
+  //   $('#name-plate')[0].classList.remove('be-my-top-bar');
+  //   $('.project-containers')[0].classList.remove('in-focus');
+  // }
 }
 
 function focusProjectOne() {
