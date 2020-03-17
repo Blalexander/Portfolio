@@ -44,6 +44,7 @@ function sticktothetop() {
     $('#name-plate')[0].style.transform = "scale(1)";
     $('.project-selector-buttons')[0].classList.remove('in-focus');
     $('.project-containers')[0].classList.remove('in-focus');
+    $('.project-containers')[0].style.transform = "translate3d(0, 0, 0)";
   }
 
   else if(window_top != 0) {
@@ -51,6 +52,7 @@ function sticktothetop() {
     $('.project-selector-buttons')[0].classList.add('in-focus');
     $('.project-containers')[0].classList.add('in-focus');
     $('footer')[0].classList.remove('in-focus');
+    $('.project-containers')[0].style.transform = "translate3d(-100vw, 0, 0)";
   }
 
   if(window_top > documentHeight * 0.60) {
@@ -73,7 +75,7 @@ function sticktothetop() {
 }
 
 function focusProjectOne() {
-  $('.project-containers')[0].style.transform = "translate3d(0, 0, 0)";
+  $('.project-containers')[0].style.transform = "translate3d(-100vw, 0, 0)";
   // $('.about-me-container')[0].classList.remove('in-focus');
   // $('.project-one-container')[0].classList.add('in-focus');
   // $('.project-two-container')[0].classList.remove('in-focus');
@@ -81,7 +83,7 @@ function focusProjectOne() {
 }
 
 function focusProjectTwo() {
-  $('.project-containers')[0].style.transform = "translate3d(-100vw, 0, 0)";
+  $('.project-containers')[0].style.transform = "translate3d(-200vw, 0, 0)";
   // $('.about-me-container')[0].classList.remove('in-focus');
   // $('.project-one-container')[0].classList.remove('in-focus');
   // $('.project-two-container')[0].classList.add('in-focus');
@@ -89,7 +91,7 @@ function focusProjectTwo() {
 }
 
 function focusProjectThree() {
-  $('.project-containers')[0].style.transform = "translate3d(-200vw, 0, 0)";
+  $('.project-containers')[0].style.transform = "translate3d(-300vw, 0, 0)";
   // $('.about-me-container')[0].classList.remove('in-focus');
   // $('.project-one-container')[0].classList.remove('in-focus');
   // $('.project-two-container')[0].classList.remove('in-focus');
