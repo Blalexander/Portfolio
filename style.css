@@ -25,6 +25,15 @@ body {
 /*   background-color: gray; */
 }
 
+.bg-box-shadow {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  box-shadow: inset 0px 0px 500px rgba(255, 255, 255, 1);
+  z-index: -2;
+}
+
 h1, h2 {
   font-family: 'Fjalla One', sans-serif;
   font-size-adjust: 1.3;
@@ -43,7 +52,7 @@ h1, h2 {
   flex-flow: column wrap;
   perspective: 3000px;
   perspective-origin: 0% 0%;
-  z-index: -1;
+  z-index: -3;
 }
 
 .box {
@@ -73,86 +82,144 @@ h1, h2 {
   display: grid;
   grid-template-areas: "left name right";
   transition: 0.5s;
+    perspective: 3000px;
+/*   perspective-origin: 0% 0%; */
 }
 
 .buffer-left, .buffer-right {
   transition: 0.5s;
-  border: 2px solid white;
-  background-color: black;
+/*   border: 2px solid white; */
+/*   background-color: black; */
   height: 100vh;
+/*   margin-top: 10vh; */
   width: 20vw;
+/*   opacity: 0; */
 }
 
 .buffer-left {
   grid-area: left;
-  transform: translate3d(0, 150%, 0);
+  transform: rotate3d(0, 1, 0, -75deg) translateZ(-60px);
+/*   transform: translate3d(0, -150%, 0); */
 }
 
 .buffer-right {
   grid-area: right;
-  transform: translate3d(0, 150%, 0);
+  transform: rotate3d(0, 1, 0, 75deg) translateZ(-60px);
+/*   transform: translate3d(0, -150%, 0); */
 }
+
+.landing-animation .buffer-left {
+/*   animation: buffer-rotateL 1s 2s forwards; */
+}
+
+.landing-animation .buffer-right {
+/*   animation: buffer-rotateR 1s 2s forwards; */
+}
+
+@keyframes buffer-rotateL {
+  from {transform: rotate3d(0, 1, 0, -75deg) translateZ(-60px);}
+  to {transform: rotate3d(0, 1, 0, 0deg) translateZ(0px);}
+}
+
+@keyframes buffer-rotateR {
+  from {transform: rotate3d(0, 1, 0, 75deg) translateZ(-60px);}
+  to {transform: rotate3d(0, 1, 0, 0deg) translateZ(0px);}
+}
+
+
+
 
 #name {
   transition: 0.5s;
 /*   font-size-adjust: 0.5; */
   background-color: black;
+  border: 2px solid transparent;
   color: white;
   grid-area: name;
+  margin-top: 0;
+  height: 100vh;
   width: 60vw;
 /*   text-align: left; */
   padding-top: 30vh;
   opacity: 1;
+  z-index: 3;
 }
 
-
-
-
-
-
-section.landing-animation {
-  animation-name: nav-landing;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-iteration-count: 1;
+.landing-animation#buffer-name-buffer:before, .landing-animation#buffer-name-buffer:after {
+  animation-name: expand;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
 }
 
-@keyframes nav-landing {
-  0% {transform: scale(1.2)}
-  65% {transform: scale(1.2)}
-  80% {transform: scale(0.9)}
-  90% {transform: scale(1)}
-  100% {box-shadow: unset}
+#buffer-name-buffer:before {
+  content: '';
+  position: absolute;
+  height: 40vw;
+  width: 40vw;
+  background-color: black;
+  top: 15vw;
+  left: 30vw;
+  clip-path: circle(50% at 50% 50%);
+  z-index: -1;
+/*   opacity: 0; */
+}
+
+#buffer-name-buffer:after {
+  content: '';
+  position: absolute;
+  height: 50vw;
+  width: 50vw;
+  background-color: red;
+  top: 10vw;
+  left: 25vw;
+  clip-path: circle(50% at 50% 50%);
+  z-index: -2;
+/*   opacity: 0; */
+}
+
+@keyframes expand {
+  from{transform: scale3d(0, 0, 0); opacity: 1}
+  to{transform: scale3d(3, 3, 3); opacity: 0}
 }
 
 .landing-animation #name {
 /*   font-size-adjust: 3; */
   text-align: center;
   animation-name: landing;
-  animation-duration: 2s;
+  animation-duration: 1.5s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(.9,-0.11,.73,1.07);
 }
 
-.landing-animation .buffer-left {
-  animation: buffer-up 1s 1.8s forwards;
-}
-
-.landing-animation .buffer-right {
-  animation: buffer-up 1s 2s forwards;
-}
-
-@keyframes buffer-up {
-  from {transform: translate3d(0, 150%, 0)}
-  to {transform: translate3d(0, 0%, 0)}
-}
-
-@keyframes landing {
+/* @keyframes landing {
   0% {transform: translate3d(0%, -50%, 500px); opacity: 0}
   50% {transform: translate3d(0%, 0%, 100px)}
   100% {transform: translate3d(0%, 0, 0px); opacity: 1}
+} */
+
+@keyframes landing {
+  from {color: black}
+  to {color: white}
+}
+
+
+
+section.landing-animation {
+  animation-name: nav-landing;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
+}
+
+@keyframes nav-landing {
+  0% {transform: scale(1)}
+  70% {transform: scale(1)}
+  80% {transform: scale(0.9)}
+  90% {transform: scale(1)}
+  100% {box-shadow: unset}
 }
   
 
@@ -168,6 +235,9 @@ section.landing-animation {
   transition: 0.5s;
   position: fixed;
   top: 100vh;
+  perspective: 3000px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
   color: white;
   display: grid;
   grid-template-areas: "label visual" "content visual";
@@ -176,6 +246,7 @@ section.landing-animation {
 .about-me-label {
   text-align: center;
   grid-area: label;
+  z-index: 1;
 /*   margin-top: 40%; */
   background-color: black;
   border: 2px solid white;

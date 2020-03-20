@@ -29,10 +29,10 @@ function sticktothetop() {
   this.oldScroll = this.scrollY;
 
   if(window_top === 0) {
-    $('#buffer-name-buffer')[0].classList.remove('landing-animation');
+    // $('#buffer-name-buffer')[0].classList.remove('landing-animation');
     setTimeout(() => {$('#buffer-name-buffer')[0].classList.add('landing-animation')}, 250);
-    $('#buffer-name-buffer')[0].style.transform = "scale(1)";
-    $('.project-containers')[0].classList.remove('in-focus');
+    // $('#buffer-name-buffer')[0].style.transform = "scale(1)";
+    // $('.project-containers')[0].classList.remove('in-focus');
     $('.project-containers')[0].style.transform = "translate3d(0, 0, 0)";
     $('#buffer-name-buffer')[0].style.top = "0vh";
     $('.about-me-container')[0].style.top = "100vh";
@@ -52,19 +52,23 @@ function sticktothetop() {
     $('.project-containers')[0].style.top = "200vh";
   }
   else if(window_top >= documentHeight * 0.25 && window_top < documentHeight * 0.375) { //aboutMe 2
-    $('#buffer-name-buffer')[0].style.top = "-100vh";
+    $('#buffer-name-buffer')[0].classList.remove('landing-animation');
+    $('#buffer-name-buffer')[0].style.top = "-150vh";
+
     $('.about-me-container')[0].style.top = "0vh";
     $('.about-me-label')[0].style.transform = "translate3d(0, 0%, 0)";
     $('.about-me-content')[0].style.transform = "translate3d(0, 0%, 0)";
     $('.about-me-visual')[0].style.transform = "translate3d(0, 0%, 0)";
 
     $('.project-containers')[0].style.top = "50vh";
-    $('.project-one-container')[0].style.transform = "translate3d(70%, 140%, 0)";
+    $('.project-one-container')[0].style.transform = "translate3d(100%, 140%, 0)";
     $('.project-two-container')[0].style.transform = "translate3d(150%, 200%, 0)";
     $('.project-three-container')[0].style.transform = "translate3d(300%, 200%, 0)";
   }
   else if(window_top >= documentHeight * 0.375 && window_top < documentHeight * 0.5) { //projects 1
     $('.about-me-container')[0].style.top = "-15vh";
+    $('.about-me-visual')[0].style.transform = "translate3d(0, -30%, 0)";
+
     $('.project-containers')[0].style.top = "50vh";
     $('.project-one-container')[0].style.transform = "translate3d(0%, 0%, 0)";
     $('.project-two-container')[0].style.transform = "translate3d(15%, 0%, 0)";
