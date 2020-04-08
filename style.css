@@ -14,6 +14,7 @@ html {
   scroll-behavior: smooth;
   background-size: cover; 
   width: 100%;
+  height: 500vh;
 /*   scroll-snap-type: y mandatory; */
 /*   scroll-snap-type: y proximity; */
 }
@@ -26,13 +27,17 @@ body {
 /*   background-color: gray; */
 }
 
+/* main {
+  transform: translate3d(0, 0, -500px);
+} */
+
 .bg-box-shadow {
   position: fixed;
   top: 0;
   height: 100%;
   width: 100%;
-  box-shadow: inset 300px 300px 500px rgba(255, 255, 255, 1);
-/*   box-shadow: inset 00px 00px 500px rgba(255, 255, 255, .2); */
+/*   box-shadow: inset 300px 300px 500px 50px rgba(255, 255, 255, 1); */
+  box-shadow: inset 00px 00px 500px rgba(255, 255, 255, .2);
   z-index: -2;
 }
 
@@ -45,10 +50,11 @@ h1, h2 {
 
 .bg-boxes {
   transition: transform 1s cubic-bezier(.19,1,.22,1) 0.0s;
-  height: 1000vh;
-  width: 100vw;
-/*   top: 150vh; */
-  position: absolute;
+  height: 500vh;
+  width: 300vw;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,156 +77,59 @@ h1, h2 {
 
 
 
+
+
+
+
+
+
 /*------------------- LANDING ---------------------*/
-.screen-first {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  /* background-color: skyblue; */
-  background-color: black;
-  transition: 1s;
 
-  /* transform: translate3d(-50%, 0, 0); */
-}
-
-.screen-second {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  /* background-color: black; */
-  background-color: skyblue;
-  z-index: 2;
-  transition: 1s;
-  /* transform: translate3d(100%, 0, 0); */
-}
-
-.letter-holders {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  padding-left: 60vw;
-  display: flex;
-  justify-content: space-evenly;
-  /* justify-content: flex-end; */
-  transition: 1s;
-}
-
-.letter {
-  /* height: 50vh; */
-  height: 100vh;
-  width: 5%;
-  color: white;
-  background-color: black;
-  text-transform: uppercase;
-  font-size-adjust: 0.8;
-  line-height: 95vh;
-  text-align: center;
-  transition: 0.5s;
-  /* box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 1); */
-}
-
-
-
-#name {
-  transition: 0.5s;
-/*   font-size-adjust: 0.5; */
-  background-color: black;
-  border: 2px solid transparent;
-  color: white;
-  grid-area: name;
-  margin-top: 0;
-  height: 100vh;
-  width: 60vw;
-/*   text-align: left; */
-  padding-top: 30vh;
-  opacity: 1;
-  z-index: 3;
-}
-
-.landing-animation#buffer-name-buffer:before, .landing-animation#buffer-name-buffer:after {
-  animation-name: expand;
-  animation-duration: 1s;
-  animation-delay: 2s;
-  animation-fill-mode: forwards;
-}
-
-#buffer-name-buffer:before {
-  content: '';
-  position: absolute;
-  height: 40vw;
-  width: 40vw;
-  background-color: black;
-  top: 15vw;
-  left: 30vw;
-  clip-path: circle(50% at 50% 50%);
-  z-index: -1;
-/*   opacity: 0; */
-}
-
-#buffer-name-buffer:after {
-  content: '';
-  position: absolute;
-  height: 50vw;
-  width: 50vw;
-  background-color: red;
-  top: 10vw;
-  left: 25vw;
-  clip-path: circle(50% at 50% 50%);
-  z-index: -2;
-/*   opacity: 0; */
-}
-
-@keyframes expand {
-  from{transform: scale3d(0, 0, 0); opacity: 1}
-  to{transform: scale3d(3, 3, 3); opacity: 0}
-}
-
-.landing-animation #name {
-/*   font-size-adjust: 3; */
-  text-align: center;
-  animation-name: landing;
-  animation-duration: 1.5s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-iteration-count: 1;
-  animation-timing-function: cubic-bezier(.9,-0.11,.73,1.07);
-}
-
-/* @keyframes landing {
-  0% {transform: translate3d(0%, -50%, 500px); opacity: 0}
-  50% {transform: translate3d(0%, 0%, 100px)}
-  100% {transform: translate3d(0%, 0, 0px); opacity: 1}
-} */
-
-@keyframes landing {
-  from {color: black}
-  to {color: white}
-}
-
-
-
-section.landing-animation {
-  animation-name: nav-landing;
-  animation-duration: 2.5s;
-  animation-iteration-count: infinite;
-  animation-iteration-count: 1;
-}
-
-@keyframes nav-landing {
-  0% {transform: scale(1)}
-  70% {transform: scale(1)}
-  80% {transform: scale(0.9)}
-  90% {transform: scale(1)}
-  100% {box-shadow: unset}
-}
   
 
+
+
+
+
+
+
+/* ------------------- PAGE INDICATOR --------------- */
+.page-indicator-container {
+  position: fixed;
+  bottom: 5vh;
+  left: 0;
+  height: 10vh;
+  width: 220vw;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+/*   transform: translate3d(-40%, 0, 0); */
+}
+
+.page-indicator-line {
+  height: 5px;
+  width: 100vw;
+  background-color: black;
+  transition: 0.5s;
+}
+
+.line-left {
+/*   background-color: red; */
+/*   transform: translate3d(-90%, 0, 0); */
+}
+
+.line-right {
+/*   transform: translate3d(-85%, 0, 0); */
+}
+
+.visual {
+  height: 10vh;
+  width: 25vw;
+  border: 5px solid blue;
+/*   transform: translate3d(-350%, 0, 0); */
+  transition: 0.5s;
+}
 
 
 
@@ -230,92 +139,143 @@ section.landing-animation {
 
 /* --------------------- ABOUT ME ------------------ */
 .about-me-container {
-  width: 98vw;
-  transition: 0.5s;
+  width: 100vw;
+  height: 60vh;
+/*   transition: 0.5s; */
   position: fixed;
-  top: 100vh;
+  top: 20vh;
   perspective: 3000px;
   perspective-origin: 50% 50%;
   transform-style: preserve-3d;
   color: white;
-  display: grid;
-  justify-content: space-between;
-  grid-template-areas: "visual label" "visual content";
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+/*   justify-content: space-around; */
+/*   transform: translate3d(0, -200%, 0); */
 }
 
 .about-me-label {
-  height: 10vh;
-  width: 58vw;
-  line-height: 10vh;
-  padding-left: 5vw;
+  position: relative;
+/*   height: 10vh; */
+  width: 40vw;
+  top: 5vh;
+/*   line-height: 10vh; */
+  padding: 0.5em;
   text-align: center;
   grid-area: label;
   z-index: 2;
   background-color: black;
 /*   border: 2px solid white; */
+  box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 1);
   transition: 0.8s;
 /*   transform: translate3d(0, 300%, 0); */
+/*   clip-path: polygon(0 5%, 0% 0, 100% 0, 100% 100%, 0 100%, 0 95%, 95% 95%, 95% 5%); */
+}
+
+.about-me-label:before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  transition: 1s;
+  animation: move-to-side 1s forwards;
+/*   transform: skewX(40deg) translate3d(-50vw, 0, 0); */
+}
+
+.about-me-label:after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to right, rgb(0, 191, 255), rgb(200, 255, 255), rgb(0, 191, 255));
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transition: 1s;
+  animation: move-to-side 1s 0.25s forwards;
+/*   transform: skewX(40deg) translate3d(-50vw, 0, 0); */
+}
+
+.label-transform {
+  position: absolute;
+  height: 10vh;
+  width: 30vw;
+  background-color: white;
+  z-index: 4;
+  top: 5vh;
+  left: 0vw;
 }
 
 .about-me-content {
-  height: 20vh;
-  width: 58vw;
+  position: absolute;
+  height: 30vh;
+  width: 60vw;
+  top: 25vh;
   background-color: black;
 /*   border: 2px solid white; */
+  box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 1);
   text-align: left;
   grid-area: content;
   font-size-adjust: 0.6;
   line-height: 190%;
-  padding: 1em;
-  padding-left: 4em;
-  padding-right: 4em;
+/*   padding: 4em; */
+  padding-left: 10vw;
+  padding-right: 10vw;
+  padding-top: 3em;
+  padding-bottom: 3em;
   z-index: 1;
   transition: 0.9s;
 /*   transform: translate3d(0, 300%, 0); */
+/*   clip-path: polygon(0 5%, 0% 0%, 100% 0%, 100% 100%, 0 100%, 0 95%, 95% 95%, 95% 5%); */
 }
 
-.about-me-visual {
-  position: relative;
-  background-color: black;
-/*   border: 2px solid white; */
-  grid-area: visual;
-  height: 25vh;
-  width: 40vw;
-  transition: 1s;
-/*   transform: translate3d(0, 300%, 0); */
-}
-
-.about-me-visual:before {
+.about-me-content:before {
   content: '';
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: black;
-  top: 0vh;
+  background-color: white;
+  top: 0;
   left: 0;
-  transition: 0.5s;
+  z-index: 2;
+/*   transition: 1s; */
+  animation: move-to-side 1s forwards;
+/*   transform: skewX(40deg) translate3d(-50vw, 0, 0); */
 }
 
-.about-me-visual.added:before {
-  top: -31vh;
-}
-
-.about-me-visual:after {
+.about-me-content:after {
   content: '';
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: black;
-  top: 0vh;
+  background-image: linear-gradient(to right, rgb(0, 191, 255), rgb(200, 255, 255), rgb(0, 191, 255));
+  top: 0;
   left: 0;
-  transition: 0.5s;
+  z-index: 1;
+/*   transition: 1s; */
+  animation: move-to-side 1s 0.25s forwards;
+/*   transform: skewX(40deg) translate3d(-50vw, 0, 0); */
 }
 
-.about-me-visual.added:after {
-  top: -62vh;
+.content-transform {
+  position: absolute;
+  height: 35vh;
+  width: 20vw;
+  background-color: white;
+  z-index: 4;
+  top: 25vh;
+  left: 0vw;
 }
 
-
+@keyframes move-to-side {
+  from {transform: skewX(0deg) translate3d(0vw, 0, 0)}
+  to {transform: skewX(70deg) translate3d(-100vw, 0, 0)}
+}
 
 
 
@@ -324,19 +284,22 @@ section.landing-animation {
 /*------------------- PROJECTS ---------------------*/
 .project-containers {
   position: fixed;
-  top: 200vh;
-  transition: 0.5s;
+  top: 0;
+  left: 0;
+/*   transition: 0.5s; */
   height: 90vh;
-  display: grid;
-  align-content: space-evenly;
+  width: 280vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .project-one-container, .project-two-container, .project-three-container {
   background-color: black;
 /*   background-image: linear-gradient(to right, transparent, black, 100%, transparent); */
   color: white;
-  height: 25vh;
-  width: 40vw;
+  height: 35vh;
+  width: 60vw;
   transition: 0.5s;
 /*   opacity: 0; */
 }
@@ -349,7 +312,7 @@ section.landing-animation {
 
 .project-one-container {
 /*   transform: translate3d(0%, -195%, 0); */
-  transform: translate3d(0%, 245%, 0);
+/*   transform: translate3d(0%, 245%, 0); */
 }
 
 .project-one {
@@ -358,7 +321,7 @@ section.landing-animation {
 
 .project-two-container {
 /*   transform: translate3d(15%, 0%, 0); */
-  transform: translate3d(0%, 130%, 0);
+/*   transform: translate3d(0%, 130%, 0); */
 }
 
 .project-two {
@@ -367,7 +330,7 @@ section.landing-animation {
 
 .project-three-container {
 /*   transform: translate3d(0%, 100%, 0); */
-  transform: translate3d(0%, 15%, 0);
+/*   transform: translate3d(0%, 15%, 0); */
 }
 
 .project-three {
