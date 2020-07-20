@@ -11,125 +11,143 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet"> 
     <script src="https://kit.fontawesome.com/a80c6dbc29.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   </head>
+
   <body>
-    <div class="bg-boxes">
-    </div>
+
+    <h1 class="name">BLAKE ALEXANDER</h1>
+
+    <section class="fixed-navbar">
+      <div class="hamburger">
+        <div class="animation-container">
+          <div class="hamburger-line1"></div>
+          <div class="hamburger-line2"></div>
+          <div class="hamburger-line3"></div>
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <button class="show-projects">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="50" height="50" fill="transparent"/>
+            <rect x="10" y="25" width="15" height="15" fill="black"/>
+            <rect x="18" y="17" width="15" height="15" fill="black"/>
+            <rect x="25" y="9" width="15" height="15" fill="black"/>
+          </svg>              
+        </button>
+        <button class="show-about-me">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="50" height="50" fill="transparent"/>
+            <circle cx="25.5" cy="17.5" r="7.5" fill="black"/>
+            <path d="M42 39.0005C42 44.7995 34.6127 43.0005 25.5 43.0005C16.3873 43.0005 9 44.7995 9 39.0005C9 33.2015 16.3873 28 25.5 28C34.6127 28 42 33.2015 42 39.0005Z" fill="black"/>
+          </svg>
+        </button>
+        <button class="show-contact-me">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="50" height="50" fill="transparent"/>
+            <path d="M26.3337 36.4628L27.3617 34.9106H25.5C21.0793 34.9106 18.5629 34.0635 17.104 32.5097C15.6312 30.941 15 28.4082 15 24.4106C15 18.9292 19.6586 14.4106 25.5 14.4106C28.5522 14.4106 30.919 15.0467 32.6304 16.5311C34.3379 18.0121 35.5604 20.4835 36.006 24.5204C36.3495 27.6321 35.3521 30.6764 33.7189 33.327C32.0852 35.9784 29.8568 38.1652 27.8715 39.5283C26.8757 40.2119 25.9816 40.6604 25.2894 40.8699C24.6795 41.0545 24.4205 41.0002 24.3529 40.9807C24.3276 40.9089 24.2873 40.6833 24.4362 40.1396C24.6577 39.3305 25.2314 38.1273 26.3337 36.4628ZM24.3662 41.0084C24.366 41.0085 24.3644 41.0066 24.3621 41.0021C24.3652 41.006 24.3663 41.0082 24.3662 41.0084Z" stroke="black" stroke-width="2"/>
+            <circle cx="21.5" cy="25.5" r="1.5" fill="black"/>
+            <circle cx="29.5" cy="25.5" r="1.5" fill="black"/>
+            <circle cx="25.5" cy="25.5" r="1.5" fill="black"/>
+          </svg> 
+        </button>
+      </div>
+    </section>
 
     <main>
 
-      <div class="bg-box-shadow"></div>
-
-      <div class="page-indicator-container">
-        <div class="page-indicator-line line-left"></div>
-        <div class="page-indicator visual"></div>
-        <div class="page-indicator-line line-right"></div>
-      </div>
-
-      <!-- <div class="name">BLAKE ALEXANDER</div> -->
-
-      <section class="about-me-container">
-        <h2 class="about-me-label">ABOUT ME</h2>
-        <div class="label-transform"></div>
-        <p class="about-me-content">I am a full stack web developer based out of Los Angeles.  Growing up, I was passionate about building things that excelled in their purpose while maintaining a sense of beauty.  Over time, I have built on to that passion and honed it in the direction of software development.  Few things are more rewarding than being faced with a challenging idea, growing to overcome the challenge, and representing the idea in its best form.</p>
-        <div class="content-transform"></div>
-      </section>
-
-      <section class="project-containers">
+      <section class="projects-container">
+        <h2 class="projects-header">PROJECTS</h2>
         <div class="project-one-container">
-          <h5 class="project-heading">PROJECT: </h5>
-          <h2 class="project-title">Destiny MetaTrends</h2>
-          <h5 class="project-details">DETAILS: </h5>
-          <p class="project-description">Destiny MetaTrends is a data parsing tool that defines weapon performance statistics uniquely and accessibly.</p>
-          <form class="project-buttons-container">
-            <button class="project-buttons view-project">VIEW PROJECT</button>
-            <button class="project-buttons view-code">VIEW CODE</button>
-            <button class="project-buttons view-server-code">VIEW SERVER CODE</button>
-          </form>
-
-          <div class="project-one">
-            <div class="computer-demo focused">
-              <div class="computer monitor"></div>
-              <div class="computer stand"></div>
-              <div class="computer base"></div>
-            </div>
-            <div class="phone-demo">
-              <div class="phone screen">
-                <div class="phone speaker"></div>
-                <div class="phone home-button"></div>
-              </div>
-            </div>
+          <div class="project-thumbnail"></div>
+          <div class="project-outline"></div>
+          <div class="project-content">
+            <div class="project-technologies"></div>
+            <h5 class="project-heading">PROJECT: </h5>
+            <h2 class="project-title">Destiny MetaTrends</h2>
+            <h5 class="project-details">DETAILS: </h5>
+            <p class="project-description">Destiny MetaTrends is a data parsing tool that defines weapon performance statistics uniquely and accessibly.</p>
+            <form class="project-buttons-container">
+              <button class="project-buttons view-project">VIEW PROJECT</button>
+              <button class="project-buttons view-code">VIEW CODE</button>
+              <button class="project-buttons view-server-code">VIEW SERVER CODE</button>
+            </form>
           </div>
         </div>
 
         <div class="project-two-container">
-          <h5 class="project-heading">PROJECT: </h5>
-          <h2 class="project-title">Flexbox Sandbox</h2>
-          <h5 class="project-details">DETAILS: </h5>
-          <p class="project-description">Focusing on one of the most fundamental and simple layout modules provided natively in CSS, Flexbox Sandbox offers randomly generated puzzles for users to solve.  Every puzzle differs in the number of parent and child elements generated and which Flexbox properties are adjusted for each element to provide unlimited practice for anyone desiring to learn this method of website layout.</p>
-          <form class="project-buttons-container">
-            <button class="project-buttons view-project">VIEW PROJECT</button>
-            <button class="project-buttons view-code">VIEW CODE</button>
-          </form>
-
-          <div class="project-two">
-            <div class="computer-demo focused">
-              <div class="computer monitor"></div>
-              <div class="computer stand"></div>
-              <div class="computer base"></div>
-            </div>
-            <div class="phone-demo">
-              <div class="phone screen">
-                <div class="phone speaker"></div>
-                <div class="phone home-button"></div>
-              </div>
-            </div>
+          <div class="project-thumbnail"></div>
+          <div class="project-outline"></div>
+          <div class="project-content">
+            <div class="project-technologies"></div>
+            <h5 class="project-heading">PROJECT: </h5>
+            <h2 class="project-title">Flexbox Sandbox</h2>
+            <h5 class="project-details">DETAILS: </h5>
+            <p class="project-description">Focusing on one of the most fundamental and simple layout modules provided natively in CSS, Flexbox Sandbox offers randomly generated puzzles for users to solve.  Every puzzle differs in the number of parent and child elements generated and which Flexbox properties are adjusted for each element to provide unlimited practice for anyone desiring to learn this method of website layout.</p>
+            <form class="project-buttons-container">
+              <button class="project-buttons view-project">VIEW PROJECT</button>
+              <button class="project-buttons view-code">VIEW CODE</button>
+            </form>
           </div>
         </div>
 
         <div class="project-three-container">
-          <h5 class="project-heading">PROJECT: </h5>
-          <h2 class="project-title">Global Location Search</h2>
-          <h5 class="project-details">DETAILS: </h5>
-          <p class="project-description">Global Location Search accesses the databases of Google, Wikipedia, and NewsAPI to retrieve a well-rounded breadth of information for any location searched.</p>
-          <form class="project-buttons-container">
-            <button class="project-buttons view-project">VIEW PROJECT</button>
-            <button class="project-buttons view-code">VIEW CODE</button>
-          </form>
-
-          <div class="project-three">
-            <div class="computer-demo focused">
-              <div class="computer monitor"></div>
-              <div class="computer stand"></div>
-              <div class="computer base"></div>
-            </div>
-            <div class="phone-demo">
-              <div class="phone screen">
-                <div class="phone speaker"></div>
-                <div class="phone home-button"></div>
-              </div>
-            </div>
+          <div class="project-thumbnail"></div>
+          <div class="project-outline"></div>
+          <div class="project-content">
+            <div class="project-technologies"></div>
+            <h5 class="project-heading">PROJECT: </h5>
+            <h2 class="project-title">Take Me There</h2>
+            <h5 class="project-details">DETAILS: </h5>
+            <p class="project-description">Take Me There accesses the databases of Google, Wikipedia, and NewsAPI to retrieve a well-rounded breadth of information for any location searched.</p>
+            <form class="project-buttons-container">
+              <button class="project-buttons view-project">VIEW PROJECT</button>
+              <button class="project-buttons view-code">VIEW CODE</button>
+            </form>
           </div>
         </div>
       </section>
 
-
-      <footer class="contact-section">
-        <div class="contact-me">
-          <a class="social-links email" href="mailto:blake.alexander.13@gmail.com">
-            <i class="fas fa-envelope-square" style="color:white"></i></a>
+      <section class="about-me-container">
+        <div class="background-border">
+          <div class="background-border-reveal"></div>
+          <h2 class="about-me-label">ABOUT ME</h2>
+          <p class="about-me-content">I am a full stack web developer based out of Los Angeles.  Growing up, I was passionate about building things that excelled in their purpose while maintaining a sense of beauty.  Over time, I have built on to that passion and honed it in the direction of software development.  Few things are more rewarding than being faced with a challenging idea, growing to overcome the challenge, and representing the idea in its best form.</p>
         </div>
-        <div class="information">
-          <a class="social-links gh-link" href="https://github.com/Blalexander" target="_blank">
-            <i class="fab fa-github-square" style="color:white"></i></a>
-        </div>
-      </footer>
+      </section>
     </main>
+
+    <footer class="contact-section">
+      <!-- <form class="contact-me-form">
+        <label for="form-name">Name:</label><br>
+        <input type="text" id="form-name" name="form-name"><br>
+        <label for="form-email">Email Address:</label><br>
+        <input type="text" id="form-email" name="form-email">
+        <label for="form-message">Message:</label><br>
+        <input type="text" id="form-message" name="form-message">
+        <button type="submit" id="form-submit">SEND</button>
+      </form>
+      <div class="contact-me">
+        <a class="social-links email" href="mailto:blake.alexander.13@gmail.com">
+          <i class="fas fa-envelope-square" style="color:white"></i></a>
+      </div> -->
+      <div class="email-me">Email me:</div><br>
+      <div class="email">BlakeAlexanderDev@gmail.com</div>
+      <div class="call-me">Call me:</div><br>
+      <div class="call">1(310)463-3588</div>
+      <div clas="my-resume">My resume:</div><br>
+      <div class="resume">[link to resume]</div>
+      <div class="my-work">My work:</div><br>
+      <div class="work">
+        <a class="gh-link" href="https://github.com/Blalexander" target="_blank">
+          <i class="fab fa-github-square" style="color:white"></i></a>
+      </div>
+    </footer>
     
 
     <script src="script.js"></script>
