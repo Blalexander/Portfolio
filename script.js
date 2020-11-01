@@ -32,7 +32,7 @@ function step(timestamp) {
   document.querySelector('.svg-triangle').setAttribute("height", (findAngle.height * 0.25))
   document.querySelector('.polygon-triangle').setAttribute("points", l1.right + "," + (findAngle.height * 0.1) + " " + findAngle.right + "," + findAngle.top + " " + findAngle.left + "," + findAngle.top)
 
-  if (elapsed < 2000) { // Stop the animation after 2 seconds
+  if (elapsed < 2000) { 
     window.requestAnimationFrame(step);
   }
 }
@@ -64,7 +64,9 @@ function makeLandingBg() {
 
     camera.updateProjectionMatrix();
   })
-  document.querySelector('.landing-page-bg').appendChild( renderer.domElement );
+  // document.querySelector('.landing-page-bg').appendChild( renderer.domElement );
+  document.querySelector('.moving-bg').appendChild( renderer.domElement );
+
 
   const geometry1 = new THREE.OctahedronBufferGeometry( 1 );
   // const material1 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
@@ -132,6 +134,14 @@ function makeLandingBg() {
       octa5.rotation.y += 0.0014;
       octa6.rotation.y += 0.0016;
       octa7.rotation.y += 0.0016;
+
+      octa1.rotation.z += 0.001;
+      octa2.rotation.z += 0.001;
+      octa3.rotation.z += 0.001;
+      octa4.rotation.z += 0.0014;
+      octa5.rotation.z += 0.0014;
+      octa6.rotation.z += 0.0016;
+      octa7.rotation.z += 0.0016;
 
       // octa1.rotation.x += 0.001;
       // octa2.rotation.x += 0.0011;
@@ -444,7 +454,7 @@ let tl = gsap.timeline({repeat: 1});
 tl.staggerFromTo(".am-plate", 2, {
   scrollTrigger: {
     trigger: ".about-me-reveal-plates",
-    toggleActions: "restart none none reset",
+    toggleActions: "play none none reset",
     // toggleActions: "play pause resume reset",
     // start: () => `{trig}`,
     // scrub: 0.5
@@ -576,6 +586,12 @@ for (const thumbnail of thumbnails) {
   })
 }
 
+document.body.addEventListener('mousemove', (event) => {
+  event.preventDefault();
+  // console.log(event.clientX, event.clientY)
+  document.querySelector('.color-change').style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+})
+
 
 function sticktothetop() {
   let full_window_top = $(window).scrollTop() + $(window).innerHeight();
@@ -590,10 +606,12 @@ function sticktothetop() {
   let testVar3 = 1.3 - backgroundScrollVal*5
   let testVar4 = 1 - backgroundScrollVal*5
   let bottomTrailVar = (window_top - bodyHeight*0.6)*0.002
-  let projBGvar = 1 - (window_top/(bodyHeight*0.45))*0.9
+  let projBGvar = 1- (window_top/(bodyHeight*0.45))
+  // let fixedBGvar = (window_top/(bodyHeight*0.55))
+  let fixedBGvar = ((full_window_top - bodyHeight*0.4) / (bodyHeight - bodyHeight*0.6)).toFixed(2)
+  let landingOpacityVar = 1 - (window_top/(bodyHeight*0.15))
   // console.log(projBGvar)
-  // console.log(bottomTrailVar)
-
+  // console.log(1 - (window_top/(bodyHeight*0.15)))
 
 
   this.oldScroll = this.scrollY;
@@ -606,28 +624,49 @@ function sticktothetop() {
   // }
   // else {
   //   document.querySelector('.projects-bg').style.transform = "scale3d(1, 1, 1)";
+    // document.querySelector('.projects-bg').style.opacity = projBGvar;
+  if(backgroundScrollVal > 0.4) {
+    // document.querySelector('.moving-bg').style.opacity = fixedBGvar;
+  }
   // }
   // document.querySelector('.ph-text').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
 
   if(backgroundScrollVal > 0 && backgroundScrollVal < 0.04) {
     // console.log(testVar3)
-    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
+    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
+    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
+    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.25 + "px, 0)";
+
+    // document.querySelector('.landing-page-bg').style.transform = "scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
+    // document.querySelector('.landing-page-bg').style.transform = "scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
+
+    // document.querySelector('.landing-page-bg-title').style.backgroundColor = "transparent";
+    // document.querySelector('.landing-page-bg-title').style.border = "2px solid orangered";
+    // document.querySelector('.landing-page-bg-title').style.opacity = 0;
+    
     // document.querySelector('.landing-page-bg-box-shadow').style.transform = "scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
     // document.querySelector('.landing-page-bg-box-shadow').style.transform = "scale3d(" + testVar3 + ", " + 0.9 + ", 1)";
 
   }
-  else if(backgroundScrollVal > 0.0 && backgroundScrollVal < 0.25) {
-    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
-    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + -(window_top)*.1 + "px, 0)";
+  else if(backgroundScrollVal > 0.0 && backgroundScrollVal < 0.3) {
+    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
+    // document.querySelector('.landing-page-bg').style.transform = "scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
+    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.25 + "px, 0)";
     // document.querySelector('.landing-page-bg').style.transform = "translate3d(" + (window_top)*.1 + "px ," + (window_top)*.2 + "px, 0) rotate3d(0, 1, 0," + -(window_top)*.03 + "deg)";
   }
   else if(backgroundScrollVal === 0) {
-    document.querySelector('.landing-page-bg').style.transform = "scale3d(" + 1 + ", " + 1 + ", 1)";
+    // document.querySelector('.landing-page-bg').style.transform = "scale3d(" + 1 + ", " + 1 + ", 1)";
     // document.querySelector('.landing-page-bg-box-shadow').style.transform = "scale3d(1.3, 0.9, 1)";
+
+    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
+    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, 0px, 0)";
+    // document.querySelector('.landing-page-bg-title').style.backgroundColor = "#1f1f22";
+    // document.querySelector('.landing-page-bg-title').style.border = "1px solid transparent";
+    document.querySelector('.landing-page-bg-title').style.opacity = 1;
   }
 
-  if(backgroundScrollVal < 0.5) {
-    document.querySelector('.projects-header1').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
+  if(backgroundScrollVal < 0.45) {
+    // document.querySelector('.projects-header1').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
     document.querySelector('.border-left-reveal').style.transform = "scale3d(1, " + projBGvar + ", 1)";
     document.querySelector('.border-bottom-reveal').style.transform = "scale3d(" + projBGvar + ", 1, 1)";
   }
@@ -636,11 +675,20 @@ function sticktothetop() {
     document.querySelector('.border-bottom-reveal').style.transform = "scale3d(0, 1, 1)";
   }
 
+  document.querySelector('.projects-header1').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
+
   // if(backgroundScrollVal > 0.55 && bottomTrailVar >= 0) {
   //   document.querySelector('.bottom-trail').style.transform = "scale3d(1, " + (1 - bottomTrailVar) + ", 1)";
   // }
   // else if(backgroundScrollVal < 0.55) {
   //   document.querySelector('.bottom-trail').style.transform = "scale3d(1, 1, 1)";
+  // }
+
+  // if(backgroundScrollVal > 0.45) {
+  //   document.querySelector('.projects-container').style.opacity = projBGvar;
+  // }
+  // else {
+  //   document.querySelector('.projects-container').style.opacity = 1;
   // }
 
   if(backgroundScrollVal > 0.55) {
@@ -654,11 +702,11 @@ function sticktothetop() {
     // document.body.style.backgroundColor = "#0a93f4";
     // document.body.style.backgroundColor = "#5fa620";
     // document.body.style.backgroundColor = "#4c7428";
-    document.body.style.backgroundColor = "#198051";
+    // document.body.style.backgroundColor = "#198051";
 
   }
   else {
-    document.body.style.backgroundColor = "#1f1f22";
+    // document.body.style.backgroundColor = "#1f1f22";
   }
 
   // if(backgroundScrollVal > 0.04) {
@@ -699,7 +747,7 @@ function sticktothetop() {
     // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
   }
 
-  if(backgroundScrollVal > 0.18 && backgroundScrollVal < 0.7) {
+  if(backgroundScrollVal > 0.1 && backgroundScrollVal < 0.7) {
     document.querySelector('.img-to-move0').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight())*2.1)*0.1 + "px, 0)";
     document.querySelector('.img-to-move1').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*2.6))*0.1 + "px, 0)";
     document.querySelector('.img-to-move2').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*3.2))*0.1 + "px, 0)";
@@ -739,6 +787,7 @@ function sticktothetop() {
   if(full_window_top / bodyHeight > 0.65) {
     document.querySelector('.about-me-label').style.opacity = (1.8 - aboutOpacityVal2)
     document.querySelector('.about-me-label').style.opacity = aboutOpacityVal2
+    document.querySelector('.projects-header1').style.opacity = 1 - aboutOpacityVal2*1.4
     // console.log(aboutOpacityVal2)
     // document.querySelector('.about-me-body').style.opacity = aboutOpacityVal2
 
