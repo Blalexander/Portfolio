@@ -4,9 +4,9 @@
 /*   font-family: 'Lora', serif;  */
   font-family: 'Montserrat', sans-serif;
   color: #333333;
-  margin: 0;
+  margin: 0;  
   padding: 0;
-  text-align: center;
+  text-align: center; 
   outline: 1px solid transparent;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;

@@ -19,7 +19,7 @@ function step(timestamp) {
   let x1 = findAngle.right - l1.right
   let y2 = (findAngle.y) - l1.bottom
   let x2 = findAngle.x - l1.x
-  let angle = Math.atan2(y1, x1)
+  let angle = Math.atan2(y1, x1) 
   let angle2 = Math.atan2(y2, x2)
   angle = 1 - angle
 
