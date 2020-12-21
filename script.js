@@ -54,18 +54,25 @@ makeLandingBg();
 function makeLandingBg() {
 
   const scene = new THREE.Scene();  
+  // scene.background = new THREE.Color( 0xffffff, 1 );
   const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 ); 
 
   const renderer = new THREE.WebGLRenderer(); 
-  renderer.setSize( window.innerWidth, window.innerHeight ); 
+  // const renderer = new THREE.WebGLRenderer({ alpha: true }); 
+  // renderer.setSize( window.innerWidth, window.innerHeight ); 
+  let centerP = document.querySelector('.centerpiece-container')
+  // renderer.setSize( window.innerHeight*0.69, window.innerHeight*0.69 ); 
+  // window.addEventListener('resize', () => {
+  //   renderer.setSize(window.innerHeight*0.69, window.innerHeight*0.69);
+  renderer.setSize( window.innerHeight*0.6, window.innerHeight*0.6 ); 
   window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerHeight*0.6, window.innerHeight*0.6);
     camera.aspect = window.innerWidth / window.innerHeight;
 
     camera.updateProjectionMatrix();
   })
-  // document.querySelector('.landing-page-bg').appendChild( renderer.domElement );
-  document.querySelector('.moving-bg').appendChild( renderer.domElement );
+  document.querySelector('.centerpiece-container').appendChild( renderer.domElement );
+  // document.querySelector('.moving-bg').appendChild( renderer.domElement );
 
 
   const geometry1 = new THREE.OctahedronBufferGeometry( 1 );
@@ -159,17 +166,21 @@ function makeLandingBg() {
 function makeAboutBg() {
 
   const scene = new THREE.Scene();  
+  // scene.background = new THREE.Color( 0xffffff, 1 );
   const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 ); 
 
   const renderer = new THREE.WebGLRenderer(); 
-  renderer.setSize( window.innerWidth, (window.innerHeight*2) ); 
+  // const renderer = new THREE.WebGLRenderer({ alpha: true }); 
+  // renderer.setSize( window.innerWidth, window.innerHeight ); 
+  renderer.setSize( window.innerHeight, window.innerHeight ); 
   window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, (window.innerHeight*2));
-    camera.aspect = window.innerWidth / (window.innerHeight*2);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
 
     camera.updateProjectionMatrix();
   })
-  document.querySelector('.am-background').appendChild( renderer.domElement );
+  document.querySelector('.moving-bg').appendChild( renderer.domElement );
+
 
   const geometry1 = new THREE.OctahedronBufferGeometry( 1 );
   // const material1 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
@@ -228,30 +239,36 @@ function makeAboutBg() {
   // camera.position.y = .1;
 
   const render = function () {
-    requestAnimationFrame( render );
+      requestAnimationFrame( render );
 
-    octa1.rotation.y += 0.001;
-    octa2.rotation.y += 0.001;
-    octa3.rotation.y += 0.001;
-    octa4.rotation.y += 0.0014;
-    octa5.rotation.y += 0.0014;
-    octa6.rotation.y += 0.0016;
-    octa7.rotation.y += 0.0016;
+      octa1.rotation.y += 0.001;
+      octa2.rotation.y += 0.001;
+      octa3.rotation.y += 0.001;
+      octa4.rotation.y += 0.0014;
+      octa5.rotation.y += 0.0014;
+      octa6.rotation.y += 0.0016;
+      octa7.rotation.y += 0.0016;
 
-    // octa1.rotation.x += 0.001;
-    // octa2.rotation.x += 0.0011;
-    // octa3.rotation.x += 0.0012;
-    // octa4.rotation.x += 0.0013;
-    // octa5.rotation.x += 0.0013;
-    // octa6.rotation.x += 0.0014;
+      octa1.rotation.z += 0.001;
+      octa2.rotation.z += 0.001;
+      octa3.rotation.z += 0.001;
+      octa4.rotation.z += 0.0014;
+      octa5.rotation.z += 0.0014;
+      octa6.rotation.z += 0.0016;
+      octa7.rotation.z += 0.0016;
 
-    renderer.render(scene, camera);
+      // octa1.rotation.x += 0.001;
+      // octa2.rotation.x += 0.0011;
+      // octa3.rotation.x += 0.0012;
+      // octa4.rotation.x += 0.0013;
+      // octa5.rotation.x += 0.0013;
+      // octa6.rotation.x += 0.0014;
+
+      renderer.render(scene, camera);
   };
 
-render();
+  render();
 }
-
-
 
 
 
@@ -438,7 +455,7 @@ gsap.from(".am-sentence", 1, {
   yPercent: 300,
   // delay: 2,
   // delay: 6,
-  ease: "power4",
+  // ease: "power4",
   opacity: 0,
   skewY: 3,
   // repeat: -1,
@@ -448,30 +465,6 @@ gsap.from(".am-sentence", 1, {
     from: "start"
   }
 })
-
-let tl = gsap.timeline({repeat: 1});
-
-tl.staggerFromTo(".am-plate", 2, {
-  scrollTrigger: {
-    trigger: ".about-me-reveal-plates",
-    toggleActions: "play none none reset",
-    // toggleActions: "play pause resume reset",
-    // start: () => `{trig}`,
-    // scrub: 0.5
-    start: "top top",
-    // scrub: true
-  },
-  xPercent: -100,
-  ease: "power4",
-  skewX: 20,
-  opacity: 0
-},
-{
-  xPercent: 100,
-  skewX: 0,
-  opacity: 1
-},
-0.1)
 
 // gsap.from(".lt", 2, {
 //   scrollTrigger: {
@@ -525,17 +518,6 @@ gsap.from(".lts", 1, {
     from: "random"
   }
 })
-
-// gsap.to(".projects-bg-reveal", 1, {
-//   scrollTrigger: {
-//     trigger: ".projects-bg-reveal",
-//     toggleActions: "restart none none none"
-//   },
-//   scaleY,
-//   delay: 3,
-//   ease: "power4",
-//   opacity: 0,
-// })
 
 const navButs = document.querySelectorAll('.nav-button')
 for(const navButton of navButs) {
@@ -614,143 +596,119 @@ function sticktothetop() {
   // console.log(1 - (window_top/(bodyHeight*0.15)))
 
 
+  //rotateVar  = -10deg at 0.1 bgsv and 10deg at 0.5 bgsv
+  let rotateVar = (backgroundScrollVal + -0.3)*50
+  // console.log(rotateVar)
+
+  //rotateVar2 = 5 at 50bgsv, -5 at 65bgsv
+  let rotateVar2 = 180 + (-backgroundScrollVal + 0.575)*70
+  // console.log(rotateVar2)
+
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
   document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1 + "px, 0)";
-  // document.querySelector('.projects-header1').style.transform = "translate3d(0, " + (window_top)*1 + "px, 0)";
-  // document.querySelector('.projects-bg').style.transform = "translate3d(0, " + (window_top)*0.5 + "px, 0)";
-  // if(projBGvar < 1) {
-  //   document.querySelector('.projects-bg').style.transform = "scale3d(1, " + projBGvar + ", 1)";
-  // }
-  // else {
-  //   document.querySelector('.projects-bg').style.transform = "scale3d(1, 1, 1)";
-    // document.querySelector('.projects-bg').style.opacity = projBGvar;
-  if(backgroundScrollVal > 0.4) {
-    // document.querySelector('.moving-bg').style.opacity = fixedBGvar;
+
+  if(backgroundScrollVal > 0.08) {
+    document.querySelector('.show-home').style.transform = "translate3d(0, 0vh, 0)";
   }
-  // }
-  // document.querySelector('.ph-text').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
+  else {
+    document.querySelector('.show-home').style.transform = "translate3d(0, 30vh, 0)";
+  }
+
+  if(backgroundScrollVal > 0.06) {
+    document.querySelector('.show-projects').style.transform = "translate3d(0, 0vh, 0)";
+  }
+  else {
+    document.querySelector('.show-projects').style.transform = "translate3d(0, 30vh, 0)";
+  }
+
+  if(backgroundScrollVal > 0.04) {
+    document.querySelector('.show-about-me').style.transform = "translate3d(0, 0vh, 0)";
+  }
+  else {
+    document.querySelector('.show-about-me').style.transform = "translate3d(0, 30vh, 0)";
+  }
+
+  if(backgroundScrollVal > 0.02) {
+    document.querySelector('.show-contact-me').style.transform = "translate3d(0, 0vh, 0)";
+  }
+  else {
+    document.querySelector('.show-contact-me').style.transform = "translate3d(0, 30vh, 0)";
+  }
 
   if(backgroundScrollVal > 0 && backgroundScrollVal < 0.04) {
-    // console.log(testVar3)
-    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
-    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
-    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.25 + "px, 0)";
-
-    // document.querySelector('.landing-page-bg').style.transform = "scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
-    // document.querySelector('.landing-page-bg').style.transform = "scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
-
-    // document.querySelector('.landing-page-bg-title').style.backgroundColor = "transparent";
-    // document.querySelector('.landing-page-bg-title').style.border = "2px solid orangered";
-    // document.querySelector('.landing-page-bg-title').style.opacity = 0;
-    
-    // document.querySelector('.landing-page-bg-box-shadow').style.transform = "scale3d(" + testVar2 + ", " + testVar2 + ", 1)";
-    // document.querySelector('.landing-page-bg-box-shadow').style.transform = "scale3d(" + testVar3 + ", " + 0.9 + ", 1)";
+    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.4 + "px, 0)";
 
   }
   else if(backgroundScrollVal > 0.0 && backgroundScrollVal < 0.3) {
-    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
-    // document.querySelector('.landing-page-bg').style.transform = "scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
-    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.25 + "px, 0)";
-    // document.querySelector('.landing-page-bg').style.transform = "translate3d(" + (window_top)*.1 + "px ," + (window_top)*.2 + "px, 0) rotate3d(0, 1, 0," + -(window_top)*.03 + "deg)";
+    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.4 + "px, 0)";
   }
   else if(backgroundScrollVal === 0) {
-    // document.querySelector('.landing-page-bg').style.transform = "scale3d(" + 1 + ", " + 1 + ", 1)";
-    // document.querySelector('.landing-page-bg-box-shadow').style.transform = "scale3d(1.3, 0.9, 1)";
-
-    // document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.2 + "px, 0) scale3d(" + 0.8 + ", " + 0.8 + ", 1)";
     document.querySelector('.landing-page-bg').style.transform = "translate3d(0, 0px, 0)";
-    // document.querySelector('.landing-page-bg-title').style.backgroundColor = "#1f1f22";
-    // document.querySelector('.landing-page-bg-title').style.border = "1px solid transparent";
-    document.querySelector('.landing-page-bg-title').style.opacity = 1;
   }
 
-  if(backgroundScrollVal < 0.45) {
-    // document.querySelector('.projects-header1').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
-    document.querySelector('.border-left-reveal').style.transform = "scale3d(1, " + projBGvar + ", 1)";
-    document.querySelector('.border-bottom-reveal').style.transform = "scale3d(" + projBGvar + ", 1, 1)";
-  }
-  else {
-    document.querySelector('.border-left-reveal').style.transform = "scale3d(1, 0, 1)";
-    document.querySelector('.border-bottom-reveal').style.transform = "scale3d(0, 1, 1)";
-  }
-
-  document.querySelector('.projects-header1').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
-
-  // if(backgroundScrollVal > 0.55 && bottomTrailVar >= 0) {
-  //   document.querySelector('.bottom-trail').style.transform = "scale3d(1, " + (1 - bottomTrailVar) + ", 1)";
-  // }
-  // else if(backgroundScrollVal < 0.55) {
-  //   document.querySelector('.bottom-trail').style.transform = "scale3d(1, 1, 1)";
-  // }
-
-  // if(backgroundScrollVal > 0.45) {
-  //   document.querySelector('.projects-container').style.opacity = projBGvar;
+  // if(backgroundScrollVal < 0.45) {
+  //   document.querySelector('.border-left-reveal').style.transform = "scale3d(1, " + projBGvar + ", 1)";
+  //   document.querySelector('.border-bottom-reveal').style.transform = "scale3d(" + projBGvar + ", 1, 1)";
   // }
   // else {
-  //   document.querySelector('.projects-container').style.opacity = 1;
+  //   document.querySelector('.border-left-reveal').style.transform = "scale3d(1, 0, 1)";
+  //   document.querySelector('.border-bottom-reveal').style.transform = "scale3d(0, 1, 1)";
   // }
 
-  if(backgroundScrollVal > 0.55) {
-    document.querySelector('.about-me-label-reveal').style.transform = "translate3d(0, 200%, 0)";
+  if(backgroundScrollVal < 0.1) {
+    document.querySelector('.projects-header-text').style.opacity = 0;
   }
   else {
-    document.querySelector('.about-me-label-reveal').style.transform = "translate3d(0, 0%, 0)";
+    document.querySelector('.projects-header-text').style.opacity = 1;
   }
 
-  if(backgroundScrollVal > 0.5) {
-    // document.body.style.backgroundColor = "#0a93f4";
-    // document.body.style.backgroundColor = "#5fa620";
-    // document.body.style.backgroundColor = "#4c7428";
-    // document.body.style.backgroundColor = "#198051";
+  if(backgroundScrollVal === 0) {
+    // document.querySelector('.projects-header1').style.transform = "translate3d(30%, " + (window_top)*0.4 + "px, 0) rotate(30deg) rotate3d(1, 0, 0, 0deg) scale3d(0.8, 0.8, 1)";
+    document.querySelector('.projects-header1').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0) scale3d(1, 1, 1)";
+    document.querySelector('.ph-box').style.transform = "translate3d(0%, 0, 0) rotate(30deg) scale3d(1, 1, 1)";
+    document.querySelector('.second-ph').style.transform = "translate3d(250%, 0px, -2000px) scale3d(1, 1, 1) rotate(10deg)";
+    document.querySelector('.third-ph').style.transform = "translate3d(150%, 0px, -4000px) scale3d(1, 1, 1) rotate(70deg)";
+    document.querySelector('.projects-header1').classList.add('spin-me')
+    // document.querySelector('.projects-header-text').style.opacity = 0;
+    document.querySelector('.projects-header-text').style.transform = "translate3d(0, 0, -0px)";
 
   }
-  else {
-    // document.body.style.backgroundColor = "#1f1f22";
+  else if(backgroundScrollVal < 0.5) {
+    document.querySelector('.projects-header1').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
+    // document.querySelector('.ph-box').style.transform = "translate3d(-10%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(0.5, 0.5, 1)";
+    document.querySelector('.ph-box').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(1, 1, 1)";
+    document.querySelector('.projects-header1').classList.remove('spin-me')
+    // document.querySelector('.projects-header-text').style.opacity = 1;
+    document.querySelector('.projects-header-text').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, -0px)";
   }
 
-  // if(backgroundScrollVal > 0.04) {
-  //   document.querySelector('.landing-title').style.filter = "unset";
-  //   document.querySelector('.landing-name-holder').style.filter = "blur(3px)";
-  // }
-  // else if(backgroundScrollVal < 0.04) {
-  //   document.querySelector('.landing-title').style.filter = "blur(3px)";
-  //   document.querySelector('.landing-name-holder').style.filter = "blur(0px)";
-  // }
+  if(backgroundScrollVal === 0) {
+    document.querySelector('.landing-page-centerpiece').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
+    document.querySelector('.centerpiece-container').style.transform = "translate3d(0%, 0, 0) rotate(30deg)  scale3d(1, 1, 1)";
+    document.querySelector('.centerpiece-border').style.transform = "translate3d(0%, 0, 0) rotate(30deg)  scale3d(1, 1, 1)";
+  }
+  else if(backgroundScrollVal < 0.25) {
+    document.querySelector('.landing-page-centerpiece').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
+    // document.querySelector('.centerpiece-container').style.transform = "translate3d(-10%, " + (window_top)*0.3 + "px, 0) rotate(30deg)  scale3d(0.5, 0.5, 1)";
+    document.querySelector('.centerpiece-container').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg)  scale3d(1, 1, 1)";
+    // document.querySelector('.centerpiece-border').style.transform = "translate3d(-10%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(0.5, 0.5, 1)";
+    document.querySelector('.centerpiece-border').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(1, 1, 1)";
 
-  // if(backgroundScrollVal < 0.25) {
-  //   document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*.1 + "px, 0)";
-  //   document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-  //   // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
-  // }
-
+  }
   
-  // if(backgroundScrollVal > 0.16) {
-  //   document.querySelector('.projects-header').style.opacity = 1;
-  //   document.querySelector('.ph-bg').style.opacity = 1;
-  // }
-  // else {
-  //   document.querySelector('.projects-header').style.opacity = 0;
-  //   document.querySelector('.ph-bg').style.opacity = 0;
-  // }
-
-  // if(backgroundScrollVal < 0.16) {
-    // document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.8 + "px, 0)";
-
-  // }
-
   if(backgroundScrollVal < 0.25) {
-    // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.05 + "px, 0)";
     document.querySelector('.landing-title').style.transform = "translate3d(0, " + -(window_top)*.4 + "px, 0)";
     document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + -(window_top)*0.2 + "px, 0)";
-    // document.querySelector('.line-container').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
   }
 
   if(backgroundScrollVal > 0.1 && backgroundScrollVal < 0.7) {
     document.querySelector('.img-to-move0').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight())*2.1)*0.1 + "px, 0)";
+    document.querySelector('.box0').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight())*2.1)*0.1 + "px, 0)";
     document.querySelector('.img-to-move1').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*2.6))*0.1 + "px, 0)";
+    document.querySelector('.box1').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*2.6))*0.1 + "px, 0)";
     document.querySelector('.img-to-move2').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*3.2))*0.1 + "px, 0)";
+    document.querySelector('.box2').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*3.2))*0.1 + "px, 0)";
   }
 
   if(backgroundScrollVal > 0.8) {
@@ -760,14 +718,10 @@ function sticktothetop() {
 
   if(backgroundScrollVal > 0.4) {
     // document.querySelector('.about-me-label').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
-    document.querySelector('.about-me-header').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    document.querySelector('.about-me-label').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
+    document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
+    // document.querySelector('.about-me-header').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
+    document.querySelector('.about-me-label').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
   }
-
-  // if(backgroundScrollVal > 0.42 && backgroundScrollVal < 0.65) {
-  //   document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top - (bodyHeight*0.50))*0.8 + "px, 0)";
-  // }
 
   // if(full_window_top / bodyHeight > 0.40) {
   //   document.querySelector('.proj1-title').style.opacity = 1
@@ -787,38 +741,22 @@ function sticktothetop() {
   if(full_window_top / bodyHeight > 0.65) {
     document.querySelector('.about-me-label').style.opacity = (1.8 - aboutOpacityVal2)
     document.querySelector('.about-me-label').style.opacity = aboutOpacityVal2
-    document.querySelector('.projects-header1').style.opacity = 1 - aboutOpacityVal2*1.4
-    // console.log(aboutOpacityVal2)
-    // document.querySelector('.about-me-body').style.opacity = aboutOpacityVal2
+    // document.querySelector('.projects-header1').style.opacity = 1 - aboutOpacityVal2*1.4
 
   }
 
   if(backgroundScrollVal > 0.75) {
-    // document.querySelector('.contact-card-inner').classList.add('at-bottom')
+
     document.querySelector('.contact-section').classList.add('at-bottom')
-    // document.querySelector('.background-gradient').style.backgroundColor = "#062d3e";
   }
   else {
-    // document.querySelector('.contact-card-inner').classList.remove('at-bottom')
     document.querySelector('.contact-section').classList.remove('at-bottom')
-    // document.querySelector('.background-gradient').style.backgroundColor = "transparent";
   }
 
   if(backgroundScrollVal > 0.7) {
-    // document.querySelector('.contact-card-inner').classList.add('at-bottom')
-    // document.querySelector('.contact-section').classList.add('at-bottom')
-    document.querySelector('.background-gradient').style.backgroundColor = "#062d3e";
+    document.querySelector('.background-gradient').style.opacity = 1;
   }
   else {
-    // document.querySelector('.contact-card-inner').classList.remove('at-bottom')
-    // document.querySelector('.contact-section').classList.remove('at-bottom')
-    document.querySelector('.background-gradient').style.backgroundColor = "transparent";
+    document.querySelector('.background-gradient').style.opacity = 0;
   }
-
-  // if(backgroundScrollVal > 0.23 && backgroundScrollVal < 0.59 || backgroundScrollVal > 0.8) {
-  //   document.querySelector('.nav-buttons').classList.add('high-contrast')
-  // }
-  // else if(backgroundScrollVal < 0.23 || backgroundScrollVal > 0.59 && backgroundScrollVal < 0.8) {
-  //   document.querySelector('.nav-buttons').classList.remove('high-contrast')
-  // }
 }
