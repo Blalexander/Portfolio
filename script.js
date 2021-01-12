@@ -71,7 +71,7 @@ function makeLandingBg() {
 
     camera.updateProjectionMatrix();
   })
-  document.querySelector('.centerpiece-container').appendChild( renderer.domElement );
+  // document.querySelector('.centerpiece-container').appendChild( renderer.domElement );
   // document.querySelector('.moving-bg').appendChild( renderer.domElement );
 
 
@@ -519,6 +519,105 @@ gsap.from(".lts", 1, {
   }
 })
 
+gsap.to(".si-top1", 10, {
+  xPercent: -415,
+  // delay: -3,
+  // delay: 6,
+  ease: "linear",
+  // skewY:-20,
+  opacity: 0,
+  repeat: -1,
+  repeatDelay: 10,
+  stagger: {
+    amount: 10,
+    from: "start"
+  }
+})
+
+gsap.to(".si-top2", 10, {
+  xPercent: -415,
+  // delay: -3,
+  delay: 15,
+  ease: "linear",
+  // skewY:-20,
+  opacity: 0,
+  repeat: -1,
+  repeatDelay: 10,
+  stagger: {
+    amount: 10,
+    from: "start"
+  }
+})
+
+
+
+gsap.to(".si-bottom3", 10, {
+  xPercent: -415,
+  delay: 2.5,
+  // delay: 6,
+  ease: "linear",
+  // skewY:-20,
+  opacity: 0,
+  repeat: -1,
+  repeatDelay: 10,
+  stagger: {
+    amount: 10,
+    from: "start"
+  }
+})
+
+gsap.to(".si-bottom4", 10, {
+  xPercent: -415,
+  delay: 17.5,
+  // delay: 6,
+  ease: "linear",
+  // skewY:-20,
+  opacity: 0,
+  repeat: -1,
+  repeatDelay: 10,
+  stagger: {
+    amount: 10,
+    from: "start"
+  }
+})
+
+gsap.from(".project-one-container", 0.25, {
+  scrollTrigger: {
+    trigger: ".project-one-container",
+    // toggleActions: "restart none none none"
+    toggleActions: "play pause resume reset",
+  },
+  opacity: 0,
+  // repeat: -1,
+  // repeatDelay: 2,
+})
+
+gsap.from(".project-two-container", 0.25, {
+  scrollTrigger: {
+    trigger: ".project-two-container",
+    // toggleActions: "restart none none none"
+    toggleActions: "play pause resume reset",
+  },
+  opacity: 0,
+  // repeat: -1,
+  // repeatDelay: 2,
+})
+
+gsap.from(".project-three-container", 0.25, {
+  scrollTrigger: {
+    trigger: ".project-three-container",
+    // scrub: 0.1,
+    // toggleActions: "restart none none none"
+    toggleActions: "play pause resume reset",
+  },
+  opacity: 0,
+  // repeat: -1,
+  // repeatDelay: 2,
+})
+
+//they fade in together to show correlation + scroll needs to go opposite direction.  also when one is highlighted highlight corrallary as well.
+
+
 const navButs = document.querySelectorAll('.nav-button')
 for(const navButton of navButs) {
   navButton.addEventListener('click', (event) => {
@@ -568,11 +667,11 @@ for (const thumbnail of thumbnails) {
   })
 }
 
-document.body.addEventListener('mousemove', (event) => {
-  event.preventDefault();
-  // console.log(event.clientX, event.clientY)
-  document.querySelector('.color-change').style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
-})
+// document.body.addEventListener('mousemove', (event) => {
+//   event.preventDefault();
+//   // console.log(event.clientX, event.clientY)
+//   document.querySelector('.color-change').style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+// })
 
 
 function sticktothetop() {
@@ -595,112 +694,132 @@ function sticktothetop() {
   // console.log(projBGvar)
   // console.log(1 - (window_top/(bodyHeight*0.15)))
 
-
-  //rotateVar  = -10deg at 0.1 bgsv and 10deg at 0.5 bgsv
-  let rotateVar = (backgroundScrollVal + -0.3)*50
-  // console.log(rotateVar)
-
-  //rotateVar2 = 5 at 50bgsv, -5 at 65bgsv
-  let rotateVar2 = 180 + (-backgroundScrollVal + 0.575)*70
-  // console.log(rotateVar2)
-
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
   document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1 + "px, 0)";
+  document.querySelector('.center-panel').style.transform = "translate3d(0, " + -(window_top)*1 + "px, 0)";
+  document.querySelector('.moving-bg').style.transform = "translate3d(0, " + -(window_top)*1.4 + "px, 0)";
 
-  if(backgroundScrollVal > 0.08) {
-    document.querySelector('.show-home').style.transform = "translate3d(0, 0vh, 0)";
-  }
-  else {
-    document.querySelector('.show-home').style.transform = "translate3d(0, 30vh, 0)";
-  }
 
-  if(backgroundScrollVal > 0.06) {
-    document.querySelector('.show-projects').style.transform = "translate3d(0, 0vh, 0)";
-  }
-  else {
-    document.querySelector('.show-projects').style.transform = "translate3d(0, 30vh, 0)";
-  }
-
-  if(backgroundScrollVal > 0.04) {
-    document.querySelector('.show-about-me').style.transform = "translate3d(0, 0vh, 0)";
-  }
-  else {
-    document.querySelector('.show-about-me').style.transform = "translate3d(0, 30vh, 0)";
-  }
-
-  if(backgroundScrollVal > 0.02) {
-    document.querySelector('.show-contact-me').style.transform = "translate3d(0, 0vh, 0)";
-  }
-  else {
-    document.querySelector('.show-contact-me').style.transform = "translate3d(0, 30vh, 0)";
-  }
-
-  if(backgroundScrollVal > 0 && backgroundScrollVal < 0.04) {
-    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.4 + "px, 0)";
-
-  }
-  else if(backgroundScrollVal > 0.0 && backgroundScrollVal < 0.3) {
-    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.4 + "px, 0)";
-  }
-  else if(backgroundScrollVal === 0) {
-    document.querySelector('.landing-page-bg').style.transform = "translate3d(0, 0px, 0)";
-  }
-
-  // if(backgroundScrollVal < 0.45) {
-  //   document.querySelector('.border-left-reveal').style.transform = "scale3d(1, " + projBGvar + ", 1)";
-  //   document.querySelector('.border-bottom-reveal').style.transform = "scale3d(" + projBGvar + ", 1, 1)";
+  // if(backgroundScrollVal >= 0) {
+  //   document.querySelector('.show-home').style.transform = "translate3d(-90vw, 0, 0)";
+  //   document.querySelector('.show-home').style.textAlign = "left";
   // }
   // else {
-  //   document.querySelector('.border-left-reveal').style.transform = "scale3d(1, 0, 1)";
-  //   document.querySelector('.border-bottom-reveal').style.transform = "scale3d(0, 1, 1)";
+  //   document.querySelector('.show-home').style.transform = "translate3d(0vw, 0, 0)";
+  //   document.querySelector('.show-home').style.textAlign = "right";
   // }
 
-  if(backgroundScrollVal < 0.1) {
-    document.querySelector('.projects-header-text').style.opacity = 0;
-  }
-  else {
-    document.querySelector('.projects-header-text').style.opacity = 1;
-  }
+  // if(backgroundScrollVal > 0.2) {
+  //   document.querySelector('.show-projects').style.transform = "translate3d(-90vw, 0, 0)";
+  //   document.querySelector('.show-projects').style.textAlign = "left";
+  // }
+  // else {
+  //   document.querySelector('.show-projects').style.transform = "translate3d(0vw, 0, 0)";
+  //   document.querySelector('.show-projects').style.textAlign = "right";
+  // }
 
-  if(backgroundScrollVal === 0) {
-    // document.querySelector('.projects-header1').style.transform = "translate3d(30%, " + (window_top)*0.4 + "px, 0) rotate(30deg) rotate3d(1, 0, 0, 0deg) scale3d(0.8, 0.8, 1)";
-    document.querySelector('.projects-header1').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0) scale3d(1, 1, 1)";
-    document.querySelector('.ph-box').style.transform = "translate3d(0%, 0, 0) rotate(30deg) scale3d(1, 1, 1)";
-    document.querySelector('.second-ph').style.transform = "translate3d(250%, 0px, -2000px) scale3d(1, 1, 1) rotate(10deg)";
-    document.querySelector('.third-ph').style.transform = "translate3d(150%, 0px, -4000px) scale3d(1, 1, 1) rotate(70deg)";
-    document.querySelector('.projects-header1').classList.add('spin-me')
-    // document.querySelector('.projects-header-text').style.opacity = 0;
-    document.querySelector('.projects-header-text').style.transform = "translate3d(0, 0, -0px)";
+  // if(backgroundScrollVal > 0.5) {
+  //   document.querySelector('.show-about-me').style.transform = "translate3d(-90vw, 0, 0)";
+  //   document.querySelector('.show-about-me').style.textAlign = "left";
+  // }
+  // else {
+  //   document.querySelector('.show-about-me').style.transform = "translate3d(0vw, 0, 0)";
+  //   document.querySelector('.show-about-me').style.textAlign = "right";
+  // }
 
-  }
-  else if(backgroundScrollVal < 0.5) {
-    document.querySelector('.projects-header1').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
-    // document.querySelector('.ph-box').style.transform = "translate3d(-10%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(0.5, 0.5, 1)";
-    document.querySelector('.ph-box').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(1, 1, 1)";
-    document.querySelector('.projects-header1').classList.remove('spin-me')
-    // document.querySelector('.projects-header-text').style.opacity = 1;
-    document.querySelector('.projects-header-text').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, -0px)";
-  }
+  // if(backgroundScrollVal > 0.7) {
+  //   document.querySelector('.show-contact-me').style.transform = "translate3d(-90vw, 0, 0)";
+  //   document.querySelector('.show-contact-me').style.textAlign = "left";
+  // }
+  // else {
+  //   document.querySelector('.show-contact-me').style.transform = "translate3d(0vw, 0, 0)";
+  //   document.querySelector('.show-contact-me').style.textAlign = "right";
+  // }
 
-  if(backgroundScrollVal === 0) {
-    document.querySelector('.landing-page-centerpiece').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
-    document.querySelector('.centerpiece-container').style.transform = "translate3d(0%, 0, 0) rotate(30deg)  scale3d(1, 1, 1)";
-    document.querySelector('.centerpiece-border').style.transform = "translate3d(0%, 0, 0) rotate(30deg)  scale3d(1, 1, 1)";
-  }
-  else if(backgroundScrollVal < 0.25) {
-    document.querySelector('.landing-page-centerpiece').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
-    // document.querySelector('.centerpiece-container').style.transform = "translate3d(-10%, " + (window_top)*0.3 + "px, 0) rotate(30deg)  scale3d(0.5, 0.5, 1)";
-    document.querySelector('.centerpiece-container').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg)  scale3d(1, 1, 1)";
-    // document.querySelector('.centerpiece-border').style.transform = "translate3d(-10%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(0.5, 0.5, 1)";
-    document.querySelector('.centerpiece-border').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(1, 1, 1)";
 
-  }
+
+  // if(backgroundScrollVal > 0.08) {
+  //   document.querySelector('.show-home').style.transform = "translate3d(0, 0vh, 0)";
+  // }
+  // else {
+  //   document.querySelector('.show-home').style.transform = "translate3d(0, 30vh, 0)";
+  // }
+
+  // if(backgroundScrollVal > 0.06) {
+  //   document.querySelector('.show-projects').style.transform = "translate3d(0, 0vh, 0)";
+  // }
+  // else {
+  //   document.querySelector('.show-projects').style.transform = "translate3d(0, 30vh, 0)";
+  // }
+
+  // if(backgroundScrollVal > 0.04) {
+  //   document.querySelector('.show-about-me').style.transform = "translate3d(0, 0vh, 0)";
+  // }
+  // else {
+  //   document.querySelector('.show-about-me').style.transform = "translate3d(0, 30vh, 0)";
+  // }
+
+  // if(backgroundScrollVal > 0.02) {
+  //   document.querySelector('.show-contact-me').style.transform = "translate3d(0, 0vh, 0)";
+  // }
+  // else {
+  //   document.querySelector('.show-contact-me').style.transform = "translate3d(0, 30vh, 0)";
+  // }
+
+  // if(backgroundScrollVal > 0 && backgroundScrollVal < 0.04) {
+  //   document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.4 + "px, 0)";
+
+  // }
+  // else if(backgroundScrollVal > 0.0 && backgroundScrollVal < 0.3) {
+  //   document.querySelector('.landing-page-bg').style.transform = "translate3d(0, " + (window_top)*.4 + "px, 0)";
+  // }
+  // else if(backgroundScrollVal === 0) {
+  //   document.querySelector('.landing-page-bg').style.transform = "translate3d(0, 0px, 0)";
+  // }
+
+
+  // if(backgroundScrollVal < 0.1) {
+  //   document.querySelector('.projects-header-text').style.opacity = 0;
+  // }
+  // else {
+  //   document.querySelector('.projects-header-text').style.opacity = 1;
+  // }
+
+  // if(backgroundScrollVal === 0) {
+  //   document.querySelector('.projects-header1').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0) scale3d(1, 1, 1)";
+  //   document.querySelector('.ph-box').style.transform = "translate3d(0%, 0, 0) rotate(30deg) scale3d(1, 1, 1)";
+  //   document.querySelector('.second-ph').style.transform = "translate3d(250%, 0px, -2000px) scale3d(1, 1, 1) rotate(10deg)";
+  //   document.querySelector('.third-ph').style.transform = "translate3d(150%, 0px, -4000px) scale3d(1, 1, 1) rotate(70deg)";
+  //   document.querySelector('.projects-header1').classList.add('spin-me')
+  //   document.querySelector('.projects-header-text').style.transform = "translate3d(0, 0, -0px)";
+
+  // }
+  // else if(backgroundScrollVal < 0.5) {
+  //   document.querySelector('.projects-header1').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
+  //   document.querySelector('.ph-box').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(1, 1, 1)";
+  //   document.querySelector('.projects-header1').classList.remove('spin-me')
+  //   document.querySelector('.projects-header-text').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, -0px)";
+  // }
+
+  // if(backgroundScrollVal === 0) {
+  //   document.querySelector('.landing-page-centerpiece').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
+  //   document.querySelector('.centerpiece-container').style.transform = "translate3d(0%, 0, 0) rotate(30deg)  scale3d(1, 1, 1)";
+  //   document.querySelector('.centerpiece-border').style.transform = "translate3d(0%, 0, 0) rotate(30deg)  scale3d(1, 1, 1)";
+  // }
+  // else if(backgroundScrollVal < 0.25) {
+  //   document.querySelector('.landing-page-centerpiece').style.transform = "translate3d(0%, " + (window_top)*0.4 + "px, 0)";
+  //   document.querySelector('.centerpiece-container').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg)  scale3d(1, 1, 1)";
+  //   document.querySelector('.centerpiece-border').style.transform = "translate3d(-0%, " + (window_top)*0.3 + "px, 0) rotate(30deg) scale3d(1, 1, 1)";
+
+  // }
   
   if(backgroundScrollVal < 0.25) {
     document.querySelector('.landing-title').style.transform = "translate3d(0, " + -(window_top)*.4 + "px, 0)";
     document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + -(window_top)*0.2 + "px, 0)";
   }
+
+  //CHANGE PROJECT BOXES TO BE STATIC UNTIL HOVERED THEN MOVE WITH CURSOR
 
   if(backgroundScrollVal > 0.1 && backgroundScrollVal < 0.7) {
     document.querySelector('.img-to-move0').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight())*2.1)*0.1 + "px, 0)";
@@ -711,17 +830,14 @@ function sticktothetop() {
     document.querySelector('.box2').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*3.2))*0.1 + "px, 0)";
   }
 
-  if(backgroundScrollVal > 0.8) {
-    // document.querySelector('.contact-card-outer').style.transform = "translate3d(0, " + (contactScrollVal)*0.8 + "px, 0)";
-    document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + (contactScrollVal)*.3 + "px, 0)";
-  }
+  // if(backgroundScrollVal > 0.8) {
+  //   document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + (contactScrollVal)*.3 + "px, 0)";
+  // }
 
-  if(backgroundScrollVal > 0.4) {
-    // document.querySelector('.about-me-label').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
-    // document.querySelector('.about-me-header').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    document.querySelector('.about-me-label').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
-  }
+  // if(backgroundScrollVal > 0.4) {
+  //   document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
+  //   document.querySelector('.about-me-label').style.transform = "translate3d(0, " + (window_top)*0.7 + "px, 0)";
+  // }
 
   // if(full_window_top / bodyHeight > 0.40) {
   //   document.querySelector('.proj1-title').style.opacity = 1
@@ -738,12 +854,11 @@ function sticktothetop() {
   //   document.querySelector('.proj3-description').style.opacity = 1
   // }
 
-  if(full_window_top / bodyHeight > 0.65) {
-    document.querySelector('.about-me-label').style.opacity = (1.8 - aboutOpacityVal2)
-    document.querySelector('.about-me-label').style.opacity = aboutOpacityVal2
-    // document.querySelector('.projects-header1').style.opacity = 1 - aboutOpacityVal2*1.4
+  // if(full_window_top / bodyHeight > 0.65) {
+    // document.querySelector('.about-me-label').style.opacity = (1.8 - aboutOpacityVal2)
+    // document.querySelector('.about-me-label').style.opacity = aboutOpacityVal2
 
-  }
+  // }
 
   if(backgroundScrollVal > 0.75) {
 
