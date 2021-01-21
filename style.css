@@ -53,9 +53,14 @@ main {
   position: relative;
   background-color: #062d3e;
   background-color: white;
+/*   background-image: radial-gradient(circle at center center, transparent 0%,rgb(255,255,255) 99%),repeating-linear-gradient(0deg, rgb(32,175,255) 0px, rgb(32,175,255) 1px,transparent 1px, transparent 296px),repeating-linear-gradient(90deg, rgb(32,175,255) 0px, rgb(32,175,255) 1px,transparent 1px, transparent 296px),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255)); */
   z-index: 12;
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  transform-origin: center;
+  transform-style: preserve-3d;
+  perspective: 3000px;
+  perspective-origin: center;
 }
 
 .home-page-header {
@@ -66,6 +71,38 @@ main {
 
 .hp-text {
   font-weight: lighter;
+}
+
+.box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 20vh;
+  width: 20vw;
+  z-index: -1;
+  transition: 0.5s;
+  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+}
+
+.box1 {
+  background-color: red;
+/*   transform: translate3d(150%, 125%, 0px); */
+  top: 10%;
+  left: 60%;
+}
+
+.box2 {
+  background-color: green;
+  top: 40%;
+  left: 10%;
+/*   transform: translate3d(250%, 250%, 0); */
+}
+
+.box3 {
+  background-color: blue;
+  top: 60%;
+  left: 40%;
+/*   transform: translate3d(100%, 300%, 0); */
 }
 
 .landing-name-holder {

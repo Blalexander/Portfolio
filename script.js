@@ -399,6 +399,10 @@ function sticktothetop() {
     // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.05 + "px, 0)";
     // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.1 + "px, 0)";
     document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
+    document.querySelector('.box1').style.transform = "translate3d(0, " + (window_top)*0.35 + "px, 0)";
+    document.querySelector('.box2').style.transform = "translate3d(0, " + (window_top)*0.225 + "px, 0)";
+    document.querySelector('.box3').style.transform = "translate3d(0, " + (window_top)*0.1 + "px, 0)";
+
     // document.querySelector('.line-container').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
     // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
   }
