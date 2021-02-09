@@ -85,21 +85,21 @@ main {
 }
 
 .box1 {
-  background-color: red;
+/*   background-color: red; */
 /*   transform: translate3d(150%, 125%, 0px); */
   top: 10%;
   left: 60%;
 }
 
 .box2 {
-  background-color: green;
+/*   background-color: green; */
   top: 40%;
   left: 10%;
 /*   transform: translate3d(250%, 250%, 0); */
 }
 
 .box3 {
-  background-color: blue;
+/*   background-color: blue; */
   top: 60%;
   left: 40%;
 /*   transform: translate3d(100%, 300%, 0); */

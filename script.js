@@ -43,6 +43,124 @@ function step(timestamp) {
 
 
 
+makeLandingBg();
+// makeAboutBg();
+
+function makeLandingBg() {
+
+  const scene = new THREE.Scene();  
+  scene.background = new THREE.Color( 0xffffff );
+  const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 ); 
+
+  const renderer = new THREE.WebGLRenderer(); 
+  // const renderer = new THREE.WebGLRenderer({ alpha: true }); 
+  // renderer.setSize( window.innerWidth, window.innerHeight ); 
+  let centerP = document.querySelector('.box1')
+  // renderer.setSize( window.innerHeight*0.69, window.innerHeight*0.69 ); 
+  // window.addEventListener('resize', () => {
+  //   renderer.setSize(window.innerHeight*0.69, window.innerHeight*0.69);
+  renderer.setSize( window.innerHeight*0.6, window.innerHeight*0.6 ); 
+  window.addEventListener('resize', () => {
+    renderer.setSize(window.innerHeight*0.6, window.innerHeight*0.6);
+    camera.aspect = window.innerWidth / window.innerHeight;
+
+    camera.updateProjectionMatrix();
+  })
+  // centerP.appendChild( renderer.domElement );
+  // document.querySelector('.moving-bg').appendChild( renderer.domElement );
+
+
+  const geometry1 = new THREE.OctahedronBufferGeometry( 1 );
+  // const material1 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+  const material1 = new THREE.MeshLambertMaterial( { color: 0x0000ff, wireframe: true, depthTest: true, depthWrite: true } );
+  const octa1 = new THREE.Mesh( geometry1, material1 );
+
+  const geometry2 = new THREE.OctahedronBufferGeometry( 0.9 );
+  // const material2 = new THREE.MeshBasicMaterial( { color: 0xff1100, wireframe: true } );
+  const material2 = new THREE.MeshLambertMaterial( { color: 0x0003ff, wireframe: true, depthTest: true, depthWrite: true } );
+  const octa2 = new THREE.Mesh( geometry2, material2 );
+
+  const geometry3 = new THREE.OctahedronBufferGeometry( 0.8 );
+  // const material3 = new THREE.MeshBasicMaterial( { color: 0xff2200, wireframe: true } );
+  const material3 = new THREE.MeshLambertMaterial( { color: 0x0051ff, wireframe: true, depthTest: true, depthWrite: true } )
+  const octa3 = new THREE.Mesh( geometry3, material3 );
+
+  const geometry4 = new THREE.OctahedronBufferGeometry( 0.5 );
+  // const material4 = new THREE.MeshBasicMaterial( { color: 0xff3300, wireframe: true } );
+  const material4 = new THREE.MeshLambertMaterial( { color: 0x006aff, wireframe: true, depthTest: true, depthWrite: true } )
+  const octa4 = new THREE.Mesh( geometry4, material4 );
+
+  const geometry5 = new THREE.OctahedronBufferGeometry( 0.4 );
+  // const material5 = new THREE.MeshBasicMaterial( { color: 0xff3300, wireframe: true} );
+  const material5 = new THREE.MeshLambertMaterial( { color: 0x007fff, wireframe: true, depthTest: true, depthWrite: true } )
+  const octa5 = new THREE.Mesh( geometry5, material5 );
+
+  const geometry6 = new THREE.OctahedronBufferGeometry( 0.25 );
+  // const material6 = new THREE.MeshLambertMaterial( { color: 0xff6600, transparent: true, depthTest: true, depthWrite: true, opacity: 0.3 } );
+  const material6 = new THREE.MeshLambertMaterial( { color: 0x008dff, wireframe: true, depthTest: true, depthWrite: true } );
+  const octa6 = new THREE.Mesh( geometry6, material6 );
+
+  // const geometry6 = new THREE.OctahedronBufferGeometry( 0.25 );
+  // const material6 = new THREE.WireframeGeometry( geometry6 );
+  // const octa6 = new THREE.LineSegments( material6 );
+  // octa6.material.depthTest = false;
+  // octa6.material.opacity = 0.25;
+  // octa6.material.transparent = true;
+
+  // const geometry7 = new THREE.OctahedronBufferGeometry( 0.15 );
+  // const material7 = new THREE.MeshBasicMaterial( { color: 0xff6600, transparent: false, depthTest: true, depthWrite: true, opacity: 0.6, side: THREE.FrontSide } );
+  // const octa7 = new THREE.Mesh( geometry7, material7 );
+
+  const geometry7 = new THREE.OctahedronBufferGeometry( 0.15 );
+  // const material7 = new THREE.MeshLambertMaterial( { color: 0xff6600, depthTest: true, depthWrite: true, opacity: 0.4 } );
+  const material7 = new THREE.MeshLambertMaterial( { color: 0x0096ff, wireframe: true, depthTest: true, depthWrite: true } );
+  const octa7 = new THREE.Mesh( geometry7, material7 );
+
+
+  const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+  directionalLight.position.set(20, 0, 25)
+
+
+  scene.add( octa1, octa2, octa3, octa4, octa5, octa6, octa7, directionalLight );
+
+  camera.position.z = 1;
+  // camera.position.y = .1;
+
+  const render = function () {
+      requestAnimationFrame( render );
+
+      octa1.rotation.y += 0.001;
+      octa2.rotation.y += 0.001;
+      octa3.rotation.y += 0.001;
+      octa4.rotation.y += 0.0014;
+      octa5.rotation.y += 0.0014;
+      octa6.rotation.y += 0.0016;
+      octa7.rotation.y += 0.0016;
+
+      octa1.rotation.z += 0.001;
+      octa2.rotation.z += 0.001;
+      octa3.rotation.z += 0.001;
+      octa4.rotation.z += 0.0014;
+      octa5.rotation.z += 0.0014;
+      octa6.rotation.z += 0.0016;
+      octa7.rotation.z += 0.0016;
+
+      // octa1.rotation.x += 0.001;
+      // octa2.rotation.x += 0.0011;
+      // octa3.rotation.x += 0.0012;
+      // octa4.rotation.x += 0.0013;
+      // octa5.rotation.x += 0.0013;
+      // octa6.rotation.x += 0.0014;
+
+      renderer.render(scene, camera);
+  };
+
+  render();
+}
+
+
+
+
 
 $(document).ready(function() {
   // console.log("made it this far!")
@@ -399,9 +517,6 @@ function sticktothetop() {
     // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.05 + "px, 0)";
     // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.1 + "px, 0)";
     document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    document.querySelector('.box1').style.transform = "translate3d(0, " + (window_top)*0.35 + "px, 0)";
-    document.querySelector('.box2').style.transform = "translate3d(0, " + (window_top)*0.225 + "px, 0)";
-    document.querySelector('.box3').style.transform = "translate3d(0, " + (window_top)*0.1 + "px, 0)";
 
     // document.querySelector('.line-container').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
     // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
