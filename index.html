@@ -34,6 +34,7 @@
     <main>
 
       <section class="landing-page">
+        <div class="lp-bg"></div>
 
         <div class="landing-name-holder">
           <div class="primary letters">
@@ -127,7 +128,7 @@
               <a href="https://github.com/Blalexander/Destiny-2-Server/" target="_blank" class="project-buttons view-server-code">VIEW SERVER CODE</a>
             </div>
             <div class="thumbnail-image">
-              <img class="img-to-move0" src="/screenshots/dmtfinalandingfix.png" alt="Destiny MetaTrends">
+              <img class="img-to-move0" src="/screenshots/dmtbg1.png" alt="Destiny MetaTrends">
             </div>
           </div>
           <!-- <div class="project-outline"></div> -->
@@ -160,7 +161,7 @@
               <a href="https://github.com/Blalexander/Flexbox-Sandbox/" target="_blank" class="project-buttons view-code">VIEW CODE</a>
             </form>
             <div class="thumbnail-image">
-              <img class="img-to-move1" src="/screenshots/flexboxsandboxfix.png" alt="Destiny MetaTrends">
+              <img class="img-to-move1" src="/screenshots/fbsbbg1.png" alt="Destiny MetaTrends">
             </div>
           </div>
           <!-- <div class="project-outline"></div> -->
@@ -190,7 +191,7 @@
               <a href="https://github.com/Blalexander/TakeMeThere/" target="_blank" class="project-buttons view-code">VIEW CODE</a>
             </form>
             <div class="thumbnail-image">
-              <img class="img-to-move2" src="/screenshots/takemetherefix.png" alt="Destiny MetaTrends">
+              <img class="img-to-move2" src="/screenshots/tmtbg1.png" alt="Destiny MetaTrends">
             </div>
           </div>
           <!-- <div class="project-outline"></div> -->
@@ -316,6 +317,36 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/gsap.min.js"></script>
+    <script type="x-shader/x-vertex" id="vertexshader">
+
+			attribute float scale;
+
+			void main() {
+
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+				gl_PointSize = scale * ( 300.0 / - mvPosition.z );
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentshader">
+
+			uniform vec3 color;
+
+			void main() {
+
+				if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;
+
+				gl_FragColor = vec4( color, 1.0 );
+
+			}
+
+		</script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
   </body>

@@ -63,6 +63,11 @@ main {
   perspective-origin: center;
 }
 
+.lp-bg {
+  height: 155vh;
+/*   width: 100%; */
+}
+
 .home-page-header {
   position: absolute;
   top: 1em;
@@ -401,14 +406,14 @@ main {
   margin-bottom: 10vh;
   z-index: 5;
   display: grid;
-  grid-template-areas: "title thumbnail" "description thumbnail" "description technologies";
+  grid-template-areas: "title thumbnail" "description thumbnail" "technologies thumbnail";
 }
 
 
 
 .project-thumbnail {
   height: 30vh;
-  width: 40vw;
+  width: 30vw;
   position: relative;
   margin-left: 10vw;
   background-color: white;
@@ -420,7 +425,7 @@ main {
 
 .thumbnail-image {
   height: 30vh;
-  width: 40vw;
+  width: 30vw;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -453,7 +458,7 @@ main {
 
 .project-buttons-container {
   height: 30vh;
-  width: 40vw;
+  width: 30vw;
   position: absolute;
   z-index: 15;
   display: flex;
@@ -513,12 +518,14 @@ main {
 .project-title {
   transition-delay: 0.35s;
   font-family: 'Montserrat', sans-serif;
-  font-size: 2.5em;
+  font-size: 3em;
   font-weight: lighter;
-    white-space: nowrap;
+  white-space: nowrap;
   grid-area: title;
-  height: 20vh;
-  line-height: 20vh;
+  height: 10vh;
+  margin-left: 10vw;
+  text-align: left;
+/*   line-height: 12vh; */
   opacity: 0;
   transition: 1s;
 }
@@ -534,21 +541,26 @@ main {
 .project-description {
   transition-delay: 0.45s;
   line-height: 1.7;
+  font-size: 1.3em;
+  text-align: left;
   grid-area: description;
-  height: 20vh;
-  width: 40vw;
-  padding-left: 5%;
+  height: 15vh;
+  width: 30vw;
+  margin-left: 10vw;
+/*   padding-left: 5%; */
   padding-right: 5%;
   opacity: 0;
   transition: 1s;
   transition-delay: 0.5s;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .project-technologies {
-  height: 8vh;
-  width: 40vw;
+  height: 5vh;
+  width: 30vw;
+  text-align: left;
   margin-left: 10vw;
+  line-height: 8vh;
 }
 
 .tech-icon {
@@ -557,11 +569,27 @@ main {
   margin-right: 1em;
 }
 
+.project-one-container .tech-icon path {
+  fill: #e57f17;
+}
+
+.project-two-container .tech-icon path {
+  fill: #01ff7f;
+}
+
+.project-three-container .tech-icon path {
+  fill: #6fcdfc;
+}
+
+.tech-icon[data-name*="js"] {
+  margin-left: 0;
+}
+
 .tech-icon * {
   fill: orangered;
 }
 
-.html5fill {
+.project-three-container .tech-icon .html5fill {
   fill: #000e13;
 }
 
@@ -625,13 +653,13 @@ main {
 }
 
 .about-me-body {
-  height: 40vh;
+  height: 60vh;
 /*   height: 30vh; */
-  width: 60vw;
+  width: 80vw;
 /*   width: 100vw; */
   top: -10%;
 /*   right: 10%; */
-  left: 20vw;
+  left: 10vw;
   position: absolute;
   z-index: 5;
   background-color: white;
@@ -645,10 +673,10 @@ main {
 }
 
 .am-body-content {
-  padding: 10%;
+/*   padding: 10%; */
   height: 100%;
-  font-size: 1.2em;
-  line-height: 27px;
+  font-size: 3em;
+/*   line-height: 27px; */
   display: flex;
   flex-flow: column nowrap;
 /*   align-items: center; */
@@ -674,6 +702,7 @@ main {
   z-index: 12;
     transition: 1s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  display: none;
 }
 
 .background-fade-right {
@@ -686,6 +715,8 @@ main {
   z-index: 12;
     transition: 1s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  display: none;
+  
 }
 
 .about-me-trigger {

@@ -5,158 +5,179 @@ $(function() {
 });
 
 
-let start;
 
-function step(timestamp) {
-  if (start === undefined)
-    start = timestamp;
-  const elapsed = timestamp - start;
-  console.log(start)
 
-  let l1 = document.querySelector('.line1').getBoundingClientRect()
-  let findAngle = document.querySelector('.projects-container').getBoundingClientRect()
-  let y1 = (findAngle.y*0.8) - l1.bottom
-  let x1 = findAngle.right - l1.right
-  let y2 = (findAngle.y) - l1.bottom
-  let x2 = findAngle.x - l1.x
-  let angle = Math.atan2(y1, x1)
-  let angle2 = Math.atan2(y2, x2)
-  angle = 1 - angle
 
-  // console.log(angle)
 
-  // document.querySelector('.line2').style.transform = "rotate3d(1, 0, 1, -" + angle*100 + "deg)"
-  // document.querySelector('.line3').style.transform = "rotate3d(1, 0, 1, " + angle*100 + "deg)"
 
-  document.querySelector('.svg-triangle').setAttribute("width", findAngle.width)
-  document.querySelector('.svg-triangle').setAttribute("height", (findAngle.height * 0.25))
-  document.querySelector('.polygon-triangle').setAttribute("points", l1.right + "," + (findAngle.height * 0.1) + " " + findAngle.right + "," + findAngle.top + " " + findAngle.left + "," + findAngle.top)
 
-  if (elapsed < 2000) { // Stop the animation after 2 seconds
-    window.requestAnimationFrame(step);
+
+
+
+
+
+const SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;
+
+let container;
+let camera, scene, renderer;
+
+let particles, count = 0;
+
+let mouseX = 0, mouseY = 0;
+
+let windowHalfX = window.innerWidth / 2;
+let windowHalfY = window.innerHeight / 2;
+
+init();
+animate();
+
+function init() {
+
+  container = document.querySelector('.lp-bg');
+  // document.body.appendChild( container );
+
+  camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+  camera.position.z = 1000;
+
+  scene = new THREE.Scene();
+
+  //
+
+  const numParticles = AMOUNTX * AMOUNTY;
+
+  const positions = new Float32Array( numParticles * 3 );
+  const scales = new Float32Array( numParticles );
+
+  let i = 0, j = 0;
+
+  for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+
+    for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+
+      positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
+      positions[ i + 1 ] = 0; // y
+      positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
+
+      scales[ j ] = 1;
+
+      i += 3;
+      j ++;
+
+    }
+
   }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+  geometry.setAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
+
+  const material = new THREE.ShaderMaterial( {
+
+    uniforms: {
+      color: { value: new THREE.Color( 0xffffff ) },
+    },
+    vertexShader: document.getElementById( 'vertexshader' ).textContent,
+    fragmentShader: document.getElementById( 'fragmentshader' ).textContent
+
+  } );
+
+  //
+
+  particles = new THREE.Points( geometry, material );
+  scene.add( particles );
+
+  //
+
+  renderer = new THREE.WebGLRenderer( { antialias: true } );
+  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  container.appendChild( renderer.domElement );
+
+  // stats = new Stats();
+  // container.appendChild( stats.dom );
+
+  container.style.touchAction = 'none';
+  container.addEventListener( 'pointermove', onPointerMove );
+
+  //
+
+  window.addEventListener( 'resize', onWindowResize );
+
 }
 
-// window.requestAnimationFrame(step);
+function onWindowResize() {
 
+  windowHalfX = window.innerWidth / 2;
+  windowHalfY = window.innerHeight / 2;
 
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
 
+  renderer.setSize( window.innerWidth, window.innerHeight );
 
+}
 
-makeLandingBg();
-// makeAboutBg();
+//
 
-function makeLandingBg() {
+function onPointerMove( event ) {
 
-  const scene = new THREE.Scene();  
-  scene.background = new THREE.Color( 0xffffff );
-  const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 ); 
+  if ( event.isPrimary === false ) return;
 
-  const renderer = new THREE.WebGLRenderer(); 
-  // const renderer = new THREE.WebGLRenderer({ alpha: true }); 
-  // renderer.setSize( window.innerWidth, window.innerHeight ); 
-  let centerP = document.querySelector('.box1')
-  // renderer.setSize( window.innerHeight*0.69, window.innerHeight*0.69 ); 
-  // window.addEventListener('resize', () => {
-  //   renderer.setSize(window.innerHeight*0.69, window.innerHeight*0.69);
-  renderer.setSize( window.innerHeight*0.6, window.innerHeight*0.6 ); 
-  window.addEventListener('resize', () => {
-    renderer.setSize(window.innerHeight*0.6, window.innerHeight*0.6);
-    camera.aspect = window.innerWidth / window.innerHeight;
+  mouseX = event.clientX - windowHalfX;
+  mouseY = event.clientY - windowHalfY;
 
-    camera.updateProjectionMatrix();
-  })
-  // centerP.appendChild( renderer.domElement );
-  // document.querySelector('.moving-bg').appendChild( renderer.domElement );
+}
 
+//
 
-  const geometry1 = new THREE.OctahedronBufferGeometry( 1 );
-  // const material1 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-  const material1 = new THREE.MeshLambertMaterial( { color: 0x0000ff, wireframe: true, depthTest: true, depthWrite: true } );
-  const octa1 = new THREE.Mesh( geometry1, material1 );
+function animate() {
 
-  const geometry2 = new THREE.OctahedronBufferGeometry( 0.9 );
-  // const material2 = new THREE.MeshBasicMaterial( { color: 0xff1100, wireframe: true } );
-  const material2 = new THREE.MeshLambertMaterial( { color: 0x0003ff, wireframe: true, depthTest: true, depthWrite: true } );
-  const octa2 = new THREE.Mesh( geometry2, material2 );
-
-  const geometry3 = new THREE.OctahedronBufferGeometry( 0.8 );
-  // const material3 = new THREE.MeshBasicMaterial( { color: 0xff2200, wireframe: true } );
-  const material3 = new THREE.MeshLambertMaterial( { color: 0x0051ff, wireframe: true, depthTest: true, depthWrite: true } )
-  const octa3 = new THREE.Mesh( geometry3, material3 );
-
-  const geometry4 = new THREE.OctahedronBufferGeometry( 0.5 );
-  // const material4 = new THREE.MeshBasicMaterial( { color: 0xff3300, wireframe: true } );
-  const material4 = new THREE.MeshLambertMaterial( { color: 0x006aff, wireframe: true, depthTest: true, depthWrite: true } )
-  const octa4 = new THREE.Mesh( geometry4, material4 );
-
-  const geometry5 = new THREE.OctahedronBufferGeometry( 0.4 );
-  // const material5 = new THREE.MeshBasicMaterial( { color: 0xff3300, wireframe: true} );
-  const material5 = new THREE.MeshLambertMaterial( { color: 0x007fff, wireframe: true, depthTest: true, depthWrite: true } )
-  const octa5 = new THREE.Mesh( geometry5, material5 );
-
-  const geometry6 = new THREE.OctahedronBufferGeometry( 0.25 );
-  // const material6 = new THREE.MeshLambertMaterial( { color: 0xff6600, transparent: true, depthTest: true, depthWrite: true, opacity: 0.3 } );
-  const material6 = new THREE.MeshLambertMaterial( { color: 0x008dff, wireframe: true, depthTest: true, depthWrite: true } );
-  const octa6 = new THREE.Mesh( geometry6, material6 );
-
-  // const geometry6 = new THREE.OctahedronBufferGeometry( 0.25 );
-  // const material6 = new THREE.WireframeGeometry( geometry6 );
-  // const octa6 = new THREE.LineSegments( material6 );
-  // octa6.material.depthTest = false;
-  // octa6.material.opacity = 0.25;
-  // octa6.material.transparent = true;
-
-  // const geometry7 = new THREE.OctahedronBufferGeometry( 0.15 );
-  // const material7 = new THREE.MeshBasicMaterial( { color: 0xff6600, transparent: false, depthTest: true, depthWrite: true, opacity: 0.6, side: THREE.FrontSide } );
-  // const octa7 = new THREE.Mesh( geometry7, material7 );
-
-  const geometry7 = new THREE.OctahedronBufferGeometry( 0.15 );
-  // const material7 = new THREE.MeshLambertMaterial( { color: 0xff6600, depthTest: true, depthWrite: true, opacity: 0.4 } );
-  const material7 = new THREE.MeshLambertMaterial( { color: 0x0096ff, wireframe: true, depthTest: true, depthWrite: true } );
-  const octa7 = new THREE.Mesh( geometry7, material7 );
-
-
-  const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
-  directionalLight.position.set(20, 0, 25)
-
-
-  scene.add( octa1, octa2, octa3, octa4, octa5, octa6, octa7, directionalLight );
-
-  camera.position.z = 1;
-  // camera.position.y = .1;
-
-  const render = function () {
-      requestAnimationFrame( render );
-
-      octa1.rotation.y += 0.001;
-      octa2.rotation.y += 0.001;
-      octa3.rotation.y += 0.001;
-      octa4.rotation.y += 0.0014;
-      octa5.rotation.y += 0.0014;
-      octa6.rotation.y += 0.0016;
-      octa7.rotation.y += 0.0016;
-
-      octa1.rotation.z += 0.001;
-      octa2.rotation.z += 0.001;
-      octa3.rotation.z += 0.001;
-      octa4.rotation.z += 0.0014;
-      octa5.rotation.z += 0.0014;
-      octa6.rotation.z += 0.0016;
-      octa7.rotation.z += 0.0016;
-
-      // octa1.rotation.x += 0.001;
-      // octa2.rotation.x += 0.0011;
-      // octa3.rotation.x += 0.0012;
-      // octa4.rotation.x += 0.0013;
-      // octa5.rotation.x += 0.0013;
-      // octa6.rotation.x += 0.0014;
-
-      renderer.render(scene, camera);
-  };
+  requestAnimationFrame( animate );
 
   render();
+  // stats.update();
+
 }
+
+function render() {
+
+  camera.position.x += ( mouseX - camera.position.x ) * .05;
+  camera.position.y += ( - mouseY - camera.position.y ) * .05;
+  camera.lookAt( scene.position );
+
+  const positions = particles.geometry.attributes.position.array;
+  const scales = particles.geometry.attributes.scale.array;
+
+  let i = 0, j = 0;
+
+  for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+
+    for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+
+      positions[ i + 1 ] = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
+              ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
+
+      scales[ j ] = ( Math.sin( ( ix + count ) * 0.3 ) + 1 ) * 20 +
+              ( Math.sin( ( iy + count ) * 0.5 ) + 1 ) * 20;
+
+      i += 3;
+      j ++;
+
+    }
+
+  }
+
+  particles.geometry.attributes.position.needsUpdate = true;
+  particles.geometry.attributes.scale.needsUpdate = true;
+
+  renderer.render( scene, camera );
+
+  count += 0.1;
+
+}
+
+
+
 
 
 
