@@ -707,10 +707,5 @@ function sticktothetop() {
     document.querySelector('.background-gradient').style.backgroundColor = "transparent";
   }
 
-  if(backgroundScrollVal > 0.23 && backgroundScrollVal < 0.59 || backgroundScrollVal > 0.8) {
-    document.querySelector('.nav-buttons').classList.add('high-contrast')
-  }
-  else if(backgroundScrollVal < 0.23 || backgroundScrollVal > 0.59 && backgroundScrollVal < 0.8) {
-    document.querySelector('.nav-buttons').classList.remove('high-contrast')
-  }
+
 }

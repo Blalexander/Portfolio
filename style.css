@@ -206,6 +206,7 @@ main {
   justify-content: center;
   align-items: flex-start;
   transition: 0.5s;
+  mix-blend-mode: difference;
 }
 
 .nav-buttons {
@@ -224,7 +225,7 @@ main {
   background-color: transparent;
   position: relative;
   color: white;
-  color: #062d3e;
+/*   color: #062d3e; */
 }
 
 .nav-button:hover {
