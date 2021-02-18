@@ -32,7 +32,7 @@ body {
 
 main {
   position: fixed;
-  height: auto;
+  height: 520vh;
   top: 0;
   left: 0;
   transition: 0.5s;
@@ -66,49 +66,12 @@ main {
 .lp-bg {
   height: 155vh;
 /*   width: 100%; */
+  background-color: white;
+  
 }
 
-.home-page-header {
-  position: absolute;
-  top: 1em;
-  left: 1em;
-}
 
-.hp-text {
-  font-weight: lighter;
-}
 
-.box {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 20vh;
-  width: 20vw;
-  z-index: -1;
-  transition: 0.5s;
-  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
-}
-
-.box1 {
-/*   background-color: red; */
-/*   transform: translate3d(150%, 125%, 0px); */
-  top: 10%;
-  left: 60%;
-}
-
-.box2 {
-/*   background-color: green; */
-  top: 40%;
-  left: 10%;
-/*   transform: translate3d(250%, 250%, 0); */
-}
-
-.box3 {
-/*   background-color: blue; */
-  top: 60%;
-  left: 40%;
-/*   transform: translate3d(100%, 300%, 0); */
-}
 
 .landing-name-holder {
   position: fixed;
@@ -119,6 +82,7 @@ main {
   z-index: 9;
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  pointer-events: none;
 }
 
 /* .landing-name-holder:before {
@@ -160,7 +124,7 @@ main {
 .primary .letter {
   color: white;
   color: #062d3e;
-/*   color: #7f8689; */
+  color: #000e13;
   z-index: 8;
 /*   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); */
 }
@@ -178,6 +142,8 @@ main {
   z-index: 10;
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  pointer-events: none;
+  
 }
 
 .landing-title div {
@@ -193,6 +159,7 @@ main {
   background-clip: text;
   color: #dccca4;
   color: #000e13;
+/*   color: #062d3e; */
 
   
 }
@@ -236,7 +203,7 @@ main {
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-start;
   transition: 0.5s;
 }
@@ -305,7 +272,7 @@ main {
 /* ------------- PROJECTS HEADER ------------- */
 .projects-header {
   position: relative;
-  top: -135%;
+  top: 0;
   left: 5px;
   z-index: 13;
   height: 15vh;
@@ -315,6 +282,7 @@ main {
   overflow: hidden;
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  opacity: 0;
 }
 
 .ph-bg {
@@ -359,7 +327,33 @@ main {
 
 
 
+.projects-header1 {
+  position: relative;
+  height: 10vh;
+  width: 100%;
+  z-index: 14;
+}
 
+.ph-text {
+  line-height: 1.35;
+  font-family: 'Lora', serif; 
+  transform: translate3d(25%, -50%, 0) scale3d(1, 1.8, 1);
+  font-size: 10em;
+  color: white;
+/*   transition: 2s; */
+/*   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1); */
+  
+}
+
+.ph-text.move-down {
+  animation: move-me 1.5s ease forwards;
+}
+
+@keyframes move-me {
+  0% {transform: translate3d(25%, -50%, 0) scale3d(1, 1.8, 1)}
+  50% {transform: translate3d(25%, 50%, 0) scale3d(1, 0.9, 1)}
+  100% {transform: translate3d(-1.5%, 50%, 0) scale3d(0.6, 0.9, 1)}
+}
 
 
 
@@ -421,6 +415,9 @@ main {
   background-repeat: no-repeat;
   background-size: cover;
   grid-area: thumbnail;
+  opacity: 0;
+  transition: 1s;
+  transition-delay: 0.7s;
 }
 
 .thumbnail-image {
@@ -561,6 +558,9 @@ main {
   text-align: left;
   margin-left: 10vw;
   line-height: 8vh;
+  opacity: 0;
+  transition: 1s;
+  transition-delay: 0.35s;
 }
 
 .tech-icon {
@@ -612,8 +612,11 @@ main {
   transition: 0.2s;
   z-index: 9;
   transition: 0.5s;
-  background-color: white;
+  background-color: white; 
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  box-shadow: 0px 100px 100px rgba(0, 0, 0, 1);
+  
+/*   display: none; */
 }
 
 .about-me-label {
@@ -631,6 +634,8 @@ main {
   font-weight: lighter;
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  display: none;
+  
 }
 
 
@@ -657,7 +662,7 @@ main {
 /*   height: 30vh; */
   width: 80vw;
 /*   width: 100vw; */
-  top: -10%;
+  top: -20%;
 /*   right: 10%; */
   left: 10vw;
   position: absolute;
@@ -692,32 +697,6 @@ main {
   text-align: left;
 }
 
-.background-fade-left {
-  position: absolute;
-  top: 60vh;
-  height: 60vh;
-  width: 100vw;
-/*   background-color: red; */
-  background-image: linear-gradient(to top right, white, white, transparent);
-  z-index: 12;
-    transition: 1s;
-  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
-  display: none;
-}
-
-.background-fade-right {
-  position: absolute;
-  top: 60vh;
-  height: 60vh;
-  width: 100vw;
-/*   background-color: red; */
-  background-image: linear-gradient(to bottom left, white, white, transparent);
-  z-index: 12;
-    transition: 1s;
-  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
-  display: none;
-  
-}
 
 .about-me-trigger {
   position: absolute;
@@ -735,14 +714,29 @@ main {
 .contact-section {
   height: 100vh;
   width: 100%;
-  position: relative;
+/*   position: relative; */
+  position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 11;
+  z-index: 9;
   display: flex;
   align-items: flex-end;
   background-color: white;
   transition: 0.5s;
+/*   background-color: #000e13; */
+  
+}
+
+.contact-card-bg {
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000e13;
+  border: 10px solid transparent;
+/*   clip-path: circle(30% at 50% 50%); */
 }
 
 .background-gradient {
@@ -753,6 +747,7 @@ main {
   z-index: -1;
   transition: 0.75s;
   pointer-events: none;
+  display: none;
 }
 
 .background-gradient:before {
@@ -762,7 +757,8 @@ main {
   left: 10vw;
   height: 70vh;
   width: 80vw;
-  border: 2px dotted rgba(255, 255, 255, 0.3);
+  border: 1px dotted rgba(255, 255, 255, 1);
+  z-index: 1;
 }
 
 .background-gradient:after {
@@ -772,8 +768,9 @@ main {
   left: 20vw;
   height: 0vh;
   width: 60vw;
-  border-top: 2px dotted rgba(255, 255, 255, 0.3);
+  border-top: 1px dotted rgba(255, 255, 255, 1);
   transform: translate3d(0, 0, 200px);
+  z-index: 1;
 }
 
 .lets-talk-container {
@@ -816,7 +813,7 @@ main {
 
 
 .contact-card-outer {
-  height: 50vh;
+  height: 100vh;
   width: 100%;
   transition: 1.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
@@ -827,13 +824,17 @@ main {
 }
 
 .contact-card-inner {
-  height: 100%;
-  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  padding-top: 45vh;
+  padding-bottom: 5vh;
   display: grid;
   grid-template-areas: "email email" "call call" "work resume";
   justify-content: center;
   transition: 0.5s;
-  border-bottom: 10vh solid transparent;
   opacity: 0;
 }
 

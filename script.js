@@ -10,6 +10,90 @@ $(function() {
 
 
 
+// var container = document.querySelector('.lp-bg')
+
+// var vertexHeight = 15000,
+//   planeDefinition = 100,
+//   planeSize = 1245000,
+//   totalObjects = 1,
+//   background = "#ffffff",
+//   meshColor = "#008080"; 
+
+// var camera = new THREE.PerspectiveCamera(55, window.innerWidth / (window.innerHeight * 1.55), 1, 400000)
+// camera.position.z = 10000;
+// camera.position.y = 10000;
+
+// var scene = new THREE.Scene();
+// scene.fog = new THREE.Fog(background, 1, 300000);
+
+// var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
+// var plane = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({
+//   color: meshColor,
+//   wireframe: true
+// }));
+// // plane.rotation.x -= Math.PI * .5;
+// plane.rotation.x -= 4 * .5;
+
+
+
+// scene.add(plane);
+
+// var renderer = new THREE.WebGLRenderer({alpha: false});
+// renderer.setSize(window.innerWidth, (window.innerHeight * 1.55));
+// renderer.setClearColor(background, 1);
+
+// container.appendChild(renderer.domElement);
+
+
+// updatePlane();
+
+// function updatePlane() {
+//   for (var i = 0; i < planeGeo.vertices.length; i++) {
+//     planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight;
+//     planeGeo.vertices[i]._myZ = planeGeo.vertices[i].z
+//   }
+// };
+
+// render();
+
+// var count = 0
+// function render() {
+//   requestAnimationFrame(render);
+//   // camera.position.z -= 150;
+//   var x = camera.position.x;
+//   var y = camera.position.y;
+//   var z = camera.position.z;
+//   // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
+//   // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 1;
+
+//   // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
+//   // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 1;
+
+//   // camera.position.y = y * Math.cos(0.001) + z * Math.sin(0.001) - ;
+
+
+//   camera.lookAt(new THREE.Vector3(0, 8000, 0))
+
+//   for (var i = 0; i < planeGeo.vertices.length; i++) {
+//     var z = +planeGeo.vertices[i].z;
+//     planeGeo.vertices[i].z = Math.sin(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 0.6))
+//     plane.geometry.verticesNeedUpdate = true;
+
+//     count += 0.01
+//   }
+
+//   renderer.render(scene, camera);
+// }
+
+// window.addEventListener('resize', onWindowResize, false);
+
+// function onWindowResize() {
+//   //changes the size of the canavs and updates it
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// }
+
 
 
 
@@ -34,14 +118,12 @@ animate();
 function init() {
 
   container = document.querySelector('.lp-bg');
-  // document.body.appendChild( container );
 
-  camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+  camera = new THREE.PerspectiveCamera( 75, (window.innerWidth * 1) / (window.innerHeight * 3), 1, 10000 );
   camera.position.z = 1000;
 
   scene = new THREE.Scene();
-
-  //
+  scene.background = new THREE.Color( 0xffffff );
 
   const numParticles = AMOUNTX * AMOUNTY;
 
@@ -62,9 +144,7 @@ function init() {
 
       i += 3;
       j ++;
-
     }
-
   }
 
   const geometry = new THREE.BufferGeometry();
@@ -74,32 +154,24 @@ function init() {
   const material = new THREE.ShaderMaterial( {
 
     uniforms: {
-      color: { value: new THREE.Color( 0xffffff ) },
+      // color: { value: new THREE.Color( 0xffffff ) },
+      color: { value: new THREE.Color( 0x062d3e ) },
+      // color: { value: new THREE.Color( 0x008080 ) },
     },
     vertexShader: document.getElementById( 'vertexshader' ).textContent,
     fragmentShader: document.getElementById( 'fragmentshader' ).textContent
-
   } );
-
-  //
 
   particles = new THREE.Points( geometry, material );
   scene.add( particles );
 
-  //
-
   renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
-  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.setSize( window.innerWidth, (window.innerHeight * 1.55) );
   container.appendChild( renderer.domElement );
-
-  // stats = new Stats();
-  // container.appendChild( stats.dom );
 
   container.style.touchAction = 'none';
   container.addEventListener( 'pointermove', onPointerMove );
-
-  //
 
   window.addEventListener( 'resize', onWindowResize );
 
@@ -110,39 +182,35 @@ function onWindowResize() {
   windowHalfX = window.innerWidth / 2;
   windowHalfY = window.innerHeight / 2;
 
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = window.innerWidth / (window.innerHeight * 3);
   camera.updateProjectionMatrix();
 
-  renderer.setSize( window.innerWidth, window.innerHeight );
-
+  renderer.setSize( window.innerWidth, (window.innerHeight * 1.55) );
 }
 
-//
 
 function onPointerMove( event ) {
 
   if ( event.isPrimary === false ) return;
 
   mouseX = event.clientX - windowHalfX;
-  mouseY = event.clientY - windowHalfY;
+  // mouseY = event.clientY - windowHalfY;
 
 }
-
-//
 
 function animate() {
 
   requestAnimationFrame( animate );
 
   render();
-  // stats.update();
-
 }
 
 function render() {
 
-  camera.position.x += ( mouseX - camera.position.x ) * .05;
-  camera.position.y += ( - mouseY - camera.position.y ) * .05;
+  camera.position.x += ( mouseX - camera.position.x ) * .001;
+  // camera.position.y += ( - mouseY - camera.position.y ) * .05;
+  // camera.position.y += ( 500 - camera.position.y ) * .05;
+  camera.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
   camera.lookAt( scene.position );
 
   const positions = particles.geometry.attributes.position.array;
@@ -172,7 +240,7 @@ function render() {
 
   renderer.render( scene, camera );
 
-  count += 0.1;
+  count += 0.05;
 
 }
 
@@ -345,6 +413,23 @@ gsap.from(".lt", 2, {
   }
 })
 
+// gsap.from(".ph-text", 2, {
+//   scrollTrigger: {
+//     trigger: ".projects-header1",
+//     toggleActions: "restart none none none"
+//   },
+//   xPercent: 25,
+//   scaleX: 1,
+//   scaleY: 1.8,
+//   // yPercent: 100,
+//   // delay: 3,
+//   // ease: "power4",
+//   opacity: 0,
+//   // repeat: -1,
+//   // repeatDelay: 2,
+
+// })
+
 gsap.from(".am-sentence", 1, {
   scrollTrigger: {
     trigger: ".about-me-trigger",
@@ -416,6 +501,8 @@ gsap.from(".lts", 1, {
     from: "random"
   }
 })
+
+
 
 const navButs = document.querySelectorAll('.nav-button')
 for(const navButton of navButs) {
@@ -500,7 +587,7 @@ function sticktothetop() {
 
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
-  document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1 + "px, 0)";
+  document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1.06 + "px, 0)";
   document.querySelector('.projects-header').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
   // document.querySelector('.ph-text').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
 
@@ -533,6 +620,15 @@ function sticktothetop() {
     // document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.8 + "px, 0)";
 
   // }
+
+  if(backgroundScrollVal > 0.2) {
+    document.querySelector('.ph-text').classList.add('move-down')
+  }
+  else if (backgroundScrollVal === 0) {
+    document.querySelector('.ph-text').classList.remove('move-down')
+
+
+  }
 
   if(backgroundScrollVal < 0.25) {
     // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.05 + "px, 0)";
@@ -575,36 +671,29 @@ function sticktothetop() {
   if(full_window_top / bodyHeight > 0.40) {
     document.querySelector('.proj1-title').style.opacity = 1
     document.querySelector('.proj1-description').style.opacity = 1
+    document.querySelector('.proj1-tech').style.opacity = 1
+    document.querySelector('.proj1-thumbnail').style.opacity = 1
+
   }
 
   if(full_window_top / bodyHeight > 0.47) {
     document.querySelector('.proj2-title').style.opacity = 1
     document.querySelector('.proj2-description').style.opacity = 1
+    document.querySelector('.proj2-tech').style.opacity = 1
+    document.querySelector('.proj2-thumbnail').style.opacity = 1
   }
 
   if(full_window_top / bodyHeight > 0.54) {
     document.querySelector('.proj3-title').style.opacity = 1
     document.querySelector('.proj3-description').style.opacity = 1
+    document.querySelector('.proj3-tech').style.opacity = 1
+    document.querySelector('.proj3-thumbnail').style.opacity = 1
   }
 
   if(full_window_top / bodyHeight > 0.65) {
     document.querySelector('.about-me-label').style.opacity = (1.8 - aboutOpacityVal2)
     // document.querySelector('.about-me-body').style.opacity = aboutOpacityVal2
 
-  }
-
-  if(backgroundScrollVal > 0.6) {
-    document.querySelector('.background-fade-left').style.opacity = 0;
-  }
-  else {
-    document.querySelector('.background-fade-left').style.opacity = 1;
-  }
-
-  if(backgroundScrollVal > 0.7) {
-    document.querySelector('.background-fade-right').style.opacity = 1;
-  }
-  else {
-    document.querySelector('.background-fade-right').style.opacity = 0;
   }
 
   if(backgroundScrollVal > 0.8) {
