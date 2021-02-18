@@ -545,7 +545,7 @@ main {
   width: 30vw;
   margin-left: 10vw;
 /*   padding-left: 5%; */
-  padding-right: 5%;
+/*   padding-right: 5%; */
   opacity: 0;
   transition: 1s;
   transition-delay: 0.5s;
@@ -1163,10 +1163,31 @@ i:hover {
     font-size: 8em;
   }
   .landing-title {
-    top: 25vh;
+    top: 75vh;
   }
   .landing-title div {
     font-size: 8em;
+  }
+}
+@media only screen and (max-width:1400px) and (min-width:1000px) {
+  .landing-name-holder {
+    top: 10vh;
+    left: 5vw;
+  }
+  .letter {
+    font-size: 8em;
+  }
+  .landing-title {
+    top: 75vh;
+  }
+  .landing-title div {
+    font-size: 8em;
+  }
+  .ph-text {
+    font-size: 8em;
+  }
+  .project-description {
+    font-size: 1em;
   }
 }
 
