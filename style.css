@@ -1186,6 +1186,9 @@ i:hover {
   .ph-text {
     font-size: 8em;
   }
+  .project-title {
+    width: 30vw;
+  }
   .project-description {
     font-size: 1em;
   }
