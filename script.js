@@ -167,7 +167,7 @@ function init() {
 
   renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
-  renderer.setSize( window.innerWidth, (window.innerHeight * 1.55) );
+  renderer.setSize( window.innerWidth, (window.innerHeight * 1.65) );
   container.appendChild( renderer.domElement );
 
   container.style.touchAction = 'none';
@@ -185,7 +185,7 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / (window.innerHeight * 3);
   camera.updateProjectionMatrix();
 
-  renderer.setSize( window.innerWidth, (window.innerHeight * 1.55) );
+  renderer.setSize( window.innerWidth, (window.innerHeight * 1.65) );
 }
 
 
@@ -502,6 +502,34 @@ gsap.from(".lts", 1, {
   }
 })
 
+gsap.from(".phl", 1.5, {
+  scrollTrigger: {
+    trigger: ".ph-text",
+    toggleActions: "restart none none none"
+  },
+  yPercent: -100,
+  xPercent: 500,
+  // scaleY: 1.8,
+  // scaleX: 1,
+  ease: "power3",
+  // opacity: 0,
+  stagger: {
+    amount: 0.1,
+    from: "edges"
+  }
+})
+
+gsap.from(".ph-text", 1.5, {
+  scrollTrigger: {
+    trigger: ".ph-text",
+    toggleActions: "restart none none none"
+  },
+  // yPercent: -100,
+  // xPercent: 100,
+  scaleY: 1.8,
+  scaleX: 1,
+  ease: "power3",
+})
 
 
 const navButs = document.querySelectorAll('.nav-button')
@@ -588,7 +616,6 @@ function sticktothetop() {
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
   document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1.06 + "px, 0)";
-  document.querySelector('.projects-header').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
   // document.querySelector('.ph-text').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
 
   if(backgroundScrollVal > 0.04) {
@@ -606,7 +633,11 @@ function sticktothetop() {
   //   // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
   // }
 
-  
+  if(backgroundScrollVal > 0.1) {
+    document.querySelector('.ph-inner').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
+
+  }
+
   // if(backgroundScrollVal > 0.16) {
   //   document.querySelector('.projects-header').style.opacity = 1;
   //   document.querySelector('.ph-bg').style.opacity = 1;
@@ -621,11 +652,11 @@ function sticktothetop() {
 
   // }
 
-  if(backgroundScrollVal > 0.2) {
-    document.querySelector('.ph-text').classList.add('move-down')
+  if(backgroundScrollVal > 0.18) {
+    document.querySelector('.projects-header').classList.add('move-down')
   }
   else if (backgroundScrollVal === 0) {
-    document.querySelector('.ph-text').classList.remove('move-down')
+    document.querySelector('.projects-header').classList.remove('move-down')
 
 
   }
