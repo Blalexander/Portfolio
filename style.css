@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  height: 620vh;
+  height: 510vh;
   background-color: #062d3e;
   background-color: black;
   background-color: #000e13;
@@ -32,7 +32,7 @@ body {
 
 main {
   position: fixed;
-  height: 520vh;
+  height: 420vh;
   top: 0;
   left: 0;
   transition: 0.5s;
@@ -51,8 +51,8 @@ main {
 .landing-page {
   height: 155vh;
   position: relative;
-  background-color: #062d3e;
-  background-color: white;
+/*   background-color: #062d3e; */
+/*   background-color: white; */
   z-index: 12;
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
@@ -65,6 +65,27 @@ main {
 .lp-bg {
   height: 165vh;
   background-color: white;
+  transition: 0.5s;
+  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+}
+
+.lp-bg:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 165vh;
+  width: 100vw;
+/*   background-color: red; */
+/*   background-image: linear-gradient(to bottom, white, teal); */
+  background-color: #000e13;
+/*   mix-blend-mode:color-dodge; */
+  mix-blend-mode:luminosity;
+  
 }
 
 .landing-name-holder {
@@ -124,6 +145,7 @@ main {
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
   pointer-events: none;
+  will-change: filter;
 }
 
 .landing-title div {
@@ -146,14 +168,16 @@ main {
   right: 0;
   z-index: 11;
   padding-right: 2vw;
-  height: 10vh;
+  height: 5vh;
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: flex-start;
   transition: 0.5s;
-  mix-blend-mode:exclusion;
+/*   mix-blend-mode:exclusion; */
+  background-color: #000e13;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 
 .nav-buttons {
@@ -227,10 +251,12 @@ main {
 }
 
 .ph-inner {
-  position: absolute;
+/*   position: absolute; */
+  position: relative;
   top: -10vh;
   left: 0;
-  
+  height: 20vh;
+  width: 100vw;
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
 }
@@ -238,10 +264,9 @@ main {
 .ph-inner:after {
   content: '';
   position: absolute;
-  top: -5vh;
-  top: 0;
+  top: 5vh;
   left: 0;
-  height: 40vh;
+  height: 30vh;
   width: 100vw;
   background-color: #000e13;
   z-index: -1;
@@ -253,7 +278,7 @@ main {
 }
 
 .move-down .ph-inner:after {
-  animation: shrink-me 1s ease forwards;
+/*   animation: shrink-me 1s ease forwards; */
 /*   transform: scale3d(1, 0.75, 1); */
 }
 
@@ -328,11 +353,12 @@ main {
 .project-one-container, .project-two-container, .project-three-container {
   position: relative;
   top: 0%;
-  left: 5%;
+  left: 15vw;
   border-radius: 15px;
   transition: 0.5s;
   height: 30vh;
   width: 70vw;
+  padding-left: 2vw;
   margin-bottom: 10vh;
   z-index: 5;
   display: grid;
@@ -343,13 +369,13 @@ main {
   content: '';
   position: absolute;
   top: -2.5vh;
-  left: 7.5vw;
+  left: 0vw;
   height: 35vh;
-  width: 75vw;
+  width: 70vw;
   z-index: -1;
   background-color: #000e13;
   border-radius: 2px;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5), inset 3px 3px 5px rgba(255, 255, 255, 0.5);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5), inset 3px 3px 5px rgba(255, 255, 255, 0.4);
 }
 
 
@@ -358,7 +384,7 @@ main {
   height: 30vh;
   width: 30vw;
   position: relative;
-  margin-left: 10vw;
+  margin-left: 2vw;
   background-color: white;
   z-index: 5;
   background-repeat: no-repeat;
@@ -436,26 +462,6 @@ main {
   opacity: 1;
 }
 
-.project-outline {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  transition: 0.5s;
-  opacity: 0;
-  pointer-events: none;
-}
-
-
-.project-heading {
-  transition-delay: 0.3s;
-  font-family: 'Lora', serif; 
-  font-weight: lighter;
-  opacity: 0.7;
-  display: none;
-}
-
 .project-title {
   transition-delay: 0.35s;
   font-family: 'Montserrat', sans-serif;
@@ -464,31 +470,24 @@ main {
   white-space: nowrap;
   grid-area: title;
   height: 10vh;
-  margin-left: 10vw;
-  text-align: left;
+  width: 30vw;
+/*   margin-left: 10vw; */
+  text-align: right;
 /*   line-height: 12vh; */
   opacity: 0;
   transition: 1s;
-}
-
-.project-details {
-  transition-delay: 0.4s;
-  font-family: 'Lora', serif; 
-  font-weight: lighter;
-  opacity: 0.7;
-  display: none;
 }
 
 .project-description {
   transition-delay: 0.45s;
   line-height: 1.7;
   font-size: 1.3em;
-  text-align: left;
+  text-align: right;
   grid-area: description;
   height: 15vh;
   width: 30vw;
-  margin-left: 10vw;
-/*   padding-left: 5%; */
+/*   margin-left: 10vw; */
+  padding-left: 5%;
 /*   padding-right: 5%; */
   opacity: 0;
   transition: 1s;
@@ -499,8 +498,8 @@ main {
 .project-technologies {
   height: 5vh;
   width: 30vw;
-  text-align: left;
-  margin-left: 10vw;
+  text-align: right;
+/*   margin-left: 10vw; */
   line-height: 8vh;
   opacity: 0;
   transition: 1s;
@@ -577,7 +576,7 @@ main {
   flex-flow: column nowrap;
   justify-content: center;
   position: relative;
-  z-index: 9;
+  z-index: 11;
 }
 
 .about-me-body {
@@ -602,7 +601,9 @@ main {
 
 .am-body-content {
 /*   padding: 10%; */
+  position: relative;
   height: 100%;
+  width: 80vw;
   font-size: 3em;
 /*   line-height: 27px; */
   display: flex;
@@ -618,6 +619,30 @@ main {
 
 .am-sentence {
   text-align: left;
+/*   position: absolute; */
+/*   background-color: white; */
+    transition: 0.75s;
+  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+  opacity: 0;
+}
+
+.ams1 {
+  z-index: 14;
+}
+
+.ams2 {
+  z-index: 13;
+  transform: translate3d(0, -100%, 0);
+}
+
+.ams3 {
+  z-index: 12;
+  transform: translate3d(0, -100%, 0);
+}
+
+.ams4 {
+  z-index: 11;
+  transform: translate3d(0, -100%, 0);
 }
 
 
@@ -644,7 +669,7 @@ main {
   z-index: 9;
   display: flex;
   align-items: flex-end;
-  background-color: white;
+/*   background-color: white; */
   transition: 0.5s;
 /*   background-color: #000e13; */
   
@@ -657,8 +682,9 @@ main {
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: #000e13;
+/*   background-color: #000e13; */
   border: 10px solid transparent;
+  opacity: 0;
 }
 
 .lets-talk-container {
@@ -1072,7 +1098,7 @@ i:hover {
     font-size: 8em;
   }
   .ph-text {
-    font-size: 8em;
+/*     font-size: 8em; */
   }
   .project-title {
     width: 30vw;

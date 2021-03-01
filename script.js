@@ -207,10 +207,11 @@ function animate() {
 
 function render() {
 
-  camera.position.x += ( mouseX - camera.position.x ) * .001;
+  // camera.position.x += ( mouseX - camera.position.x ) * .001;
+  camera.position.x = 500;
   // camera.position.y += ( - mouseY - camera.position.y ) * .05;
-  // camera.position.y += ( 500 - camera.position.y ) * .05;
-  camera.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
+  camera.position.y += ( 500 - camera.position.y ) * .05;
+  // camera.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
   camera.lookAt( scene.position );
 
   const positions = particles.geometry.attributes.position.array;
@@ -430,24 +431,24 @@ gsap.from(".lt", 2, {
 
 // })
 
-gsap.from(".am-sentence", 1, {
-  scrollTrigger: {
-    trigger: ".about-me-trigger",
-    toggleActions: "play none none none"
-  },
-  yPercent: 300,
-  // delay: 2,
-  // delay: 6,
-  ease: "power4",
-  opacity: 0,
-  skewY: 3,
-  // repeat: -1,
-  // repeatDelay: 2,
-  stagger: {
-    amount: 0.5,
-    from: "start"
-  }
-})
+// gsap.from(".am-sentence", 1, {
+//   scrollTrigger: {
+//     trigger: ".about-me-trigger",
+//     toggleActions: "play none none none"
+//   },
+//   yPercent: 300,
+//   // delay: 2,
+//   // delay: 6,
+//   ease: "power4",
+//   opacity: 0,
+//   skewY: 3,
+//   // repeat: -1,
+//   // repeatDelay: 2,
+//   stagger: {
+//     amount: 0.5,
+//     from: "start"
+//   }
+// })
 
 // gsap.from(".lt", 2, {
 //   scrollTrigger: {
@@ -505,9 +506,10 @@ gsap.from(".lts", 1, {
 gsap.from(".phl", 1.5, {
   scrollTrigger: {
     trigger: ".ph-text",
-    toggleActions: "restart none none none"
+    toggleActions: "play none none none",
+    start: "bottom bottom",
   },
-  yPercent: -100,
+  // yPercent: -30,
   xPercent: 500,
   // scaleY: 1.8,
   // scaleX: 1,
@@ -522,10 +524,12 @@ gsap.from(".phl", 1.5, {
 gsap.from(".ph-text", 1.5, {
   scrollTrigger: {
     trigger: ".ph-text",
-    toggleActions: "restart none none none"
+    toggleActions: "play none none none",
+    start: "bottom bottom",
   },
   // yPercent: -100,
   // xPercent: 100,
+  opacity: 0,
   scaleY: 1.8,
   scaleX: 1,
   ease: "power3",
@@ -615,11 +619,11 @@ function sticktothetop() {
 
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
-  document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1.06 + "px, 0)";
+  document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1.26 + "px, 0)";
   // document.querySelector('.ph-text').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
 
   if(backgroundScrollVal > 0.04) {
-    document.querySelector('.landing-title').style.filter = "unset";
+    document.querySelector('.landing-title').style.filter = "blur(0px)";
     document.querySelector('.landing-name-holder').style.filter = "blur(3px)";
   }
   else if(backgroundScrollVal < 0.04) {
@@ -665,6 +669,7 @@ function sticktothetop() {
     // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.05 + "px, 0)";
     // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.1 + "px, 0)";
     document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
+    // document.querySelector('.lp-bg').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
 
     // document.querySelector('.line-container').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
     // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
@@ -686,6 +691,42 @@ function sticktothetop() {
     document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
     document.querySelector('.about-me-header').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
     document.querySelector('.about-me-label').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
+  }
+
+  if(backgroundScrollVal > 0.58) {
+    document.querySelector('.ams1').style.opacity = 1;
+    document.querySelector('.ams1').style.transform = "scale3d(1, 1, 1)";
+  }
+  else {
+    document.querySelector('.ams1').style.opacity = 0;
+    document.querySelector('.ams1').style.transform = "scale3d(1, 0.7, 1)";
+  }
+
+  if(backgroundScrollVal > 0.59) {
+    document.querySelector('.ams2').style.opacity = 1;
+    document.querySelector('.ams2').style.transform = "translate3d(0, 0%, 0) scale3d(1, 1, 1)";
+  }
+  else {
+    document.querySelector('.ams2').style.opacity = 0;
+    document.querySelector('.ams2').style.transform = "translate3d(0, -50%, 0) scale3d(1, 0.7, 1)";
+  }
+
+  if(backgroundScrollVal > 0.63) {
+    document.querySelector('.ams3').style.opacity = 1;
+    document.querySelector('.ams3').style.transform = "translate3d(0, 0%, 0) scale3d(1, 1, 1)";
+  }
+  else {
+    document.querySelector('.ams3').style.opacity = 0;
+    document.querySelector('.ams3').style.transform = "translate3d(0, -50%, 0) scale3d(1, 0.7, 1)";
+  }
+
+  if(backgroundScrollVal > 0.65) {
+    document.querySelector('.ams4').style.opacity = 1;
+    document.querySelector('.ams4').style.transform = "translate3d(0, 0%, 0) scale3d(1, 1, 1)";
+  }
+  else {
+    document.querySelector('.ams4').style.opacity = 0;
+    document.querySelector('.ams4').style.transform = "translate3d(0, -50%, 0) scale3d(1, 0.7, 1)";
   }
 
   // if(backgroundScrollVal > 0.42 && backgroundScrollVal < 0.65) {
@@ -727,15 +768,15 @@ function sticktothetop() {
 
   }
 
-  if(backgroundScrollVal > 0.8) {
+  if(backgroundScrollVal > 0.6) {
     // document.querySelector('.contact-card-inner').classList.add('at-bottom')
     document.querySelector('.contact-section').classList.add('at-bottom')
-    document.querySelector('.background-gradient').style.backgroundColor = "#062d3e";
+    document.querySelector('.contact-card-bg').style.backgroundColor = "#000e13";
   }
   else {
     // document.querySelector('.contact-card-inner').classList.remove('at-bottom')
     document.querySelector('.contact-section').classList.remove('at-bottom')
-    document.querySelector('.background-gradient').style.backgroundColor = "transparent";
+    document.querySelector('.contact-card-bg').style.backgroundColor = "transparent";
   }
 
 
