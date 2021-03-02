@@ -371,48 +371,48 @@ gsap.from(".nav-button", 1, {
   }
 })
 
-gsap.from(".pl", 1, {
-  yPercent: -100,
-  delay: 1,
-  // delay: 5,
-  ease: "power3",
-  opacity: 0,
-  // repeat: -1,
-  // repeatDelay: 2,
-  stagger: {
-    amount: 0.1,
-    from: "random"
-  }
-})
+// gsap.from(".pl", 1, {
+//   yPercent: -100,
+//   delay: 1,
+//   // delay: 5,
+//   ease: "power3",
+//   opacity: 0,
+//   // repeat: -1,
+//   // repeatDelay: 2,
+//   stagger: {
+//     amount: 0.1,
+//     from: "random"
+//   }
+// })
 
-gsap.from(".sl", 1, {
-  yPercent: -100,
-  delay: 1,
-  // delay: 5,
-  ease: "power4",
-  skewY: 20,
-  opacity: 0,
-  // repeat: -1,
-  // repeatDelay: 2,
-  stagger: {
-    amount: 0.1,
-    from: "random"
-  }
-})
+// gsap.from(".sl", 1, {
+//   yPercent: -100,
+//   delay: 1,
+//   // delay: 5,
+//   ease: "power4",
+//   skewY: 20,
+//   opacity: 0,
+//   // repeat: -1,
+//   // repeatDelay: 2,
+//   stagger: {
+//     amount: 0.1,
+//     from: "random"
+//   }
+// })
 
-gsap.from(".lt", 2, {
-  yPercent: 1000,
-  delay: 2,
-  // delay: 6,
-  ease: "power4",
-  // skewY:-20,
-  // repeat: -1,
-  // repeatDelay: 2,
-  stagger: {
-    amount: 0.3,
-    from: "start"
-  }
-})
+// gsap.from(".lt", 2, {
+//   yPercent: 1000,
+//   delay: 2,
+//   // delay: 6,
+//   ease: "power4",
+//   // skewY:-20,
+//   // repeat: -1,
+//   // repeatDelay: 2,
+//   stagger: {
+//     amount: 0.3,
+//     from: "start"
+//   }
+// })
 
 // gsap.from(".ph-text", 2, {
 //   scrollTrigger: {
@@ -536,11 +536,14 @@ gsap.from(".ph-text", 1.5, {
 })
 
 
-const navButs = document.querySelectorAll('.nav-button')
+const navButs = document.querySelectorAll('.navi')
 for(const navButton of navButs) {
   navButton.addEventListener('click', (event) => {
     event.preventDefault()
-    console.log(event.target)
+    // console.log(event.target.classList)
+    if(event.target.classList[1].includes("navbar-name")) {
+      $(window).scrollTop(1)
+    }
     let target = event.target.innerHTML
     changeTarget(target)
   })
@@ -620,22 +623,16 @@ function sticktothetop() {
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
   document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1.26 + "px, 0)";
-  // document.querySelector('.ph-text').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
 
-  if(backgroundScrollVal > 0.04) {
-    document.querySelector('.landing-title').style.filter = "blur(0px)";
-    document.querySelector('.landing-name-holder').style.filter = "blur(3px)";
-  }
-  else if(backgroundScrollVal < 0.04) {
-    document.querySelector('.landing-title').style.filter = "blur(3px)";
-    document.querySelector('.landing-name-holder').style.filter = "blur(0px)";
-  }
-
-  // if(backgroundScrollVal < 0.25) {
-  //   document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*.1 + "px, 0)";
-  //   document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-  //   // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
+  // if(backgroundScrollVal > 0.04) {
+  //   document.querySelector('.landing-title').style.filter = "blur(0px)";
+  //   document.querySelector('.landing-name-holder').style.filter = "blur(3px)";
   // }
+  // else if(backgroundScrollVal < 0.04) {
+  //   document.querySelector('.landing-title').style.filter = "blur(3px)";
+  //   document.querySelector('.landing-name-holder').style.filter = "blur(0px)";
+  // }
+
 
   if(backgroundScrollVal > 0.1) {
     document.querySelector('.ph-inner').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
@@ -653,6 +650,7 @@ function sticktothetop() {
 
   // if(backgroundScrollVal < 0.16) {
     // document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.8 + "px, 0)";
+    // document.querySelector('.landing-introduction').style.transform = "translate3d(0, " + (window_top)*0.5 + "px, 0)";
 
   // }
 
@@ -666,13 +664,7 @@ function sticktothetop() {
   }
 
   if(backgroundScrollVal < 0.25) {
-    // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.05 + "px, 0)";
-    // document.querySelector('.landing-title').style.transform = "translate3d(0, " + (window_top)*.1 + "px, 0)";
-    document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    // document.querySelector('.lp-bg').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-
-    // document.querySelector('.line-container').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    // document.querySelector('.scroll-down').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
+    // document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
   }
 
   if(backgroundScrollVal > 0.18 && backgroundScrollVal < 0.7) {
