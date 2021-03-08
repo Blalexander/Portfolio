@@ -121,9 +121,14 @@ function init() {
 
   camera = new THREE.PerspectiveCamera( 75, (window.innerWidth * 1) / (window.innerHeight * 3), 1, 10000 );
   camera.position.z = 1000;
+  let background = "#000e13"
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color( 0xffffff );
+  scene.fog = new THREE.Fog(background, 1, 100);
+
+  scene.background = new THREE.Color( 0x000000 );
+  // scene.background = new THREE.Color( 0x000e13 );
+
 
   const numParticles = AMOUNTX * AMOUNTY;
 
@@ -155,8 +160,10 @@ function init() {
 
     uniforms: {
       // color: { value: new THREE.Color( 0xffffff ) },
-      color: { value: new THREE.Color( 0x062d3e ) },
-      // color: { value: new THREE.Color( 0x008080 ) },
+      // color: { value: new THREE.Color( 0x062d3e ) },
+      color: { value: new THREE.Color( 0x00babb ) },
+      // color: { value: new THREE.Color( 0x006e70 ) },
+
     },
     vertexShader: document.getElementById( 'vertexshader' ).textContent,
     fragmentShader: document.getElementById( 'fragmentshader' ).textContent
@@ -167,7 +174,7 @@ function init() {
 
   renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
-  renderer.setSize( window.innerWidth, (window.innerHeight * 1.65) );
+  renderer.setSize( window.innerWidth, window.innerHeight);
   container.appendChild( renderer.domElement );
 
   container.style.touchAction = 'none';
@@ -185,7 +192,7 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / (window.innerHeight * 3);
   camera.updateProjectionMatrix();
 
-  renderer.setSize( window.innerWidth, (window.innerHeight * 1.65) );
+  renderer.setSize( window.innerWidth, window.innerHeight);
 }
 
 
@@ -358,18 +365,34 @@ gsap.registerPlugin(ScrollTrigger);
       // .add(conclusion(), "=-1") 
 
 
-gsap.from(".nav-button", 1, {
-  ease: "sine",
-  opacity: 0,
-  // yPercent: -100,
-  // skewX: 20,
-  delay: 4,
-  // delay: 8,
-  stagger: {
-    amount: 0.2,
-    from: "start"
-  }
-})
+
+
+
+
+
+
+
+
+
+// gsap.from(".nav-button", 1, {
+//   ease: "sine",
+//   opacity: 0,
+//   // yPercent: -100,
+//   // skewX: 20,
+//   delay: 4,
+//   // delay: 8,
+//   stagger: {
+//     amount: 0.2,
+//     from: "start"
+//   }
+// })
+
+
+
+
+
+
+
 
 // gsap.from(".pl", 1, {
 //   yPercent: -100,
@@ -570,19 +593,20 @@ function changeTarget(target) {
   }
 }
 
-const thumbnails = document.querySelectorAll('.project-thumbnail')
+// const thumbnails = document.querySelectorAll('.project-thumbnail')
+const thumbnails = document.querySelectorAll('.proj-cont')
 for (const thumbnail of thumbnails) {
   thumbnail.addEventListener('mouseenter', (event) => {
     event.preventDefault()
-    // console.log(event.target.parentElement.classList[0])
-    let evTarg = event.target.parentElement.classList;
+    // console.log(event.target)
+    let evTarg = event.target.classList;
     evTarg.toggle('collapse')
     evTarg.toggle('expand')
   })
   thumbnail.addEventListener('mouseleave', (event) => {
     event.preventDefault()
     // console.log(event.target.parentElement.classList[0])
-    let evTarg = event.target.parentElement.classList;
+    let evTarg = event.target.classList;
     evTarg.toggle('collapse')
     evTarg.toggle('expand')
   })
@@ -632,6 +656,13 @@ function sticktothetop() {
   //   document.querySelector('.landing-title').style.filter = "blur(3px)";
   //   document.querySelector('.landing-name-holder').style.filter = "blur(0px)";
   // }
+
+  if(backgroundScrollVal > 0.2) {
+    document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 1)";
+  }
+  else {
+    document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0)";
+  }
 
 
   if(backgroundScrollVal > 0.1) {
@@ -685,7 +716,7 @@ function sticktothetop() {
     document.querySelector('.about-me-label').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
   }
 
-  if(backgroundScrollVal > 0.58) {
+  if(backgroundScrollVal > 0.55) {
     document.querySelector('.ams1').style.opacity = 1;
     document.querySelector('.ams1').style.transform = "scale3d(1, 1, 1)";
   }
@@ -694,7 +725,7 @@ function sticktothetop() {
     document.querySelector('.ams1').style.transform = "scale3d(1, 0.7, 1)";
   }
 
-  if(backgroundScrollVal > 0.59) {
+  if(backgroundScrollVal > 0.57) {
     document.querySelector('.ams2').style.opacity = 1;
     document.querySelector('.ams2').style.transform = "translate3d(0, 0%, 0) scale3d(1, 1, 1)";
   }
@@ -703,7 +734,7 @@ function sticktothetop() {
     document.querySelector('.ams2').style.transform = "translate3d(0, -50%, 0) scale3d(1, 0.7, 1)";
   }
 
-  if(backgroundScrollVal > 0.63) {
+  if(backgroundScrollVal > 0.59) {
     document.querySelector('.ams3').style.opacity = 1;
     document.querySelector('.ams3').style.transform = "translate3d(0, 0%, 0) scale3d(1, 1, 1)";
   }
@@ -712,7 +743,7 @@ function sticktothetop() {
     document.querySelector('.ams3').style.transform = "translate3d(0, -50%, 0) scale3d(1, 0.7, 1)";
   }
 
-  if(backgroundScrollVal > 0.65) {
+  if(backgroundScrollVal > 0.63) {
     document.querySelector('.ams4').style.opacity = 1;
     document.querySelector('.ams4').style.transform = "translate3d(0, 0%, 0) scale3d(1, 1, 1)";
   }
