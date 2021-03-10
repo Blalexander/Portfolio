@@ -10,247 +10,264 @@ $(function() {
 
 
 
-// var container = document.querySelector('.lp-bg')
+var container = document.querySelector('.lp-bg')
 
-// var vertexHeight = 15000,
-//   planeDefinition = 100,
-//   planeSize = 1245000,
-//   totalObjects = 1,
-//   background = "#ffffff",
-//   meshColor = "#008080"; 
+var vertexHeight = 15000,
+  planeDefinition = 100,
+  planeSize = 1245000,
+  totalObjects = 1,
+  background = "#000e13",
+  // background = "#ffffff",
+  meshColor = "#00babb"; 
 
-// var camera = new THREE.PerspectiveCamera(55, window.innerWidth / (window.innerHeight * 1.55), 1, 400000)
-// camera.position.z = 10000;
-// camera.position.y = 10000;
+var camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 400000)
+camera.position.z = 10000;
+camera.position.y = 10000;
 
-// var scene = new THREE.Scene();
-// scene.fog = new THREE.Fog(background, 1, 300000);
+var scene = new THREE.Scene();
+scene.fog = new THREE.Fog(background, 1, 300000);
 
-// var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
-// var plane = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({
-//   color: meshColor,
-//   wireframe: true
-// }));
-// // plane.rotation.x -= Math.PI * .5;
-// plane.rotation.x -= 4 * .5;
+// material = new THREE.ShaderMaterial({
+//   uniforms: {
+//     lineWidth: {
+//       value: 3
+//     }
+//   },
+//   wireframe: true,
+//   vertexShader: document.getElementById("vertexshader").textContent,
+//   fragmentShader: document.getElementById("fragmentshader").textContent,
+//   side: THREE.DoubleSide // <===============
+// });
 
-
-
-// scene.add(plane);
-
-// var renderer = new THREE.WebGLRenderer({alpha: false});
-// renderer.setSize(window.innerWidth, (window.innerHeight * 1.55));
-// renderer.setClearColor(background, 1);
-
-// container.appendChild(renderer.domElement);
-
-
-// updatePlane();
-
-// function updatePlane() {
-//   for (var i = 0; i < planeGeo.vertices.length; i++) {
-//     planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight;
-//     planeGeo.vertices[i]._myZ = planeGeo.vertices[i].z
-//   }
-// };
-
-// render();
-
-// var count = 0
-// function render() {
-//   requestAnimationFrame(render);
-//   // camera.position.z -= 150;
-//   var x = camera.position.x;
-//   var y = camera.position.y;
-//   var z = camera.position.z;
-//   // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
-//   // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 1;
-
-//   // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
-//   // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 1;
-
-//   // camera.position.y = y * Math.cos(0.001) + z * Math.sin(0.001) - ;
-
-
-//   camera.lookAt(new THREE.Vector3(0, 8000, 0))
-
-//   for (var i = 0; i < planeGeo.vertices.length; i++) {
-//     var z = +planeGeo.vertices[i].z;
-//     planeGeo.vertices[i].z = Math.sin(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 0.6))
-//     plane.geometry.verticesNeedUpdate = true;
-
-//     count += 0.01
-//   }
-
-//   renderer.render(scene, camera);
-// }
-
-// window.addEventListener('resize', onWindowResize, false);
-
-// function onWindowResize() {
-//   //changes the size of the canavs and updates it
-//   camera.aspect = window.innerWidth / window.innerHeight;
-//   camera.updateProjectionMatrix();
-//   renderer.setSize(window.innerWidth, window.innerHeight);
-// }
+// material.extensions.derivatives = true;
+var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
+// var plane = new THREE.Mesh(planeGeo, material);
+var plane = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({
+  color: meshColor,
+  wireframe: true,
+  reflectivity: 1,
+  // aoMapIntensity: 1,
+}));
+// plane.rotation.x -= Math.PI * .5;
+plane.rotation.x -= 4 * .5;
 
 
 
+scene.add(plane);
+
+var renderer = new THREE.WebGLRenderer({alpha: false});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(background, 1);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
 
 
+updatePlane();
+
+function updatePlane() {
+  for (var i = 0; i < planeGeo.vertices.length; i++) {
+    planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight;
+    planeGeo.vertices[i]._myZ = planeGeo.vertices[i].z
+  }
+};
+
+render();
+
+var count = 0
+function render() {
+  requestAnimationFrame(render);
+  // camera.position.z -= 150;
+  var x = camera.position.x;
+  var y = camera.position.y;
+  var z = camera.position.z;
+  // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
+  // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 1;
+
+  // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
+  // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 1;
+
+  // camera.position.y = y * Math.cos(0.001) + z * Math.sin(0.001) - ;
 
 
-const SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;
+  camera.lookAt(new THREE.Vector3(0, 8000, 0))
 
-let container;
-let camera, scene, renderer;
+  for (var i = 0; i < planeGeo.vertices.length; i++) {
+    var z = +planeGeo.vertices[i].z;
+    planeGeo.vertices[i].z = Math.sin(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 0.6))
+    plane.geometry.verticesNeedUpdate = true;
 
-let particles, count = 0;
-
-let mouseX = 0, mouseY = 0;
-
-let windowHalfX = window.innerWidth / 2;
-let windowHalfY = window.innerHeight / 2;
-
-init();
-animate();
-
-function init() {
-
-  container = document.querySelector('.lp-bg');
-
-  camera = new THREE.PerspectiveCamera( 75, (window.innerWidth * 1) / (window.innerHeight * 3), 1, 10000 );
-  camera.position.z = 1000;
-  let background = "#000e13"
-
-  scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(background, 1, 100);
-
-  scene.background = new THREE.Color( 0x000000 );
-  // scene.background = new THREE.Color( 0x000e13 );
-
-
-  const numParticles = AMOUNTX * AMOUNTY;
-
-  const positions = new Float32Array( numParticles * 3 );
-  const scales = new Float32Array( numParticles );
-
-  let i = 0, j = 0;
-
-  for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
-
-    for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
-
-      positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
-      positions[ i + 1 ] = 0; // y
-      positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
-
-      scales[ j ] = 1;
-
-      i += 3;
-      j ++;
-    }
+    count += 0.025
   }
 
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-  geometry.setAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
-
-  const material = new THREE.ShaderMaterial( {
-
-    uniforms: {
-      // color: { value: new THREE.Color( 0xffffff ) },
-      // color: { value: new THREE.Color( 0x062d3e ) },
-      color: { value: new THREE.Color( 0x00babb ) },
-      // color: { value: new THREE.Color( 0x006e70 ) },
-
-    },
-    vertexShader: document.getElementById( 'vertexshader' ).textContent,
-    fragmentShader: document.getElementById( 'fragmentshader' ).textContent
-  } );
-
-  particles = new THREE.Points( geometry, material );
-  scene.add( particles );
-
-  renderer = new THREE.WebGLRenderer( { antialias: true } );
-  renderer.setPixelRatio( window.devicePixelRatio );
-  renderer.setSize( window.innerWidth, window.innerHeight);
-  container.appendChild( renderer.domElement );
-
-  container.style.touchAction = 'none';
-  container.addEventListener( 'pointermove', onPointerMove );
-
-  window.addEventListener( 'resize', onWindowResize );
-
+  renderer.render(scene, camera);
 }
+
+window.addEventListener('resize', onWindowResize, false);
 
 function onWindowResize() {
-
-  windowHalfX = window.innerWidth / 2;
-  windowHalfY = window.innerHeight / 2;
-
-  camera.aspect = window.innerWidth / (window.innerHeight * 3);
+  //changes the size of the canavs and updates it
+  camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-
-  renderer.setSize( window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 
-function onPointerMove( event ) {
 
-  if ( event.isPrimary === false ) return;
 
-  mouseX = event.clientX - windowHalfX;
-  // mouseY = event.clientY - windowHalfY;
 
-}
 
-function animate() {
 
-  requestAnimationFrame( animate );
+// const SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;
 
-  render();
-}
+// let container;
+// let camera, scene, renderer;
 
-function render() {
+// let particles, count = 0;
 
-  // camera.position.x += ( mouseX - camera.position.x ) * .001;
-  camera.position.x = 500;
-  // camera.position.y += ( - mouseY - camera.position.y ) * .05;
-  camera.position.y += ( 500 - camera.position.y ) * .05;
-  // camera.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
-  camera.lookAt( scene.position );
+// let mouseX = 0, mouseY = 0;
 
-  const positions = particles.geometry.attributes.position.array;
-  const scales = particles.geometry.attributes.scale.array;
+// let windowHalfX = window.innerWidth / 2;
+// let windowHalfY = window.innerHeight / 2;
 
-  let i = 0, j = 0;
+// init();
+// animate();
 
-  for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+// function init() {
 
-    for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+//   container = document.querySelector('.lp-bg');
 
-      positions[ i + 1 ] = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
-              ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
+//   camera = new THREE.PerspectiveCamera( 75, (window.innerWidth * 1) / (window.innerHeight * 3), 1, 10000 );
+//   camera.position.z = 1000;
+//   let background = "#000e13"
 
-      scales[ j ] = ( Math.sin( ( ix + count ) * 0.3 ) + 1 ) * 20 +
-              ( Math.sin( ( iy + count ) * 0.5 ) + 1 ) * 20;
+//   scene = new THREE.Scene();
+//   scene.fog = new THREE.Fog(background, 1, 100);
 
-      i += 3;
-      j ++;
+//   scene.background = new THREE.Color( 0x000000 );
+//   // scene.background = new THREE.Color( 0x000e13 );
 
-    }
 
-  }
+//   const numParticles = AMOUNTX * AMOUNTY;
 
-  particles.geometry.attributes.position.needsUpdate = true;
-  particles.geometry.attributes.scale.needsUpdate = true;
+//   const positions = new Float32Array( numParticles * 3 );
+//   const scales = new Float32Array( numParticles );
 
-  renderer.render( scene, camera );
+//   let i = 0, j = 0;
 
-  count += 0.05;
+//   for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
 
-}
+//     for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+
+//       positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
+//       positions[ i + 1 ] = 0; // y
+//       positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
+
+//       scales[ j ] = 1;
+
+//       i += 3;
+//       j ++;
+//     }
+//   }
+
+//   const geometry = new THREE.BufferGeometry();
+//   geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+//   geometry.setAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
+
+//   const material = new THREE.ShaderMaterial( {
+
+//     uniforms: {
+//       // color: { value: new THREE.Color( 0xffffff ) },
+//       // color: { value: new THREE.Color( 0x062d3e ) },
+//       color: { value: new THREE.Color( 0x00babb ) },
+//       // color: { value: new THREE.Color( 0x006e70 ) },
+
+//     },
+//     vertexShader: document.getElementById( 'vertexshader' ).textContent,
+//     fragmentShader: document.getElementById( 'fragmentshader' ).textContent
+//   } );
+
+//   particles = new THREE.Points( geometry, material );
+//   scene.add( particles );
+
+//   renderer = new THREE.WebGLRenderer( { antialias: true } );
+//   renderer.setPixelRatio( window.devicePixelRatio );
+//   renderer.setSize( window.innerWidth, window.innerHeight);
+//   container.appendChild( renderer.domElement );
+
+//   container.style.touchAction = 'none';
+//   container.addEventListener( 'pointermove', onPointerMove );
+
+//   window.addEventListener( 'resize', onWindowResize );
+
+// }
+
+// function onWindowResize() {
+
+//   windowHalfX = window.innerWidth / 2;
+//   windowHalfY = window.innerHeight / 2;
+
+//   camera.aspect = window.innerWidth / (window.innerHeight * 3);
+//   camera.updateProjectionMatrix();
+
+//   renderer.setSize( window.innerWidth, window.innerHeight);
+// }
+
+
+// function onPointerMove( event ) {
+
+//   if ( event.isPrimary === false ) return;
+
+//   mouseX = event.clientX - windowHalfX;
+//   // mouseY = event.clientY - windowHalfY;
+
+// }
+
+// function animate() {
+
+//   requestAnimationFrame( animate );
+
+//   render();
+// }
+
+// function render() {
+
+//   // camera.position.x += ( mouseX - camera.position.x ) * .001;
+//   camera.position.x = 500;
+//   // camera.position.y += ( - mouseY - camera.position.y ) * .05;
+//   camera.position.y += ( 500 - camera.position.y ) * .05;
+//   // camera.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
+//   camera.lookAt( scene.position );
+
+//   const positions = particles.geometry.attributes.position.array;
+//   const scales = particles.geometry.attributes.scale.array;
+
+//   let i = 0, j = 0;
+
+//   for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
+
+//     for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
+
+//       positions[ i + 1 ] = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
+//               ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
+
+//       scales[ j ] = ( Math.sin( ( ix + count ) * 0.3 ) + 1 ) * 20 +
+//               ( Math.sin( ( iy + count ) * 0.5 ) + 1 ) * 20;
+
+//       i += 3;
+//       j ++;
+
+//     }
+
+//   }
+
+//   particles.geometry.attributes.position.needsUpdate = true;
+//   particles.geometry.attributes.scale.needsUpdate = true;
+
+//   renderer.render( scene, camera );
+
+//   count += 0.05;
+
+// }
 
 
 
@@ -695,7 +712,7 @@ function sticktothetop() {
   }
 
   if(backgroundScrollVal < 0.25) {
-    // document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
+    // document.querySelector('.landing-introduction').style.transform = "translate3d(0, " + (window_top)*0.6 + "px, 0)";
   }
 
   if(backgroundScrollVal > 0.18 && backgroundScrollVal < 0.7) {
@@ -711,9 +728,9 @@ function sticktothetop() {
 
   if(backgroundScrollVal > 0.4) {
     // document.querySelector('.about-me-label').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
-    document.querySelector('.about-me-header').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    document.querySelector('.about-me-label').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
+    // document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
+    // document.querySelector('.about-me-header').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
+    // document.querySelector('.about-me-label').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
   }
 
   // if(backgroundScrollVal > 0.55) {
@@ -765,31 +782,32 @@ function sticktothetop() {
   //   document.querySelector('.am-body-content').style.backgroundColor = "#000e13";
   // }
 
-  if(full_window_top / bodyHeight > 0.40) {
-    document.querySelector('.proj1-title').style.opacity = 1
-    document.querySelector('.proj1-description').style.opacity = 1
-    document.querySelector('.proj1-tech').style.opacity = 1
-    document.querySelector('.proj1-thumbnail').style.opacity = 1
+  // if(full_window_top / bodyHeight > 0.40) {
+  //   document.querySelector('.proj1-title').style.opacity = 1
+  //   document.querySelector('.proj1-description').style.opacity = 1
+  //   document.querySelector('.proj1-tech').style.opacity = 1
+  //   document.querySelector('.proj1-thumbnail').style.opacity = 1
 
-  }
+  // }
 
-  if(full_window_top / bodyHeight > 0.47) {
-    document.querySelector('.proj2-title').style.opacity = 1
-    document.querySelector('.proj2-description').style.opacity = 1
-    document.querySelector('.proj2-tech').style.opacity = 1
-    document.querySelector('.proj2-thumbnail').style.opacity = 1
-  }
+  // if(full_window_top / bodyHeight > 0.47) {
+  //   document.querySelector('.proj2-title').style.opacity = 1
+  //   document.querySelector('.proj2-description').style.opacity = 1
+  //   document.querySelector('.proj2-tech').style.opacity = 1
+  //   document.querySelector('.proj2-thumbnail').style.opacity = 1
+  // }
 
-  if(full_window_top / bodyHeight > 0.54) {
-    document.querySelector('.proj3-title').style.opacity = 1
-    document.querySelector('.proj3-description').style.opacity = 1
-    document.querySelector('.proj3-tech').style.opacity = 1
-    document.querySelector('.proj3-thumbnail').style.opacity = 1
-  }
+  // if(full_window_top / bodyHeight > 0.54) {
+  //   document.querySelector('.proj3-title').style.opacity = 1
+  //   document.querySelector('.proj3-description').style.opacity = 1
+  //   document.querySelector('.proj3-tech').style.opacity = 1
+  //   document.querySelector('.proj3-thumbnail').style.opacity = 1
+  // }
 
   if(full_window_top / bodyHeight > 0.65) {
-    document.querySelector('.about-me-label').style.opacity = (1.8 - aboutOpacityVal2)
+    document.querySelector('.about-me-bg').style.opacity = (1.8 - aboutOpacityVal2)
     // document.querySelector('.about-me-body').style.opacity = aboutOpacityVal2
+    document.querySelector('.am-body-content').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
 
   }
 
@@ -797,11 +815,13 @@ function sticktothetop() {
     // document.querySelector('.contact-card-inner').classList.add('at-bottom')
     document.querySelector('.contact-section').classList.add('at-bottom')
     document.querySelector('.contact-card-bg').style.backgroundColor = "#000e13";
+    document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 1)";
   }
   else {
     // document.querySelector('.contact-card-inner').classList.remove('at-bottom')
     document.querySelector('.contact-section').classList.remove('at-bottom')
     document.querySelector('.contact-card-bg').style.backgroundColor = "transparent";
+    document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 0)";
   }
 
 

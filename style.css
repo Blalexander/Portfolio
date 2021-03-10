@@ -85,7 +85,8 @@ main {
   height: 100vh;
   width: 100vw;
 /*   background-color: red; */
-  background-image: linear-gradient(to bottom, #000e13 20%, transparent);
+/*   background-image: linear-gradient(to bottom, #000e13 30%, transparent, black 100%); */
+/*   box-shadow: inset 100px 50px 300px 300px rgba(0, 0, 0, 1); */
 /*   background-color: #000e13; */
 /*   mix-blend-mode:color-dodge; */
 /*   mix-blend-mode:darken; */
@@ -109,7 +110,7 @@ main {
 
 .landing-introduction {
   position: fixed;
-  top: 25vh;
+  top: 20vh;
   left: 10vw;
   height: 50vh;
   width: 80vw;
@@ -298,6 +299,7 @@ main {
   transition: 0.5s;
 /*   mix-blend-mode:exclusion; */
   background-color: #000e13;
+  background-color: black;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
 }
 
@@ -670,7 +672,7 @@ main {
   background-repeat: no-repeat;
   background-size: cover;
   grid-area: thumbnail;
-  opacity: 0;
+/*   opacity: 0; */
   transition: 1s;
   transition-delay: 0.7s;
 /*   border-radius: 15px 15px 0px 0px; */
@@ -811,7 +813,7 @@ main {
   text-align: right;
 /*   line-height: 12vh; */
   z-index: 10;
-  opacity: 0;
+/*   opacity: 0; */
   transition: 1s;
   pointer-events: none;
 }
@@ -850,7 +852,7 @@ main {
 /*   margin-left: 10vw; */
 /*   padding-left: 5%; */
   padding-left: 35%;
-  opacity: 0;
+/*   opacity: 0; */
   transition: 1s;
   transition-delay: 0.5s;
   z-index: 10;
@@ -913,16 +915,43 @@ main {
 
 /* ----------- ABOUT ME HEADER ------------ */
 .about-me-header {
-  height: 150vh;
-  width: 100%;
+  height: 50vh;
+  width: 30%;
   position: absolute;
-  top: 255vh;
+  top: 335vh;
   transition: 0.2s;
-  z-index: 9;
+  z-index: 12;
   transition: 0.5s;
   background-color: white; 
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
-  box-shadow: 0px 100px 100px rgba(0, 0, 0, 1);
+}
+
+/* .about-me-header:before {
+  content: '';
+  position: absolute;
+  top: -10vh;
+  left: 30vw;
+  height: 100%;
+  width: 1px;
+  background-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.3), transparent);
+}
+
+.about-me-header:after {
+  content: '';
+  position: absolute;
+  top: 10vh;
+  left: 10vw;
+  height: 1px;
+  width: 90vw;
+  background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3), transparent);
+} */
+
+.about-me-label {
+  font-size: 3em;
+  font-family: 'Lora', serif; 
+  text-align: right;
+  padding-right: 1em;
+  line-height: 90vh;
 }
 
 
@@ -942,20 +971,27 @@ main {
   justify-content: center;
   position: relative;
   z-index: 11;
+/*   background-color: white; */
+}
+
+.about-me-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 200%;
+  width: 100%;
+  background-color: white;
+  transition: 0.5s;
 }
 
 .about-me-body {
-  height: 66vh;
+  height: 50vh;
 /*   height: 30vh; */
-  width: 86vw;
-/*   width: 100vw; */
-  top: -10%;
+  width: 100vw;
+  top: 40vh;
 /*   right: 10%; */
-  padding-left: 3vw;
-  padding-right: 3vw;
-  padding-top: 3vh;
-  padding-bottom: 3vh;
-  left: 7vw;
+  padding-left: 30vw;
+  left: 0;
   position: absolute;
   z-index: 5;
 /*   background-color: rgba(0, 150, 255, 0.1); */
@@ -974,23 +1010,29 @@ main {
   position: relative;
   height: 100%;
   width: 80vw;
-  font-size: 3em;
+  font-size: 2em;
+  margin-top: -100vh;
 /*   line-height: 27px; */
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  padding-left: 3vw;
+  padding-right: 15vw;
   display: flex;
   flex-flow: column nowrap;
 /*   align-items: center; */
   justify-content: space-evenly;
 /*   color: #000e13; */
-  transition: 0.75s;
+  transition: 0.5s;
+  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
 /*   background-color: #000e13; */
 /*   border: 2px dashed black; */
-  
+  background-color: white;
 }
 
 .am-sentence {
   text-align: left;
 /*   position: absolute; */
-  background-color: white;
+/*   background-color: white; */
   transition: 0.5s;
 /*   transition-delay: 1s; */
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
@@ -1008,7 +1050,7 @@ main {
 .ams2 {
   z-index: 13;
 /*   transform: translate3d(0, -100%, 0); */
-  opacity: 0;
+/*   opacity: 0; */
 }
 
 .ams3 {
@@ -1034,6 +1076,7 @@ main {
   flex-flow: column nowrap;
   justify-content: space-evenly;
   font-size: 3em;
+  opacity: 0;
 }
 
 .am-sentence-pseudo {
@@ -1083,8 +1126,10 @@ main {
   height: 100vh;
   width: 100vw;
 /*   background-color: #000e13; */
-  border: 10px solid transparent;
+/*   border: 10px solid transparent; */
 /*   opacity: 0; */
+/*   box-shadow: inset 0px 0px 300px 300px rgba(0, 0, 0, 1); */
+  
 }
 
 .lets-talk-container {
