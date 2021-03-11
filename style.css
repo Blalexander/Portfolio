@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  height: 510vh;
+  height: 495vh;
   background-color: #062d3e;
   background-color: black;
   background-color: #000e13;
@@ -96,15 +96,15 @@ main {
 .lp-bg:before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-/*   background-color: red; */
+  top: 70%;
+  left: 50%;
+  height: 30vh;
+  width: 30vw;
+/*   background-color: white; */
 /*   background-image: linear-gradient(to bottom, white, teal); */
 /*   background-color: #000e13; */
 /*   mix-blend-mode:color-dodge; */
-/*   mix-blend-mode: multiply; */
+/*   mix-blend-mode:exclusion; */
   
 }
 
@@ -926,10 +926,10 @@ main {
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
 }
 
-/* .about-me-header:before {
+.about-me-header:before {
   content: '';
   position: absolute;
-  top: -10vh;
+  top: 10vh;
   left: 30vw;
   height: 100%;
   width: 1px;
@@ -939,12 +939,12 @@ main {
 .about-me-header:after {
   content: '';
   position: absolute;
-  top: 10vh;
-  left: 10vw;
+  top: 50vh;
+  left: -50vw;
   height: 1px;
   width: 90vw;
   background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3), transparent);
-} */
+}
 
 .about-me-label {
   font-size: 3em;
@@ -978,10 +978,25 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  height: 200%;
+  height: 100%;
   width: 100%;
   background-color: white;
   transition: 0.5s;
+  transform: rotateZ(180deg);
+  opacity: 0;
+}
+
+.about-me-bg:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to top, orange, transparent);
+/*   background-color: #00babb; */
+  mix-blend-mode:color-dodge;
+  mix-blend-mode:overlay;
 }
 
 .about-me-body {
@@ -1011,7 +1026,7 @@ main {
   height: 100%;
   width: 80vw;
   font-size: 2em;
-  margin-top: -100vh;
+  margin-top: -60vh;
 /*   line-height: 27px; */
   padding-top: 3vh;
   padding-bottom: 3vh;
@@ -1026,7 +1041,7 @@ main {
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
 /*   background-color: #000e13; */
 /*   border: 2px dashed black; */
-  background-color: white;
+/*   background-color: white; */
 }
 
 .am-sentence {
@@ -1105,8 +1120,8 @@ main {
 .contact-section {
   height: 100vh;
   width: 100%;
-/*   position: relative; */
-  position: fixed;
+  position: relative;
+/*   position: fixed; */
   bottom: 0;
   left: 0;
   z-index: 9;
@@ -1115,32 +1130,55 @@ main {
 /*   background-color: white; */
   transition: 0.5s;
 /*   background-color: #000e13; */
+/*   background-color: #003447; */
+  
   
 }
 
 .contact-card-bg {
-  position: absolute;
-  z-index: -1;
-  bottom: 0;
+  position: fixed;
+  z-index: 9;
+  bottom: -40vh;
   left: 0;
-  height: 100vh;
+  height: 150vh;
   width: 100vw;
+  padding-top: 50vh;
+  background-color: white;
 /*   background-color: #000e13; */
+/*   background-color: #005c6b; */
 /*   border: 10px solid transparent; */
-/*   opacity: 0; */
+  opacity: 0;
 /*   box-shadow: inset 0px 0px 300px 300px rgba(0, 0, 0, 1); */
-  
+  transition: 0.5s;
+  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
+/*   display: none; */
+}
+
+.contact-card-bg:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to top, transparent, #000e13);
+/*   background-color: #00babb; */
+  mix-blend-mode:color-burn;
+  mix-blend-mode:color-burn;
 }
 
 .lets-talk-container {
-  position: fixed;
-  bottom: 70vh;
+  position: absolute;
+  bottom: 62vh;
   width: 100vw;
+  height: 10vh;
   display: flex;
   justify-content: center;
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
   opacity: 0;
+/*   transform: translate3d(0, 700%, 0); */
+  z-index: 11;
 }
 
 .lets-talk-primary-letters, .lets-talk-secondary-letters {
@@ -1156,13 +1194,13 @@ main {
 
 .ltp {
   color: white;
-  z-index: 8;
+  z-index: 12;
   text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .lts {
   color: orangered;
-  z-index: 7;
+  z-index: 11;
 }
 
 .lets-talk-letter:nth-child(6) {
@@ -1183,28 +1221,49 @@ main {
 }
 
 .contact-card-inner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  padding-top: 45vh;
-  padding-bottom: 5vh;
+  position: absolute;
+  bottom: 10vh;
+  left: 30vw;
+  height: 70vh;
+  width: 40vw;
+  padding-top: 25vh;
+/*   padding-bottom: 5vh; */
   display: grid;
   grid-template-areas: "email email" "call call" "work resume";
   justify-content: center;
   transition: 0.5s;
+  transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
   opacity: 0;
+/*   background-color: #000e13; */
+/*   transform: translate3d(0, 100%, 0); */
+  overflow: hidden;
 }
 
 .at-bottom .contact-card-inner, .at-bottom .lets-talk-container{
   opacity: 1;
+/*   transform: translate3d(0, 0%, 0); */
 }
 
 .contact-card-inner * {
   color: white;
   text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
-  
+}
+
+.contact-card-inner:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f77f00;
+  transition: 0.5s;
+  transform: translate3d(0%, -100%, 0);
+  transform-origin: top;
+}
+
+.at-bottom .contact-card-inner:after {
+  transform: translate3d(0%, 100%, 0);
 }
 
 .contact-sect-email {

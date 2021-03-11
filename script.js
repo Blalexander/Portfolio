@@ -7,109 +7,147 @@ $(function() {
 
 
 
+createLandingBG()
+
+function createLandingBG() {
+  var container = document.querySelector('.lp-bg')
+  var container2 = document.querySelector('.contact-card-bg')
+
+  var vertexHeight = 15000,
+    planeDefinition = 100,
+    planeSize = 1245000,
+    totalObjects = 1,
+    background = "#000e13",
+    background2 = "#ffffff",
+    // meshColor = "#ffffff";
+    meshColor = "#00babb"; 
+
+  var camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 400000)
+  camera.position.z = 10000;
+  camera.position.y = 11000;
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(background, 1, 100000);
+
+  var scene1 = new THREE.Scene();
+  scene1.fog = new THREE.Fog(background, 1, 100000);
+
+  var scene2 = new THREE.Scene();
+  scene2.fog = new THREE.Fog(background2, 1, 100000);
+
+  var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDefinition, planeDefinition+50);
+  var plane = new THREE.Mesh(planeGeo, new THREE.MeshStandardMaterial({
+    color: meshColor,
+    wireframe: true,
+    emissive: meshColor,
+    emissiveIntensity: 0.8,
+  }));
+  plane.rotation.x -= 4 * .5;
+
+  var plane2 = new THREE.Mesh(planeGeo, new THREE.MeshStandardMaterial({
+    color: meshColor,
+    wireframe: false,
+    emissive: meshColor,
+    emissiveIntensity: 0.8,
+  }));
+  plane2.rotation.x -= 4 * .5;
+
+  const bgeometry = new THREE.BoxGeometry( 15000, 30000, 1 );
+  const bmaterial = new THREE.MeshStandardMaterial( {color: 0x00ff00, emissive: 0x000e13, wireframe: false, depthTest: true, depthWrite: true} );
+  const cube = new THREE.Mesh( bgeometry, bmaterial );
+  cube.position.x = 0;
+  // cube.position.y = -4000;
+  cube.position.z = -20000;
+  cube.rotation.x = 50;
+  // cube.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
+  // cube.position.y -= $(window).scrollTop();
 
 
-
-var container = document.querySelector('.lp-bg')
-
-var vertexHeight = 15000,
-  planeDefinition = 100,
-  planeSize = 1245000,
-  totalObjects = 1,
-  background = "#000e13",
-  // background = "#ffffff",
-  meshColor = "#00babb"; 
-
-var camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 400000)
-camera.position.z = 10000;
-camera.position.y = 10000;
-
-var scene = new THREE.Scene();
-scene.fog = new THREE.Fog(background, 1, 300000);
-
-// material = new THREE.ShaderMaterial({
-//   uniforms: {
-//     lineWidth: {
-//       value: 3
-//     }
-//   },
-//   wireframe: true,
-//   vertexShader: document.getElementById("vertexshader").textContent,
-//   fragmentShader: document.getElementById("fragmentshader").textContent,
-//   side: THREE.DoubleSide // <===============
-// });
-
-// material.extensions.derivatives = true;
-var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
-// var plane = new THREE.Mesh(planeGeo, material);
-var plane = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({
-  color: meshColor,
-  wireframe: true,
-  reflectivity: 1,
-  // aoMapIntensity: 1,
-}));
-// plane.rotation.x -= Math.PI * .5;
-plane.rotation.x -= 4 * .5;
+  scene.add(plane);
+  // scene1.add(cube)
+  scene2.add(plane2, cube);
 
 
-
-scene.add(plane);
-
-var renderer = new THREE.WebGLRenderer({alpha: false});
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(background, 1);
-renderer.setPixelRatio(window.devicePixelRatio);
-container.appendChild(renderer.domElement);
-
-
-updatePlane();
-
-function updatePlane() {
-  for (var i = 0; i < planeGeo.vertices.length; i++) {
-    planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight;
-    planeGeo.vertices[i]._myZ = planeGeo.vertices[i].z
-  }
-};
-
-render();
-
-var count = 0
-function render() {
-  requestAnimationFrame(render);
-  // camera.position.z -= 150;
-  var x = camera.position.x;
-  var y = camera.position.y;
-  var z = camera.position.z;
-  // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
-  // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 1;
-
-  // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
-  // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 1;
-
-  // camera.position.y = y * Math.cos(0.001) + z * Math.sin(0.001) - ;
-
-
-  camera.lookAt(new THREE.Vector3(0, 8000, 0))
-
-  for (var i = 0; i < planeGeo.vertices.length; i++) {
-    var z = +planeGeo.vertices[i].z;
-    planeGeo.vertices[i].z = Math.sin(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 0.6))
-    plane.geometry.verticesNeedUpdate = true;
-
-    count += 0.025
-  }
-
-  renderer.render(scene, camera);
-}
-
-window.addEventListener('resize', onWindowResize, false);
-
-function onWindowResize() {
-  //changes the size of the canavs and updates it
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+  var renderer = new THREE.WebGLRenderer({alpha: true});
   renderer.setSize(window.innerWidth, window.innerHeight);
+  // renderer.setClearColor(background, 1);
+  // renderer1.setClearColor( 0x000000, 0 );
+  renderer.setPixelRatio(window.devicePixelRatio);
+  container.appendChild(renderer.domElement);
+  renderer.domElement.style.position = 'absolute';
+  renderer.domElement.style.top = 0;
+  renderer.domElement.style.zIndex = '1';
+
+  // var renderer1 = new THREE.WebGLRenderer({alpha: true});
+  // renderer1.setSize(window.innerWidth, window.innerHeight);
+  // renderer1.setClearColor( 0x000000, 0 );
+  // renderer1.setPixelRatio(window.devicePixelRatio);
+  // container.appendChild(renderer1.domElement);
+  // renderer1.domElement.style.position = 'absolute';
+  // renderer1.domElement.style.top = 0;
+  
+  var renderer2 = new THREE.WebGLRenderer({alpha: false});
+  renderer2.setSize(window.innerWidth, window.innerHeight);
+  renderer2.setClearColor(background2, 1);
+  renderer2.setPixelRatio(window.devicePixelRatio);
+  container2.appendChild(renderer2.domElement);
+
+
+  updatePlane();
+
+  function updatePlane() {
+    for (var i = 0; i < planeGeo.vertices.length; i++) {
+      planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight;
+      planeGeo.vertices[i]._myZ = planeGeo.vertices[i].z
+    }
+  };
+
+  render();
+
+  var count = 0
+  function render() {
+    requestAnimationFrame(render);
+    // camera.position.z -= 150;
+    var x = camera.position.x;
+    var y = camera.position.y;
+    var z = camera.position.z;
+    cube.position.y = ($(window).scrollTop() - (document.body.offsetHeight * 0.7)) ;
+    // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
+    // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 1;
+
+    // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
+    // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 1;
+
+    // camera.position.y = y * Math.cos(0.001) + z * Math.sin(0.001) - ;
+
+
+    camera.lookAt(new THREE.Vector3(0, 8000, 0))
+
+    for (var i = 0; i < planeGeo.vertices.length; i++) {
+      var z = +planeGeo.vertices[i].z;
+      planeGeo.vertices[i].z = Math.sin(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 0.6))
+      plane.geometry.verticesNeedUpdate = true;
+      plane2.geometry.verticesNeedUpdate = true;
+
+      count += 0.025
+    }
+
+    renderer.render(scene, camera);
+    // renderer1.render(scene1, camera);
+    renderer2.render(scene2, camera);
+  }
+
+  window.addEventListener('resize', onWindowResize, false);
+
+  function onWindowResize() {
+    //changes the size of the canavs and updates it
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer2.setSize(window.innerWidth, window.innerHeight);
+  }
 }
+
 
 
 
@@ -278,7 +316,7 @@ function onWindowResize() {
 
 $(document).ready(function() {
   // console.log("made it this far!")
-  $(window).scrollTop(0)
+  // $(window).scrollTop(0)
 })
 
 gsap.registerPlugin(ScrollTrigger);
@@ -683,7 +721,7 @@ function sticktothetop() {
 
 
   if(backgroundScrollVal > 0.1) {
-    document.querySelector('.ph-inner').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
+    // document.querySelector('.ph-inner').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
 
   }
 
@@ -723,7 +761,7 @@ function sticktothetop() {
 
   if(backgroundScrollVal > 0.8) {
     // document.querySelector('.contact-card-outer').style.transform = "translate3d(0, " + (contactScrollVal)*0.8 + "px, 0)";
-    document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + (contactScrollVal)*.3 + "px, 0)";
+    // document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + (contactScrollVal)*.3 + "px, 0)";
   }
 
   if(backgroundScrollVal > 0.4) {
@@ -805,23 +843,37 @@ function sticktothetop() {
   // }
 
   if(full_window_top / bodyHeight > 0.65) {
-    document.querySelector('.about-me-bg').style.opacity = (1.8 - aboutOpacityVal2)
+    // document.querySelector('.about-me-bg').style.opacity = (1.8 - aboutOpacityVal2)
     // document.querySelector('.about-me-body').style.opacity = aboutOpacityVal2
-    document.querySelector('.am-body-content').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
+    document.querySelector('.am-body-content').style.transform = "translate3d(0, " + (window_top)*0.1 + "px, 0)";
 
   }
 
-  if(backgroundScrollVal > 0.6) {
+  if(backgroundScrollVal > 0.5) {
     // document.querySelector('.contact-card-inner').classList.add('at-bottom')
-    document.querySelector('.contact-section').classList.add('at-bottom')
-    document.querySelector('.contact-card-bg').style.backgroundColor = "#000e13";
-    document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 1)";
+    // document.querySelector('.contact-section').classList.add('at-bottom')
+    // document.querySelector('.contact-card-bg').style.backgroundColor = "#000e13";
+    document.querySelector('.contact-card-bg').style.opacity = 1;
+    document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
+    // document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 1)";
   }
   else {
     // document.querySelector('.contact-card-inner').classList.remove('at-bottom')
+    // document.querySelector('.contact-section').classList.remove('at-bottom')
+    // document.querySelector('.contact-card-bg').style.backgroundColor = "transparent";
+    document.querySelector('.contact-card-bg').style.opacity = 0;
+    // document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 0)";
+  }
+
+  if(backgroundScrollVal > 0.9) {
+    document.querySelector('.contact-section').classList.add('at-bottom')
+    // document.querySelector('.contact-card-inner').style.transform = "translate3d(0, " + -(window_top)*0.3 + "px, 0)";
+    // document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + -(window_top)*0.3 + "px, 0)";
+  }
+  else {
     document.querySelector('.contact-section').classList.remove('at-bottom')
-    document.querySelector('.contact-card-bg').style.backgroundColor = "transparent";
-    document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 0)";
+    // document.querySelector('.contact-card-inner').style.transform = "translate3d(0, " + (window_top)*0.1 + "px, 0)";
+    // document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + (window_top)*0.1 + "px, 0)";
   }
 
 
