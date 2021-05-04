@@ -14,34 +14,50 @@ function createLandingBG() {
   var container2 = document.querySelector('.contact-card-bg')
 
   var vertexHeight = 15000,
-    planeDefinition = 100,
-    planeSize = 1245000,
+  // var vertexHeight = 25000,
+    planeDefinition = 20,
+    // planeDefinition = 10,
+    // planeSize = 1245000,
+    planeSize = 200000,
     totalObjects = 1,
     background = "#000e13",
     background2 = "#ffffff",
     // meshColor = "#ffffff";
     meshColor = "#00babb"; 
 
-  var camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 400000)
-  camera.position.z = 10000;
-  camera.position.y = 11000;
+
+  const w = 1920;
+  const h = 1080;
+  const fullWidth = w * 3;
+  const fullHeight = h * 2;
+  // var camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 400000)
+  var camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 1, 400000)
+  camera.setViewOffset( fullWidth, fullHeight, w * 0.7, h * 0.3, w, h )
+  // camera.setViewOffset( fullWidth, fullHeight, w * 0.8, h * 0.3, w, h )
+  camera.position.x = -10000;
+  // camera.position.z = 10000;
+  camera.position.z = -200000;
+  // camera.position.y = 11000;
+  camera.position.y = 15000;
 
   var scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(background, 1, 100000);
+  // scene.fog = new THREE.Fog(background, 1, 100000);
+  scene.fog = new THREE.Fog(background, 1, 300000);
 
   var scene1 = new THREE.Scene();
-  scene1.fog = new THREE.Fog(background, 1, 100000);
+  scene1.fog = new THREE.Fog(background, 1, 300000);
 
   var scene2 = new THREE.Scene();
-  scene2.fog = new THREE.Fog(background2, 1, 100000);
+  scene2.fog = new THREE.Fog(background, 1, 300000);
 
-  var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDefinition, planeDefinition+50);
+  var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
   var plane = new THREE.Mesh(planeGeo, new THREE.MeshStandardMaterial({
     color: meshColor,
     wireframe: true,
     emissive: meshColor,
     emissiveIntensity: 0.8,
   }));
+  // plane.rotation.x -= 1.5;
   plane.rotation.x -= 4 * .5;
 
   var plane2 = new THREE.Mesh(planeGeo, new THREE.MeshStandardMaterial({
@@ -50,25 +66,28 @@ function createLandingBG() {
     emissive: meshColor,
     emissiveIntensity: 0.8,
   }));
+  // plane2.rotation.x -= 1.5;
   plane2.rotation.x -= 4 * .5;
 
-  const bgeometry = new THREE.BoxGeometry( 15000, 30000, 1 );
+  const bgeometry = new THREE.BoxGeometry( 25000, 15000, 1 );
   const bmaterial = new THREE.MeshStandardMaterial( {color: 0x00ff00, emissive: 0x000e13, wireframe: false, depthTest: true, depthWrite: true} );
   const cube = new THREE.Mesh( bgeometry, bmaterial );
   cube.position.x = 0;
-  // cube.position.y = -4000;
-  cube.position.z = -20000;
-  cube.rotation.x = 50;
+  cube.position.y = -10000;
+  cube.position.z = -50000;
+  // cube.rotation.x = 50;
+  cube.rotation.x = 0;
   // cube.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
   // cube.position.y -= $(window).scrollTop();
 
 
   scene.add(plane);
   // scene1.add(cube)
-  scene2.add(plane2, cube);
+  // scene2.add(plane2, cube);
+  scene2.add(plane2);
 
 
-  var renderer = new THREE.WebGLRenderer({alpha: true});
+  var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
   renderer.setSize(window.innerWidth, window.innerHeight);
   // renderer.setClearColor(background, 1);
   // renderer1.setClearColor( 0x000000, 0 );
@@ -86,17 +105,17 @@ function createLandingBG() {
   // renderer1.domElement.style.position = 'absolute';
   // renderer1.domElement.style.top = 0;
   
-  var renderer2 = new THREE.WebGLRenderer({alpha: false});
+  var renderer2 = new THREE.WebGLRenderer({alpha: false, antialias: true});
   renderer2.setSize(window.innerWidth, window.innerHeight);
-  renderer2.setClearColor(background2, 1);
+  renderer2.setClearColor(background, 1);
   renderer2.setPixelRatio(window.devicePixelRatio);
   container2.appendChild(renderer2.domElement);
-
 
   updatePlane();
 
   function updatePlane() {
     for (var i = 0; i < planeGeo.vertices.length; i++) {
+      // planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight*1.5;
       planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight;
       planeGeo.vertices[i]._myZ = planeGeo.vertices[i].z
     }
@@ -104,21 +123,33 @@ function createLandingBG() {
 
   render();
 
-  var count = 0
+  var count = 0;
+  var bgBox = -10000;
   function render() {
     requestAnimationFrame(render);
     // camera.position.z -= 150;
     var x = camera.position.x;
     var y = camera.position.y;
     var z = camera.position.z;
-    cube.position.y = ($(window).scrollTop() - (document.body.offsetHeight * 0.7)) ;
+    // cube.position.y = ($(window).scrollTop() - (document.body.offsetHeight * 0.7)) ;
+    // if($(window).scrollTop() > 500) {
+    //   camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
+    //   camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
+    // }
+    // else {
+    //   camera.position.x = 0
+    // }
+
+    // camera.position.x += ( mouseX - camera.position.x ) * 1;
+
     // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
     // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 1;
 
     // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
     // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 1;
 
-    // camera.position.y = y * Math.cos(0.001) + z * Math.sin(0.001) - ;
+    // camera.position.y = y * Math.cos(0.001) + z * Math.sin(0.001) - 10;
+    // camera.position.y = 10350;
 
 
     camera.lookAt(new THREE.Vector3(0, 8000, 0))
@@ -126,10 +157,13 @@ function createLandingBG() {
     for (var i = 0; i < planeGeo.vertices.length; i++) {
       var z = +planeGeo.vertices[i].z;
       planeGeo.vertices[i].z = Math.sin(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 0.6))
+      // planeGeo.vertices[i].z = Math.tan(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 1.5))
       plane.geometry.verticesNeedUpdate = true;
       plane2.geometry.verticesNeedUpdate = true;
 
-      count += 0.025
+      // count += 0.025
+      count += 1.25
+
     }
 
     renderer.render(scene, camera);
@@ -675,7 +709,7 @@ function sticktothetop() {
   let backgroundScrollVal = $(window).scrollTop() / document.querySelector('main').offsetHeight;
   let contactScrollVal = bodyHeight - full_window_top;
   let endingHeight = bodyHeight * 0.8;
-  let aboutOpacityVal2 = ((full_window_top - bodyHeight*0.65) / (bodyHeight - bodyHeight*0.9)).toFixed(2)
+  let aboutOpacityVal2 = ((full_window_top - bodyHeight*0.65) / (bodyHeight - bodyHeight*0.7)).toFixed(2)
 
 
   // let l1 = document.querySelector('.line1').getBoundingClientRect()
@@ -712,17 +746,20 @@ function sticktothetop() {
   //   document.querySelector('.landing-name-holder').style.filter = "blur(0px)";
   // }
 
-  if(backgroundScrollVal > 0.2) {
-    document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 1)";
-  }
-  else {
-    document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0)";
-  }
+  // if(backgroundScrollVal > 0.2) {
+  //   document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 1)";
+  // }
+  // else {
+  //   document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0)";
+  // }
 
 
   if(backgroundScrollVal > 0.1) {
     // document.querySelector('.ph-inner').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
-
+    document.querySelector('.projects-container').style.transform = "translate3d(0%, 0, 0) skewX(0deg)";
+  }
+  else {
+    document.querySelector('.projects-container').style.transform = "translate3d(-50%, 0, 0) skewX(50deg)";
   }
 
   // if(backgroundScrollVal > 0.16) {
@@ -751,6 +788,9 @@ function sticktothetop() {
 
   if(backgroundScrollVal < 0.25) {
     // document.querySelector('.landing-introduction').style.transform = "translate3d(0, " + (window_top)*0.6 + "px, 0)";
+    document.querySelector('.lp-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
+    document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
+
   }
 
   if(backgroundScrollVal > 0.18 && backgroundScrollVal < 0.7) {
@@ -843,9 +883,11 @@ function sticktothetop() {
   // }
 
   if(full_window_top / bodyHeight > 0.65) {
-    // document.querySelector('.about-me-bg').style.opacity = (1.8 - aboutOpacityVal2)
+    // document.querySelector('.contact-card-bg').style.opacity = aboutOpacityVal2
+    // document.querySelector('.am-body-content').style.opacity = aboutOpacityVal2
+    // console.log(aboutOpacityVal2)
     // document.querySelector('.about-me-body').style.opacity = aboutOpacityVal2
-    document.querySelector('.am-body-content').style.transform = "translate3d(0, " + (window_top)*0.1 + "px, 0)";
+    document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
 
   }
 
@@ -853,15 +895,17 @@ function sticktothetop() {
     // document.querySelector('.contact-card-inner').classList.add('at-bottom')
     // document.querySelector('.contact-section').classList.add('at-bottom')
     // document.querySelector('.contact-card-bg').style.backgroundColor = "#000e13";
-    document.querySelector('.contact-card-bg').style.opacity = 1;
-    document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
+    // document.querySelector('.contact-card-bg').style.opacity = 1;
+    // document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
+    document.querySelector('.lp-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
+    document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
     // document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 1)";
   }
   else {
     // document.querySelector('.contact-card-inner').classList.remove('at-bottom')
     // document.querySelector('.contact-section').classList.remove('at-bottom')
     // document.querySelector('.contact-card-bg').style.backgroundColor = "transparent";
-    document.querySelector('.contact-card-bg').style.opacity = 0;
+    // document.querySelector('.contact-card-bg').style.opacity = 0;
     // document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 0)";
   }
 
