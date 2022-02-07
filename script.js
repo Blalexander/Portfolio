@@ -5,6 +5,76 @@ $(function() {
 });
 
 
+makeLandingBg();
+
+function makeLandingBg() {
+  const w = 1920;
+  const h = 1080;
+  const fullWidth = w * 3;
+  const fullHeight = h * 2;
+  const scene = new THREE.Scene();  
+  // scene.background = new THREE.Color( 0xffffff, 1 );
+  const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.01, 10000 ); 
+  // camera.setViewOffset( fullWidth, fullHeight, w * 0.7, h * 0.3, w, h )
+
+
+  const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true}); 
+  let centerP = document.querySelector('.centerpiece-container')
+  renderer.setSize( window.innerWidth, window.innerHeight ); 
+  window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+
+
+    camera.updateProjectionMatrix();
+  })
+  document.querySelector('.centerpiece-container').appendChild( renderer.domElement );
+
+  let background = "#000e13"
+  scene.fog = new THREE.Fog(background, 1, 1.05);
+  renderer.setClearColor(background, 1);
+
+
+  const geometry1 = new THREE.IcosahedronBufferGeometry( 0.6, 5 );
+  // const material1 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+  const material1 = new THREE.MeshLambertMaterial( { color: 0x00babb, wireframe: true, depthTest: true, depthWrite: true } );
+  const octa1 = new THREE.Mesh( geometry1, material1 );
+
+
+  const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.2 );
+  directionalLight.position.set(20, -20, 25)
+  directionalLight.castShadow = true;
+
+  const directionalLight1 = new THREE.DirectionalLight( 0x000e13, 0.3 );
+  directionalLight1.position.set(-20, 20, -25)
+
+
+  // scene.add( octa1, octa2, octa3, octa4, octa5, octa6, octa7, directionalLight );
+  // scene.add( octa1, directionalLight, directionalLight1 );
+  scene.add( octa1, directionalLight );
+
+
+  camera.position.z = 1;
+  // camera.position.y = .1;
+
+  const render = function () {
+      requestAnimationFrame( render );
+
+      // octa1.rotation.y += 0.0005;
+
+
+      octa1.rotation.z += 0.0005;
+
+
+      octa1.rotation.x += 0.0005;
+
+
+      renderer.render(scene, camera);
+  };
+
+  render();
+}
+
 
 
 createLandingBG()
@@ -615,37 +685,37 @@ gsap.from(".lts", 1, {
   }
 })
 
-gsap.from(".phl", 1.5, {
-  scrollTrigger: {
-    trigger: ".ph-text",
-    toggleActions: "play none none none",
-    start: "bottom bottom",
-  },
-  // yPercent: -30,
-  xPercent: 500,
-  // scaleY: 1.8,
-  // scaleX: 1,
-  ease: "power3",
-  // opacity: 0,
-  stagger: {
-    amount: 0.1,
-    from: "edges"
-  }
-})
+// gsap.from(".phl", 1.5, {
+//   scrollTrigger: {
+//     trigger: ".ph-text",
+//     toggleActions: "play none none none",
+//     start: "bottom bottom",
+//   },
+//   // yPercent: -30,
+//   xPercent: 500,
+//   // scaleY: 1.8,
+//   // scaleX: 1,
+//   ease: "power3",
+//   // opacity: 0,
+//   stagger: {
+//     amount: 0.1,
+//     from: "edges"
+//   }
+// })
 
-gsap.from(".ph-text", 1.5, {
-  scrollTrigger: {
-    trigger: ".ph-text",
-    toggleActions: "play none none none",
-    start: "bottom bottom",
-  },
-  // yPercent: -100,
-  // xPercent: 100,
-  opacity: 0,
-  scaleY: 1.8,
-  scaleX: 1,
-  ease: "power3",
-})
+// gsap.from(".ph-text", 1.5, {
+//   scrollTrigger: {
+//     trigger: ".ph-text",
+//     toggleActions: "play none none none",
+//     start: "bottom bottom",
+//   },
+//   // yPercent: -100,
+//   // xPercent: 100,
+//   opacity: 0,
+//   scaleY: 1.8,
+//   scaleX: 1,
+//   ease: "power3",
+// })
 
 
 const navButs = document.querySelectorAll('.navi')
@@ -736,6 +806,7 @@ function sticktothetop() {
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
   document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1.26 + "px, 0)";
+  document.querySelector('.centerpiece-container').style.transform = "translate3d(10%, " + -(window_top)*1 + "px, 0)";
 
   // if(backgroundScrollVal > 0.04) {
   //   document.querySelector('.landing-title').style.filter = "blur(0px)";
@@ -753,22 +824,67 @@ function sticktothetop() {
   //   document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0)";
   // }
 
+  let allProjLetters = document.querySelectorAll('.phl');
+  let linesDown = document.querySelectorAll('.lines-down')
 
   if(backgroundScrollVal > 0.1) {
     // document.querySelector('.ph-inner').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
-    document.querySelector('.projects-container').style.transform = "translate3d(0%, 0, 0) skewX(0deg)";
+    // document.querySelector('.projects-container').style.transform = "translate3d(0%, 0, 0) skewX(0deg)";
+    // document.querySelector('.top-projects-line').style.transform = "scale3d(1, 1, 1)";
+    document.querySelector('.projects-container').classList.add('in-focus')
+    allProjLetters.forEach((letter) => {
+      letter.style.transform = "translate3d(0, 0%, 0) rotateY(0deg)";
+      letter.style.opacity = 1;
+    })
+    linesDown.forEach((line) => {
+      line.style.transform = "scale3d(1, 1, 1)";
+    })
   }
   else {
-    document.querySelector('.projects-container').style.transform = "translate3d(-50%, 0, 0) skewX(50deg)";
+    // document.querySelector('.projects-container').style.transform = "translate3d(-100%, 0, 0) skewX(-10deg)";
+    // document.querySelector('.top-projects-line').style.transform = "scale3d(0, 1, 1)";
+    document.querySelector('.projects-container').classList.remove('in-focus')
+    allProjLetters.forEach((letter) => {
+      letter.style.transform = "translate3d(0, 100%, 0) rotateY(80deg)";
+      letter.style.opacity = 0;
+    })
+    linesDown.forEach((line) => {
+      line.style.transform = "scale3d(1, 0, 1)";
+    })
   }
 
-  // if(backgroundScrollVal > 0.16) {
-  //   document.querySelector('.projects-header').style.opacity = 1;
-  //   document.querySelector('.ph-bg').style.opacity = 1;
+  if(backgroundScrollVal > 0.23) {
+    document.querySelector('.project-one-container').classList.add('reveal');
+  }
+  else if(backgroundScrollVal == 0) {
+    document.querySelector('.project-one-container').classList.remove('reveal');
+  }
+
+  if(backgroundScrollVal > 0.35) {
+    document.querySelector('.project-two-container').classList.add('reveal');
+  }
+  else if(backgroundScrollVal == 0) {
+    document.querySelector('.project-two-container').classList.remove('reveal');
+  }
+
+  if(backgroundScrollVal > 0.47) {
+    document.querySelector('.project-three-container').classList.add('reveal');
+  }
+  else if(backgroundScrollVal == 0) {
+    document.querySelector('.project-three-container').classList.remove('reveal');
+  }
+
+  // if(backgroundScrollVal > 0.20) {
+  //   allProjLetters.forEach((letter) => {
+  //     letter.style.transform = "translate3d(0%, 0, 0)";
+  //     letter.style.opacity = 1;
+  //   })
   // }
   // else {
-  //   document.querySelector('.projects-header').style.opacity = 0;
-  //   document.querySelector('.ph-bg').style.opacity = 0;
+  //   allProjLetters.forEach((letter) => {
+  //     letter.style.transform = "translate3d(1000%, 0, 0)";
+  //     letter.style.opacity = 0;
+  //   })
   // }
 
   // if(backgroundScrollVal < 0.16) {
@@ -898,10 +1014,16 @@ function sticktothetop() {
     // document.querySelector('.contact-card-bg').style.opacity = 1;
     // document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
     document.querySelector('.lp-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
+    document.querySelector('.lp-bg').style.opacity = 1;
+    document.querySelector('.contact-card-bg').style.opacity = 1;
     document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
+    document.querySelector('.centerpiece-container').style.opacity = 0;
     // document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 1)";
   }
   else {
+    document.querySelector('.lp-bg').style.opacity = 0;
+    document.querySelector('.contact-card-bg').style.opacity = 0;
+    document.querySelector('.centerpiece-container').style.opacity = 1;
     // document.querySelector('.contact-card-inner').classList.remove('at-bottom')
     // document.querySelector('.contact-section').classList.remove('at-bottom')
     // document.querySelector('.contact-card-bg').style.backgroundColor = "transparent";
@@ -922,3 +1044,8 @@ function sticktothetop() {
 
 
 }
+
+
+
+
+{/* <source data-srcset="//cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_180x.jpg?v=1623089544 180w 225h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_360x.jpg?v=1623089544 360w 450h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_540x.jpg?v=1623089544 540w 675h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_720x.jpg?v=1623089544 720w 900h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_900x.jpg?v=1623089544 900w 1125h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_1080x.jpg?v=1623089544 1080w 1350h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_1296x.jpg?v=1623089544 1296w 1620h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_1512x.jpg?v=1623089544 1512w 1890h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid.jpg?v=1623089544 1600w 2000h" sizes="224px" srcset="//cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_180x.jpg?v=1623089544 180w 225h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_360x.jpg?v=1623089544 360w 450h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_540x.jpg?v=1623089544 540w 675h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_720x.jpg?v=1623089544 720w 900h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_900x.jpg?v=1623089544 900w 1125h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_1080x.jpg?v=1623089544 1080w 1350h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_1296x.jpg?v=1623089544 1296w 1620h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid_1512x.jpg?v=1623089544 1512w 1890h, //cdn.shopify.com/s/files/1/0074/6989/1654/collections/hunnid.jpg?v=1623089544 1600w 2000h"></source> */}
