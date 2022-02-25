@@ -9,21 +9,25 @@ makeLandingBg();
 
 function makeLandingBg() {
   const w = 1920;
-  const h = 1080;
+  const h = 1920;
   const fullWidth = w * 3;
   const fullHeight = h * 2;
   const scene = new THREE.Scene();  
   // scene.background = new THREE.Color( 0xffffff, 1 );
   const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.01, 10000 ); 
-  // camera.setViewOffset( fullWidth, fullHeight, w * 0.7, h * 0.3, w, h )
+  // camera.setViewOffset( fullWidth, fullHeight, w * 0.7, h * 0.3, fullWidth, fullHeight )
 
 
   const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true}); 
   let centerP = document.querySelector('.centerpiece-container')
   renderer.setSize( window.innerWidth, window.innerHeight ); 
   window.addEventListener('resize', () => {
+    let resizeVal = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
+
+    // renderer.setSize(resizeVal, resizeVal);
+    // camera.aspect = resizeVal / resizeVal;
 
 
     camera.updateProjectionMatrix();
@@ -31,42 +35,57 @@ function makeLandingBg() {
   document.querySelector('.centerpiece-container').appendChild( renderer.domElement );
 
   let background = "#000e13"
-  scene.fog = new THREE.Fog(background, 1, 1.05);
+  // let background = "#ffffff"
+  scene.fog = new THREE.Fog(background, 1, 3.05);
   renderer.setClearColor(background, 1);
+  renderer.setClearAlpha(0.2)
 
 
-  const geometry1 = new THREE.IcosahedronBufferGeometry( 0.6, 5 );
+  const geometry1 = new THREE.IcosahedronBufferGeometry( 1.1, 80 );
+  // const geometry2 = new THREE.IcosahedronBufferGeometry( 0.55, 5 );
   // const material1 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
   const material1 = new THREE.MeshLambertMaterial( { color: 0x00babb, wireframe: true, depthTest: true, depthWrite: true } );
+  // const material2 = new THREE.MeshLambertMaterial( { color: 0x00babb, wireframe: false, depthTest: true, depthWrite: true} );
   const octa1 = new THREE.Mesh( geometry1, material1 );
+  // const octa2 = new THREE.Mesh( geometry2, material2 );
+  // octa1.layers.set(1)
+  // octa2.layers.set(2)
 
 
-  const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.2 );
-  directionalLight.position.set(20, -20, 25)
-  directionalLight.castShadow = true;
+  const directionalLight1 = new THREE.DirectionalLight( 0xffffff, 0.4 );
+  directionalLight1.position.set(-15, -40, 30)
+  // directionalLight1.castShadow = true;
 
-  const directionalLight1 = new THREE.DirectionalLight( 0x000e13, 0.3 );
-  directionalLight1.position.set(-20, 20, -25)
+  const directionalLight2 = new THREE.DirectionalLight( 0xffffff, 0.125 );
+  directionalLight2.position.set(40, 60, -5)
+  // directionalLight1.castShadow = true;
+
+  const directionalLight3 = new THREE.DirectionalLight( 0xffffff, 0.2 );
+  directionalLight3.position.set(40, 20, -45)
+  // var light = new THREE.HemisphereLight(0x000e13, 0xFFFFFF, 0.25);
 
 
   // scene.add( octa1, octa2, octa3, octa4, octa5, octa6, octa7, directionalLight );
-  // scene.add( octa1, directionalLight, directionalLight1 );
-  scene.add( octa1, directionalLight );
+  // scene.add( octa1, directionalLight1, directionalLight2, directionalLight3 );
+  // scene.add( octa1, octa2, directionalLight1, directionalLight2 );
+  scene.add( octa1, directionalLight1, directionalLight2, directionalLight3 );
+  // scene.add( octa1, light );
 
 
+  camera.layers.enable(1)
   camera.position.z = 1;
   // camera.position.y = .1;
 
   const render = function () {
       requestAnimationFrame( render );
 
-      // octa1.rotation.y += 0.0005;
+      octa1.rotation.y += 0.0005;
 
 
-      octa1.rotation.z += 0.0005;
+      // octa1.rotation.z += 0.0005;
 
 
-      octa1.rotation.x += 0.0005;
+      // octa1.rotation.x += 0.0005;
 
 
       renderer.render(scene, camera);
@@ -76,180 +95,107 @@ function makeLandingBg() {
 }
 
 
+createWaveBackground()
 
-createLandingBG()
+function createWaveBackground() {
+  let container, stats;
+  let camera, scene, renderer;
+  let controls, water, sun, mesh;
 
-function createLandingBG() {
-  var container = document.querySelector('.lp-bg')
-  var container2 = document.querySelector('.contact-card-bg')
+  // init();
+  // animate();
 
-  var vertexHeight = 15000,
-  // var vertexHeight = 25000,
-    planeDefinition = 20,
-    // planeDefinition = 10,
-    // planeSize = 1245000,
-    planeSize = 200000,
-    totalObjects = 1,
-    background = "#000e13",
-    background2 = "#ffffff",
-    // meshColor = "#ffffff";
-    meshColor = "#00babb"; 
+  // function init() {
+    var container2 = document.querySelector('.contact-card-bg')
 
+    // container = document.getElementById( 'container' );
 
-  const w = 1920;
-  const h = 1080;
-  const fullWidth = w * 3;
-  const fullHeight = h * 2;
-  // var camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 400000)
-  var camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 1, 400000)
-  camera.setViewOffset( fullWidth, fullHeight, w * 0.7, h * 0.3, w, h )
-  // camera.setViewOffset( fullWidth, fullHeight, w * 0.8, h * 0.3, w, h )
-  camera.position.x = -10000;
-  // camera.position.z = 10000;
-  camera.position.z = -200000;
-  // camera.position.y = 11000;
-  camera.position.y = 15000;
+    //
 
-  var scene = new THREE.Scene();
-  // scene.fog = new THREE.Fog(background, 1, 100000);
-  scene.fog = new THREE.Fog(background, 1, 300000);
-
-  var scene1 = new THREE.Scene();
-  scene1.fog = new THREE.Fog(background, 1, 300000);
-
-  var scene2 = new THREE.Scene();
-  scene2.fog = new THREE.Fog(background, 1, 300000);
-
-  var planeGeo = new THREE.PlaneGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
-  var plane = new THREE.Mesh(planeGeo, new THREE.MeshStandardMaterial({
-    color: meshColor,
-    wireframe: true,
-    emissive: meshColor,
-    emissiveIntensity: 0.8,
-  }));
-  // plane.rotation.x -= 1.5;
-  plane.rotation.x -= 4 * .5;
-
-  var plane2 = new THREE.Mesh(planeGeo, new THREE.MeshStandardMaterial({
-    color: meshColor,
-    wireframe: false,
-    emissive: meshColor,
-    emissiveIntensity: 0.8,
-  }));
-  // plane2.rotation.x -= 1.5;
-  plane2.rotation.x -= 4 * .5;
-
-  const bgeometry = new THREE.BoxGeometry( 25000, 15000, 1 );
-  const bmaterial = new THREE.MeshStandardMaterial( {color: 0x00ff00, emissive: 0x000e13, wireframe: false, depthTest: true, depthWrite: true} );
-  const cube = new THREE.Mesh( bgeometry, bmaterial );
-  cube.position.x = 0;
-  cube.position.y = -10000;
-  cube.position.z = -50000;
-  // cube.rotation.x = 50;
-  cube.rotation.x = 0;
-  // cube.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
-  // cube.position.y -= $(window).scrollTop();
+    renderer = new THREE.WebGLRenderer({alpha: true});
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.setClearColor( 0x4e9fe5, 0.5 )
+    // renderer.setClearColor( 0x00babb, 0.5 )
+    // container.appendChild( renderer.domElement );
+    container2.appendChild(renderer.domElement);
 
 
-  scene.add(plane);
-  // scene1.add(cube)
-  // scene2.add(plane2, cube);
-  scene2.add(plane2);
+    //
 
+    scene = new THREE.Scene();
 
-  var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  // renderer.setClearColor(background, 1);
-  // renderer1.setClearColor( 0x000000, 0 );
-  renderer.setPixelRatio(window.devicePixelRatio);
-  container.appendChild(renderer.domElement);
-  renderer.domElement.style.position = 'absolute';
-  renderer.domElement.style.top = 0;
-  renderer.domElement.style.zIndex = '1';
+    camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
+    camera.position.set( 30, 30, 100 );
 
-  // var renderer1 = new THREE.WebGLRenderer({alpha: true});
-  // renderer1.setSize(window.innerWidth, window.innerHeight);
-  // renderer1.setClearColor( 0x000000, 0 );
-  // renderer1.setPixelRatio(window.devicePixelRatio);
-  // container.appendChild(renderer1.domElement);
-  // renderer1.domElement.style.position = 'absolute';
-  // renderer1.domElement.style.top = 0;
-  
-  var renderer2 = new THREE.WebGLRenderer({alpha: false, antialias: true});
-  renderer2.setSize(window.innerWidth, window.innerHeight);
-  renderer2.setClearColor(background, 1);
-  renderer2.setPixelRatio(window.devicePixelRatio);
-  container2.appendChild(renderer2.domElement);
+    //
 
-  updatePlane();
+    // sun = new THREE.Vector3();
 
-  function updatePlane() {
-    for (var i = 0; i < planeGeo.vertices.length; i++) {
-      // planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight*1.5;
-      planeGeo.vertices[i].z += Math.random() * vertexHeight - vertexHeight;
-      planeGeo.vertices[i]._myZ = planeGeo.vertices[i].z
-    }
-  };
+    // Water
 
-  render();
+    const waterGeometry = new THREE.PlaneGeometry( 10000, 10000 );
 
-  var count = 0;
-  var bgBox = -10000;
-  function render() {
-    requestAnimationFrame(render);
-    // camera.position.z -= 150;
-    var x = camera.position.x;
-    var y = camera.position.y;
-    var z = camera.position.z;
-    // cube.position.y = ($(window).scrollTop() - (document.body.offsetHeight * 0.7)) ;
-    // if($(window).scrollTop() > 500) {
-    //   camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
-    //   camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
-    // }
-    // else {
-    //   camera.position.x = 0
-    // }
+    water = new Water(
+      waterGeometry,
+      {
+        textureWidth: 512,
+        textureHeight: 512,
+        waterNormals: new THREE.TextureLoader().load( '/waternormals.jpg', function ( texture ) {
 
-    // camera.position.x += ( mouseX - camera.position.x ) * 1;
+          texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
-    // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
-    // camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 1;
+        } ),
+        sunDirection: new THREE.Vector3(),
+        sunColor: 0xffffff,
+        waterColor: 0x000000,
+        distortionScale: 8,
+        fog: scene.fog !== undefined
+      }
+    );
 
-    // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
-    // camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 1;
+    water.rotation.x = - Math.PI / 2;
 
-    // camera.position.y = y * Math.cos(0.001) + z * Math.sin(0.001) - 10;
-    // camera.position.y = 10350;
+    scene.add( water );
 
+    window.addEventListener( 'resize', onWindowResize );
 
-    camera.lookAt(new THREE.Vector3(0, 8000, 0))
-
-    for (var i = 0; i < planeGeo.vertices.length; i++) {
-      var z = +planeGeo.vertices[i].z;
-      planeGeo.vertices[i].z = Math.sin(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 0.6))
-      // planeGeo.vertices[i].z = Math.tan(( i + count * 0.00002)) * (planeGeo.vertices[i]._myZ - (planeGeo.vertices[i]._myZ* 1.5))
-      plane.geometry.verticesNeedUpdate = true;
-      plane2.geometry.verticesNeedUpdate = true;
-
-      // count += 0.025
-      count += 1.25
-
-    }
-
-    renderer.render(scene, camera);
-    // renderer1.render(scene1, camera);
-    renderer2.render(scene2, camera);
-  }
-
-  window.addEventListener('resize', onWindowResize, false);
+  // }
 
   function onWindowResize() {
-    //changes the size of the canavs and updates it
+
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer2.setSize(window.innerWidth, window.innerHeight);
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
   }
+
+  function animate() {
+
+    requestAnimationFrame( animate );
+    render();
+
+  }
+
+  function render() {
+    // requestAnimationFrame( animate );
+
+    const time = performance.now() * 0.001;
+
+    // mesh.position.y = Math.sin( time ) * 20 + 5;
+    // mesh.rotation.x = time * 0.5;
+    // mesh.rotation.z = time * 0.51;
+
+    water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
+
+    renderer.render( scene, camera );
+
+  }
+
+  // render();
+  animate();
 }
 
 
@@ -777,6 +723,7 @@ function sticktothetop() {
   let window_top = $(window).scrollTop();
   let bodyHeight = document.querySelector('body').offsetHeight;
   let backgroundScrollVal = $(window).scrollTop() / document.querySelector('main').offsetHeight;
+  let moveSideways = (backgroundScrollVal * 100) / 3
   let contactScrollVal = bodyHeight - full_window_top;
   let endingHeight = bodyHeight * 0.8;
   let aboutOpacityVal2 = ((full_window_top - bodyHeight*0.65) / (bodyHeight - bodyHeight*0.7)).toFixed(2)
@@ -806,31 +753,16 @@ function sticktothetop() {
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
   document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1.26 + "px, 0)";
-  document.querySelector('.centerpiece-container').style.transform = "translate3d(10%, " + -(window_top)*1 + "px, 0)";
+  document.querySelector('.grid-bg').style.transform = "translate3d(" + moveSideways + "%, " + -(window_top)*2.5 + "px, 0)";
+  // document.querySelector('.centerpiece-container').style.transform = "translate3d(10%, " + -(window_top)*0.5 + "px, 0)";
+  // document.querySelector('.centerpiece-container').style.transform = "translate3d(0%, " + -(window_top)*0.65 + "px, 0)";
+  // document.querySelector('.centerpiece-background').style.transform = "translate3d(0%, " + -(window_top)*0.65 + "px, 0)";
 
-  // if(backgroundScrollVal > 0.04) {
-  //   document.querySelector('.landing-title').style.filter = "blur(0px)";
-  //   document.querySelector('.landing-name-holder').style.filter = "blur(3px)";
-  // }
-  // else if(backgroundScrollVal < 0.04) {
-  //   document.querySelector('.landing-title').style.filter = "blur(3px)";
-  //   document.querySelector('.landing-name-holder').style.filter = "blur(0px)";
-  // }
-
-  // if(backgroundScrollVal > 0.2) {
-  //   document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 1)";
-  // }
-  // else {
-  //   document.querySelector('.fixed-navbar').style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0)";
-  // }
 
   let allProjLetters = document.querySelectorAll('.phl');
   let linesDown = document.querySelectorAll('.lines-down')
 
   if(backgroundScrollVal > 0.1) {
-    // document.querySelector('.ph-inner').style.transform = "translate3d(0, " + (window_top)*0.15 + "px, 0)";
-    // document.querySelector('.projects-container').style.transform = "translate3d(0%, 0, 0) skewX(0deg)";
-    // document.querySelector('.top-projects-line').style.transform = "scale3d(1, 1, 1)";
     document.querySelector('.projects-container').classList.add('in-focus')
     allProjLetters.forEach((letter) => {
       letter.style.transform = "translate3d(0, 0%, 0) rotateY(0deg)";
@@ -841,8 +773,6 @@ function sticktothetop() {
     })
   }
   else {
-    // document.querySelector('.projects-container').style.transform = "translate3d(-100%, 0, 0) skewX(-10deg)";
-    // document.querySelector('.top-projects-line').style.transform = "scale3d(0, 1, 1)";
     document.querySelector('.projects-container').classList.remove('in-focus')
     allProjLetters.forEach((letter) => {
       letter.style.transform = "translate3d(0, 100%, 0) rotateY(80deg)";
@@ -851,6 +781,13 @@ function sticktothetop() {
     linesDown.forEach((line) => {
       line.style.transform = "scale3d(1, 0, 1)";
     })
+  }
+
+  if(backgroundScrollVal > 0.2) {
+    document.querySelector('.grid-bg').style.opacity = 1
+  }
+  else {
+    document.querySelector('.grid-bg').style.opacity = 0.1
   }
 
   if(backgroundScrollVal > 0.23) {
@@ -874,172 +811,70 @@ function sticktothetop() {
     document.querySelector('.project-three-container').classList.remove('reveal');
   }
 
-  // if(backgroundScrollVal > 0.20) {
-  //   allProjLetters.forEach((letter) => {
-  //     letter.style.transform = "translate3d(0%, 0, 0)";
-  //     letter.style.opacity = 1;
-  //   })
+  // if(backgroundScrollVal > 0.18) {
+  //   document.querySelector('.projects-header').classList.add('move-down')
   // }
-  // else {
-  //   allProjLetters.forEach((letter) => {
-  //     letter.style.transform = "translate3d(1000%, 0, 0)";
-  //     letter.style.opacity = 0;
-  //   })
+  // else if (backgroundScrollVal === 0) {
+  //   document.querySelector('.projects-header').classList.remove('move-down')
   // }
-
-  // if(backgroundScrollVal < 0.16) {
-    // document.querySelector('.landing-name-holder').style.transform = "translate3d(0, " + (window_top)*0.8 + "px, 0)";
-    // document.querySelector('.landing-introduction').style.transform = "translate3d(0, " + (window_top)*0.5 + "px, 0)";
-
-  // }
-
-  if(backgroundScrollVal > 0.18) {
-    document.querySelector('.projects-header').classList.add('move-down')
-  }
-  else if (backgroundScrollVal === 0) {
-    document.querySelector('.projects-header').classList.remove('move-down')
-
-
-  }
 
   if(backgroundScrollVal < 0.25) {
-    // document.querySelector('.landing-introduction').style.transform = "translate3d(0, " + (window_top)*0.6 + "px, 0)";
-    document.querySelector('.lp-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
-    document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
+    // document.querySelector('.lp-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
+    // document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
 
   }
 
   if(backgroundScrollVal > 0.18 && backgroundScrollVal < 0.7) {
-    document.querySelector('.img-to-move0').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight())*2.1)*0.1 + "px, 0)";
-    document.querySelector('.img-to-move1').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*2.6))*0.1 + "px, 0)";
-    document.querySelector('.img-to-move2').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*3.2))*0.1 + "px, 0)";
+    // document.querySelector('.img-to-move0').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight())*2.1)*0.1 + "px, 0)";
+    // document.querySelector('.img-to-move1').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*2.6))*0.1 + "px, 0)";
+    // document.querySelector('.img-to-move2').style.transform = "translate3d(0, " + (window_top-($(window).innerHeight()*3.2))*0.1 + "px, 0)";
   }
 
-  if(backgroundScrollVal > 0.8) {
-    // document.querySelector('.contact-card-outer').style.transform = "translate3d(0, " + (contactScrollVal)*0.8 + "px, 0)";
-    // document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + (contactScrollVal)*.3 + "px, 0)";
+  if(full_window_top / bodyHeight > 0.65) {
+    // document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
+
   }
 
   if(backgroundScrollVal > 0.4) {
-    // document.querySelector('.about-me-label').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    // document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
-    // document.querySelector('.about-me-header').style.transform = "translate3d(0, " + (window_top)*0.3 + "px, 0)";
-    // document.querySelector('.about-me-label').style.transform = "translate3d(0, " + -(window_top)*0.05 + "px, 0)";
-  }
-
-  // if(backgroundScrollVal > 0.55) {
-  //   document.querySelector('.ams1').style.transform = "translate3d(0%, 0%, 0)";
-  //   document.querySelector('.amsp1').style.opacity = 0;
-  // }
-  // else {
-  //   document.querySelector('.ams1').style.transform = "translate3d(20%, 110%, 0)";
-  //   document.querySelector('.amsp1').style.opacity = 1;
-  // }
-
-  // if(backgroundScrollVal > 0.57) {
-  //   document.querySelector('.ams2').style.opacity = 1;
-  //   document.querySelector('.ams2').style.transform = "scale3d(1, 1, 1)";
-  //   document.querySelector('.amsp2').style.opacity = 0;
-  // }
-  // else {
-  //   document.querySelector('.ams2').style.opacity = 0;
-  //   document.querySelector('.ams2').style.transform = "scale3d(1, 1, 0.6)";
-  //   document.querySelector('.amsp2').style.opacity = 1;
-  // }
-
-  // if(backgroundScrollVal > 0.59) {
-  //   document.querySelector('.ams3').style.transform = "scale3d(1, 1, 1)";
-  //   document.querySelector('.amsp3').style.opacity = 0;
-  // }
-  // else {
-  //   document.querySelector('.ams3').style.transform = "scale3d(0, 1, 1)";
-  //   document.querySelector('.amsp3').style.opacity = 1;
-  // }
-
-  // if(backgroundScrollVal > 0.63) {
-  //   document.querySelector('.ams4').style.transform = "scale3d(1, 1, 1)";
-  //   document.querySelector('.amsp4').style.opacity = 0;
-  // }
-  // else {
-  //   document.querySelector('.ams4').style.transform = "scale3d(1, 0, 1)";
-  //   document.querySelector('.amsp4').style.opacity = 1;
-  // }
-
-  // if(backgroundScrollVal > 0.42 && backgroundScrollVal < 0.65) {
-  //   document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top - (bodyHeight*0.50))*0.8 + "px, 0)";
-  // }
-
-  // if(backgroundScrollVal > 0.55) {
-  //   document.querySelector('.am-body-content').style.backgroundColor = "unset";
-  // }
-  // else if(backgroundScrollVal < 0.55) {
-  //   document.querySelector('.am-body-content').style.backgroundColor = "#000e13";
-  // }
-
-  // if(full_window_top / bodyHeight > 0.40) {
-  //   document.querySelector('.proj1-title').style.opacity = 1
-  //   document.querySelector('.proj1-description').style.opacity = 1
-  //   document.querySelector('.proj1-tech').style.opacity = 1
-  //   document.querySelector('.proj1-thumbnail').style.opacity = 1
-
-  // }
-
-  // if(full_window_top / bodyHeight > 0.47) {
-  //   document.querySelector('.proj2-title').style.opacity = 1
-  //   document.querySelector('.proj2-description').style.opacity = 1
-  //   document.querySelector('.proj2-tech').style.opacity = 1
-  //   document.querySelector('.proj2-thumbnail').style.opacity = 1
-  // }
-
-  // if(full_window_top / bodyHeight > 0.54) {
-  //   document.querySelector('.proj3-title').style.opacity = 1
-  //   document.querySelector('.proj3-description').style.opacity = 1
-  //   document.querySelector('.proj3-tech').style.opacity = 1
-  //   document.querySelector('.proj3-thumbnail').style.opacity = 1
-  // }
-
-  if(full_window_top / bodyHeight > 0.65) {
-    // document.querySelector('.contact-card-bg').style.opacity = aboutOpacityVal2
-    // document.querySelector('.am-body-content').style.opacity = aboutOpacityVal2
-    // console.log(aboutOpacityVal2)
-    // document.querySelector('.about-me-body').style.opacity = aboutOpacityVal2
-    document.querySelector('.about-me-body').style.transform = "translate3d(0, " + (window_top)*0.2 + "px, 0)";
-
-  }
-
-  if(backgroundScrollVal > 0.5) {
-    // document.querySelector('.contact-card-inner').classList.add('at-bottom')
-    // document.querySelector('.contact-section').classList.add('at-bottom')
-    // document.querySelector('.contact-card-bg').style.backgroundColor = "#000e13";
-    // document.querySelector('.contact-card-bg').style.opacity = 1;
-    // document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + -(window_top)*0.1 + "px, 0)";
-    document.querySelector('.lp-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
     document.querySelector('.lp-bg').style.opacity = 1;
-    document.querySelector('.contact-card-bg').style.opacity = 1;
-    document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
-    document.querySelector('.centerpiece-container').style.opacity = 0;
-    // document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 1)";
   }
   else {
     document.querySelector('.lp-bg').style.opacity = 0;
+  }
+
+  if(backgroundScrollVal > 0.5) {
+    document.querySelector('.lp-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
+    // setTimeout(() => {
+      document.querySelector('.contact-card-bg').style.opacity = 1;
+      // document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
+    // }, 1000)
+    document.querySelector('.grid-bg').classList.add('reveal')
+    // document.querySelector('.grid-bg').classList.remove('hide')
+    document.querySelector('.mountain-right').style.transform = "translate3d(0, " + (430 -(window_top)*0.2) + "px, 0)";
+    document.querySelector('.mountain-right').style.opacity = 1
+    document.querySelector('.mountain-left').style.transform = "translate3d(0, " + (430 -(window_top)*0.3) + "px, 0)";
+    document.querySelector('.mountain-left').style.opacity = 1
+    document.querySelector('.centerpiece-container').style.opacity = 0;
+  }
+  else {
+    // document.querySelector('.lp-bg').style.opacity = 0;
     document.querySelector('.contact-card-bg').style.opacity = 0;
+    // document.querySelector('.grid-bg').classList.add('hide')
+    // document.querySelector('.grid-bg').classList.remove('reveal')
     document.querySelector('.centerpiece-container').style.opacity = 1;
-    // document.querySelector('.contact-card-inner').classList.remove('at-bottom')
-    // document.querySelector('.contact-section').classList.remove('at-bottom')
-    // document.querySelector('.contact-card-bg').style.backgroundColor = "transparent";
-    // document.querySelector('.contact-card-bg').style.opacity = 0;
-    // document.querySelector('.contact-card-bg').style.boxShadow = "inset 0px 0px 300px 300px rgba(0, 0, 0, 0)";
+    document.querySelector('.mountain-right').style.opacity = 0
+    document.querySelector('.mountain-left').style.opacity = 0
+  }
+
+  if(backgroundScrollVal > 0.8 && backgroundScrollVal < 0.9) {
+    // document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.11) + "px, 0)";
   }
 
   if(backgroundScrollVal > 0.9) {
     document.querySelector('.contact-section').classList.add('at-bottom')
-    // document.querySelector('.contact-card-inner').style.transform = "translate3d(0, " + -(window_top)*0.3 + "px, 0)";
-    // document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + -(window_top)*0.3 + "px, 0)";
   }
   else {
     document.querySelector('.contact-section').classList.remove('at-bottom')
-    // document.querySelector('.contact-card-inner').style.transform = "translate3d(0, " + (window_top)*0.1 + "px, 0)";
-    // document.querySelector('.lets-talk-container').style.transform = "translate3d(0, " + (window_top)*0.1 + "px, 0)";
   }
 
 
