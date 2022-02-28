@@ -125,7 +125,7 @@ function createWaveBackground() {
     //
 
     scene = new THREE.Scene();
-
+    scene.fog = new THREE.Fog(0x4e9fe5, 1000, 10000);
     camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
     camera.position.set( 30, 30, 100 );
 
@@ -149,8 +149,8 @@ function createWaveBackground() {
         } ),
         sunDirection: new THREE.Vector3(),
         sunColor: 0xffffff,
-        waterColor: 0x000000,
-        distortionScale: 8,
+        waterColor: 0x4ed1e5,
+        distortionScale: 1,
         fog: scene.fog !== undefined
       }
     );
@@ -205,162 +205,6 @@ function createWaveBackground() {
 
 
 
-// const SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;
-
-// let container;
-// let camera, scene, renderer;
-
-// let particles, count = 0;
-
-// let mouseX = 0, mouseY = 0;
-
-// let windowHalfX = window.innerWidth / 2;
-// let windowHalfY = window.innerHeight / 2;
-
-// init();
-// animate();
-
-// function init() {
-
-//   container = document.querySelector('.lp-bg');
-
-//   camera = new THREE.PerspectiveCamera( 75, (window.innerWidth * 1) / (window.innerHeight * 3), 1, 10000 );
-//   camera.position.z = 1000;
-//   let background = "#000e13"
-
-//   scene = new THREE.Scene();
-//   scene.fog = new THREE.Fog(background, 1, 100);
-
-//   scene.background = new THREE.Color( 0x000000 );
-//   // scene.background = new THREE.Color( 0x000e13 );
-
-
-//   const numParticles = AMOUNTX * AMOUNTY;
-
-//   const positions = new Float32Array( numParticles * 3 );
-//   const scales = new Float32Array( numParticles );
-
-//   let i = 0, j = 0;
-
-//   for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
-
-//     for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
-
-//       positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
-//       positions[ i + 1 ] = 0; // y
-//       positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
-
-//       scales[ j ] = 1;
-
-//       i += 3;
-//       j ++;
-//     }
-//   }
-
-//   const geometry = new THREE.BufferGeometry();
-//   geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-//   geometry.setAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
-
-//   const material = new THREE.ShaderMaterial( {
-
-//     uniforms: {
-//       // color: { value: new THREE.Color( 0xffffff ) },
-//       // color: { value: new THREE.Color( 0x062d3e ) },
-//       color: { value: new THREE.Color( 0x00babb ) },
-//       // color: { value: new THREE.Color( 0x006e70 ) },
-
-//     },
-//     vertexShader: document.getElementById( 'vertexshader' ).textContent,
-//     fragmentShader: document.getElementById( 'fragmentshader' ).textContent
-//   } );
-
-//   particles = new THREE.Points( geometry, material );
-//   scene.add( particles );
-
-//   renderer = new THREE.WebGLRenderer( { antialias: true } );
-//   renderer.setPixelRatio( window.devicePixelRatio );
-//   renderer.setSize( window.innerWidth, window.innerHeight);
-//   container.appendChild( renderer.domElement );
-
-//   container.style.touchAction = 'none';
-//   container.addEventListener( 'pointermove', onPointerMove );
-
-//   window.addEventListener( 'resize', onWindowResize );
-
-// }
-
-// function onWindowResize() {
-
-//   windowHalfX = window.innerWidth / 2;
-//   windowHalfY = window.innerHeight / 2;
-
-//   camera.aspect = window.innerWidth / (window.innerHeight * 3);
-//   camera.updateProjectionMatrix();
-
-//   renderer.setSize( window.innerWidth, window.innerHeight);
-// }
-
-
-// function onPointerMove( event ) {
-
-//   if ( event.isPrimary === false ) return;
-
-//   mouseX = event.clientX - windowHalfX;
-//   // mouseY = event.clientY - windowHalfY;
-
-// }
-
-// function animate() {
-
-//   requestAnimationFrame( animate );
-
-//   render();
-// }
-
-// function render() {
-
-//   // camera.position.x += ( mouseX - camera.position.x ) * .001;
-//   camera.position.x = 500;
-//   // camera.position.y += ( - mouseY - camera.position.y ) * .05;
-//   camera.position.y += ( 500 - camera.position.y ) * .05;
-//   // camera.position.y += ( (500 - $(window).scrollTop()*0.3) - camera.position.y ) * .1;
-//   camera.lookAt( scene.position );
-
-//   const positions = particles.geometry.attributes.position.array;
-//   const scales = particles.geometry.attributes.scale.array;
-
-//   let i = 0, j = 0;
-
-//   for ( let ix = 0; ix < AMOUNTX; ix ++ ) {
-
-//     for ( let iy = 0; iy < AMOUNTY; iy ++ ) {
-
-//       positions[ i + 1 ] = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
-//               ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
-
-//       scales[ j ] = ( Math.sin( ( ix + count ) * 0.3 ) + 1 ) * 20 +
-//               ( Math.sin( ( iy + count ) * 0.5 ) + 1 ) * 20;
-
-//       i += 3;
-//       j ++;
-
-//     }
-
-//   }
-
-//   particles.geometry.attributes.position.needsUpdate = true;
-//   particles.geometry.attributes.scale.needsUpdate = true;
-
-//   renderer.render( scene, camera );
-
-//   count += 0.05;
-
-// }
-
-
-
-
-
 
 
 
@@ -371,138 +215,14 @@ $(document).ready(function() {
 
 gsap.registerPlugin(ScrollTrigger);
 
-// gsap.from(".scroll-down", 1, {
-//   delay: 4,
-//   // delay: 8,
-//   opacity: 0,
-// })
 
-// function intro() {
-// 	let tl = gsap.timeline();
-//   tl.from('.arrow-line3', {
-//     ease: "power3",
-//     x: -50,
-//     // opacity: 0,
-//     duration: 0.5,
-//   }, "-=0.35")
-//   tl.from('.arrow-line2', {
-//     ease: "power3",
-//     x: -50,
-//     // opacity: 0,
-//     duration: 0.5,
-//   }, "-=0.35")
-//   tl.from('.arrow-line1', {
-//     ease: "power3",
-//     x: -50,
-//     // opacity: 0,
-//     duration: 0.5,
-//   }, "-=0.35")
-//   tl.to(".svg-arrow", {
-//       ease: "slow",
-//       // opacity: 0,
-//       yPercent: 60,
-//       duration: 2
-//   }, "-=0.5")
-// 	return tl;
-// }
-
-// function middle() {
-//   let tl = gsap.timeline();
-//   tl.to('.arrow-line1', {
-//     ease: "slow",
-//     x: 50,
-//     opacity: 0,
-//     duration: 0.5,
-//   }, "-=0.35")
-//   tl.to('.arrow-line2', {
-//     ease: "slow",
-//     x: 50,
-//     opacity: 0,
-//     duration: 0.5,
-//   }, "-=0.35")
-//   tl.to('.arrow-line3', {
-//     ease: "power3",
-//     x: 50,
-//     opacity: 0,
-//     duration: 0.5,
-//   }, "-=0.35")
-//   tl.to(".svg-arrow", {
-//     ease: "power3",
-//     // opacity: 0,
-//     yPercent: 0,
-//     duration: 2
-//   }, "-=0.5")
-// 	return tl;
-// }
-
-// function conclusion() {
-// 	let tl = gsap.timeline({repeat: -1});
-//   tl.to('.arrow-line1', {
-//     ease: "power3",
-//     x: 50,
-//     // opacity: 0,
-//     duration: 0.5,
-//   }, "-=.4")
-//   tl.to('.arrow-line2', {
-//     ease: "power3",
-//     x: 50,
-//     // opacity: 0,
-//     duration: 0.5,
-//   }, "-=.4")
-//   tl.to('.arrow-line3', {
-//     ease: "power3",
-//     x: 50,
-//     // opacity: 0,
-//     duration: 0.5,
-//   }, "-=.4")
-//   tl.to(".svg-arrow", {
-//     ease: "power3",
-//     // opacity: 0,
-//     yPercent: 0,
-//     duration: 3
-//   })
-// 	return tl;
-// }
-
-// let master = gsap.timeline({repeat: -1});
-// master.add(intro())
-      // .add(middle(), "=-1")    
-      // .add(conclusion(), "=-1") 
-
-
-
-
-
-
-
-
-
-
-
-// gsap.from(".nav-button", 1, {
-//   ease: "sine",
-//   opacity: 0,
-//   // yPercent: -100,
-//   // skewX: 20,
-//   delay: 4,
-//   // delay: 8,
-//   stagger: {
-//     amount: 0.2,
-//     from: "start"
-//   }
-// })
-
-
-
-
-
-
-
-
-// gsap.from(".pl", 1, {
-//   yPercent: -100,
-//   delay: 1,
-//   // delay: 5,
+// gsap.from(".ltp", 1, {
+//   scrollTrigger: {
+//     trigger: ".ltp",
+//     toggleActions: "restart none none none"
+//   },
+//   yPercent: 100,
+//   delay: 3,
 //   ease: "power3",
 //   opacity: 0,
 //   // repeat: -1,
@@ -513,10 +233,13 @@ gsap.registerPlugin(ScrollTrigger);
 //   }
 // })
 
-// gsap.from(".sl", 1, {
-//   yPercent: -100,
-//   delay: 1,
-//   // delay: 5,
+// gsap.from(".lts", 1, {
+//   scrollTrigger: {
+//     trigger: ".lts",
+//     toggleActions: "restart none none none"
+//   },
+//   yPercent: 100,
+//   delay: 3,
 //   ease: "power4",
 //   skewY: 20,
 //   opacity: 0,
@@ -528,140 +251,6 @@ gsap.registerPlugin(ScrollTrigger);
 //   }
 // })
 
-// gsap.from(".lt", 2, {
-//   yPercent: 1000,
-//   delay: 2,
-//   // delay: 6,
-//   ease: "power4",
-//   // skewY:-20,
-//   // repeat: -1,
-//   // repeatDelay: 2,
-//   stagger: {
-//     amount: 0.3,
-//     from: "start"
-//   }
-// })
-
-// gsap.from(".ph-text", 2, {
-//   scrollTrigger: {
-//     trigger: ".projects-header1",
-//     toggleActions: "restart none none none"
-//   },
-//   xPercent: 25,
-//   scaleX: 1,
-//   scaleY: 1.8,
-//   // yPercent: 100,
-//   // delay: 3,
-//   // ease: "power4",
-//   opacity: 0,
-//   // repeat: -1,
-//   // repeatDelay: 2,
-
-// })
-
-// gsap.from(".am-sentence", 1, {
-//   scrollTrigger: {
-//     trigger: ".about-me-trigger",
-//     toggleActions: "play none none none"
-//   },
-//   yPercent: 300,
-//   // delay: 2,
-//   // delay: 6,
-//   ease: "power4",
-//   opacity: 0,
-//   skewY: 3,
-//   // repeat: -1,
-//   // repeatDelay: 2,
-//   stagger: {
-//     amount: 0.5,
-//     from: "start"
-//   }
-// })
-
-// gsap.from(".lt", 2, {
-//   scrollTrigger: {
-//     trigger: ".lt4",
-//     // toggleActions: "restart none none none"
-//   },
-//   xPercent: 1000,
-//   // delay: 2,
-//   // delay: 6,
-//   ease: "power4",
-//   // skewY:-20,
-//   // repeat: -1,
-//   // repeatDelay: 2,
-//   stagger: {
-//     amount: 0.3,
-//     from: "start"
-//   }
-// })
-
-gsap.from(".ltp", 1, {
-  scrollTrigger: {
-    trigger: ".ltp",
-    toggleActions: "restart none none none"
-  },
-  yPercent: 100,
-  delay: 3,
-  ease: "power3",
-  opacity: 0,
-  // repeat: -1,
-  // repeatDelay: 2,
-  stagger: {
-    amount: 0.1,
-    from: "random"
-  }
-})
-
-gsap.from(".lts", 1, {
-  scrollTrigger: {
-    trigger: ".lts",
-    toggleActions: "restart none none none"
-  },
-  yPercent: 100,
-  delay: 3,
-  ease: "power4",
-  skewY: 20,
-  opacity: 0,
-  // repeat: -1,
-  // repeatDelay: 2,
-  stagger: {
-    amount: 0.1,
-    from: "random"
-  }
-})
-
-// gsap.from(".phl", 1.5, {
-//   scrollTrigger: {
-//     trigger: ".ph-text",
-//     toggleActions: "play none none none",
-//     start: "bottom bottom",
-//   },
-//   // yPercent: -30,
-//   xPercent: 500,
-//   // scaleY: 1.8,
-//   // scaleX: 1,
-//   ease: "power3",
-//   // opacity: 0,
-//   stagger: {
-//     amount: 0.1,
-//     from: "edges"
-//   }
-// })
-
-// gsap.from(".ph-text", 1.5, {
-//   scrollTrigger: {
-//     trigger: ".ph-text",
-//     toggleActions: "play none none none",
-//     start: "bottom bottom",
-//   },
-//   // yPercent: -100,
-//   // xPercent: 100,
-//   opacity: 0,
-//   scaleY: 1.8,
-//   scaleX: 1,
-//   ease: "power3",
-// })
 
 
 const navButs = document.querySelectorAll('.navi')
@@ -723,7 +312,7 @@ function sticktothetop() {
   let window_top = $(window).scrollTop();
   let bodyHeight = document.querySelector('body').offsetHeight;
   let backgroundScrollVal = $(window).scrollTop() / document.querySelector('main').offsetHeight;
-  let moveSideways = (backgroundScrollVal * 100) / 3
+  let moveSideways = (backgroundScrollVal * 100) / 8
   let contactScrollVal = bodyHeight - full_window_top;
   let endingHeight = bodyHeight * 0.8;
   let aboutOpacityVal2 = ((full_window_top - bodyHeight*0.65) / (bodyHeight - bodyHeight*0.7)).toFixed(2)
@@ -753,7 +342,9 @@ function sticktothetop() {
   this.oldScroll = this.scrollY;
   // console.log(this.oldScroll, this.scrollY)
   document.querySelector('main').style.transform = "translate3d(0, " + -(window_top)*1.26 + "px, 0)";
-  document.querySelector('.grid-bg').style.transform = "translate3d(" + moveSideways + "%, " + -(window_top)*2.5 + "px, 0)";
+
+  // document.querySelector('.grid-bg').style.transform = "translate3d(" + moveSideways + "%, " + -(window_top)*0.4 + "px, 0)";
+
   // document.querySelector('.centerpiece-container').style.transform = "translate3d(10%, " + -(window_top)*0.5 + "px, 0)";
   // document.querySelector('.centerpiece-container').style.transform = "translate3d(0%, " + -(window_top)*0.65 + "px, 0)";
   // document.querySelector('.centerpiece-background').style.transform = "translate3d(0%, " + -(window_top)*0.65 + "px, 0)";
@@ -762,32 +353,32 @@ function sticktothetop() {
   let allProjLetters = document.querySelectorAll('.phl');
   let linesDown = document.querySelectorAll('.lines-down')
 
-  if(backgroundScrollVal > 0.1) {
-    document.querySelector('.projects-container').classList.add('in-focus')
-    allProjLetters.forEach((letter) => {
-      letter.style.transform = "translate3d(0, 0%, 0) rotateY(0deg)";
-      letter.style.opacity = 1;
-    })
-    linesDown.forEach((line) => {
-      line.style.transform = "scale3d(1, 1, 1)";
-    })
-  }
-  else {
-    document.querySelector('.projects-container').classList.remove('in-focus')
-    allProjLetters.forEach((letter) => {
-      letter.style.transform = "translate3d(0, 100%, 0) rotateY(80deg)";
-      letter.style.opacity = 0;
-    })
-    linesDown.forEach((line) => {
-      line.style.transform = "scale3d(1, 0, 1)";
-    })
-  }
+  // if(backgroundScrollVal > 0.1) {
+  //   document.querySelector('.projects-container').classList.add('in-focus')
+  //   allProjLetters.forEach((letter) => {
+  //     letter.style.transform = "translate3d(0, 0%, 0) rotateY(0deg)";
+  //     letter.style.opacity = 1;
+  //   })
+  //   linesDown.forEach((line) => {
+  //     line.style.transform = "scale3d(1, 1, 1)";
+  //   })
+  // }
+  // else {
+  //   document.querySelector('.projects-container').classList.remove('in-focus')
+  //   allProjLetters.forEach((letter) => {
+  //     letter.style.transform = "translate3d(0, 100%, 0) rotateY(80deg)";
+  //     letter.style.opacity = 0;
+  //   })
+  //   linesDown.forEach((line) => {
+  //     line.style.transform = "scale3d(1, 0, 1)";
+  //   })
+  // }
 
-  if(backgroundScrollVal > 0.2) {
+  if(backgroundScrollVal > 0.3) {
     document.querySelector('.grid-bg').style.opacity = 1
   }
   else {
-    document.querySelector('.grid-bg').style.opacity = 0.1
+    document.querySelector('.grid-bg').style.opacity = 0
   }
 
   if(backgroundScrollVal > 0.23) {
@@ -836,24 +427,13 @@ function sticktothetop() {
   }
 
   if(backgroundScrollVal > 0.4) {
-    document.querySelector('.lp-bg').style.opacity = 1;
-  }
-  else {
-    document.querySelector('.lp-bg').style.opacity = 0;
-  }
-
-  if(backgroundScrollVal > 0.5) {
-    document.querySelector('.lp-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
+    // document.querySelector('.lp-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
     // setTimeout(() => {
       document.querySelector('.contact-card-bg').style.opacity = 1;
       // document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.1) + "px, 0)";
     // }, 1000)
     document.querySelector('.grid-bg').classList.add('reveal')
     // document.querySelector('.grid-bg').classList.remove('hide')
-    document.querySelector('.mountain-right').style.transform = "translate3d(0, " + (430 -(window_top)*0.2) + "px, 0)";
-    document.querySelector('.mountain-right').style.opacity = 1
-    document.querySelector('.mountain-left').style.transform = "translate3d(0, " + (430 -(window_top)*0.3) + "px, 0)";
-    document.querySelector('.mountain-left').style.opacity = 1
     document.querySelector('.centerpiece-container').style.opacity = 0;
   }
   else {
@@ -862,11 +442,10 @@ function sticktothetop() {
     // document.querySelector('.grid-bg').classList.add('hide')
     // document.querySelector('.grid-bg').classList.remove('reveal')
     document.querySelector('.centerpiece-container').style.opacity = 1;
-    document.querySelector('.mountain-right').style.opacity = 0
-    document.querySelector('.mountain-left').style.opacity = 0
   }
 
-  if(backgroundScrollVal > 0.8 && backgroundScrollVal < 0.9) {
+  if(backgroundScrollVal > 0.5 && backgroundScrollVal < 0.9) {
+    document.querySelector('.grid-bg').style.transform = "translate3d(" + moveSideways + "%, " + -(window_top)*0.4 + "px, 0)";
     // document.querySelector('.contact-card-bg').style.transform = "translate3d(0, " + (430 -(window_top)*0.11) + "px, 0)";
   }
 
