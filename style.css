@@ -1046,9 +1046,9 @@ main:after {
 
 .thumbnail-image img {
 /*   width: 120%; */
-  width: 170%;
+  width: 160%;
   margin-top: -10%;
-  margin-left: -70%;
+  margin-left: -50%;
   background-repeat: repeat-y;
   background-position: center;
   background-size: cover;
@@ -1191,7 +1191,7 @@ main:after {
 }
 
 .project-one-container .project-title:after {
-/*   background-color: #e57f17; */
+/*! background-color: #e57f17; */
 }
 
 .project-two-container .project-title:after {
@@ -1533,15 +1533,7 @@ main:after {
 
 
 /* ---------------- MOBILE & SMALL SCREEN SIZING ----------------- */
-@media only screen and (max-width:600px) and (min-width:350px) {
-  .landing-title {
-    top: 60vh;
-    right: 5vw;
-  }
-  .landing-title div {
-    font-size: 4em;
-/*     line-height: 7; */
-  }
+/* @media only screen and (max-width:600px) and (min-width:350px) {
   .landing-name-holder {
     top: 20vh;
     left: 5vw;
@@ -1638,8 +1630,6 @@ main:after {
   }
   .landing-title div {
     font-size: 6em;
-/*     line-height: 10; */
-/*     color: red; */
   }
   .nav-buttons {
     width: 100%;
@@ -1704,8 +1694,8 @@ main:after {
   .resume {
     margin-top: unset;
   }
-}
-@media only screen and (max-width:1000px) and (min-width:800px) {
+}  */
+/* @media only screen and (max-width:1000px) and (min-width:800px) {
   .landing-name-holder {
     top: 10vh;
     left: 5vw;
@@ -1719,8 +1709,10 @@ main:after {
   .landing-title div {
     font-size: 8em;
   }
-}
-@media only screen and (max-width:1400px) and (min-width:1000px) {
+} */
+
+
+@media only screen and (max-width:1300px) {
   .landing-name-holder {
     top: 10vh;
     left: 5vw;
@@ -1742,6 +1734,39 @@ main:after {
   }
   .project-description {
     font-size: 1em;
+  }
+  .landing-introduction {
+    left: 5vw;
+  }
+  .circle-around-name {
+    width: 3rem;
+    left: 3%;
+    top: -16%;
+  }
+  .introduction {
+    white-space: nowrap;
+  }
+  .project-header-text {
+    padding-left: 10vw;
+  }
+  .proj-cont {
+    left: 10vw;
+  }
+  .project-title {
+    margin-top: 5%;
+  }
+  .proj-title-line {
+    top: 40%;
+  }
+  .project-buttons-container {
+    align-items: flex-end;
+    width: 30vw;
+  }
+  .project-description {
+    width: 30vw;
+  }
+  .about-me-body {
+    margin-top: 0;
   }
 }
 
