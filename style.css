@@ -555,10 +555,10 @@ main:after {
 
 .circle-around-name {
   position: absolute;
-  top: 0;
-/*   left: -0.75em; */
+  top: 8%;
+  left: 3%;
 /*   height: 5vh; */
-  width: 6vh;
+  width: 3rem;
 /*   padding: 0.1em; */
   fill: transparent;
   stroke: #f77f00;
@@ -1044,11 +1044,16 @@ main:after {
 /*   background-color: rgba(0, 0, 0, 0); */
 }
 
+.project-two-container .thumbnail-image img {
+  margin-left: -10%;
+  margin-top: -8%;
+}
+
 .thumbnail-image img {
 /*   width: 120%; */
-  width: 160%;
+  width: 120%;
   margin-top: -10%;
-  margin-left: -50%;
+  margin-left: -10%;
   background-repeat: repeat-y;
   background-position: center;
   background-size: cover;
@@ -1741,7 +1746,7 @@ main:after {
   .circle-around-name {
     width: 3rem;
     left: 3%;
-    top: -16%;
+/*     top: -16%; */
   }
   .introduction {
     white-space: nowrap;
