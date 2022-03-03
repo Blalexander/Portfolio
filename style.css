@@ -548,6 +548,7 @@ main:after {
   left: 1em;
   display: flex;
   flex-flow: row nowrap;
+  z-index: 20;
 /*   mix-blend-mode:exclusion; */
 /*   background-color: transparent; */
     font-family: 'Rubik', sans-serif;
@@ -566,6 +567,10 @@ main:after {
   stroke-dasharray: 25,0;
   transition: 0.5s;
   pointer-events: none;
+}
+
+.navbar-name:hover {
+  cursor: pointer;
 }
 
 .navbar-name:hover .circle-around-name {
@@ -634,6 +639,14 @@ main:after {
   background-color: transparent;
   position: relative;
 /*   color: white; */
+}
+
+.nav-buttons button p {
+  pointer-events: none;
+}
+
+.nav-buttons button svg {
+  pointer-events: none;
 }
 
 .nav-button p {
@@ -1413,17 +1426,17 @@ main:after {
   height: 150vh;
   width: 100vw;
   padding-top: 50vh;
-/*   background-color: transparent; */
-/*   background-color: white; */
-/*   background-color: #000e13; */
-/*   background-color: #005c6b; */
-/*   border: 10px solid transparent; */
-/*   opacity: 0; */
-/*   box-shadow: inset 0px 0px 300px 300px rgba(0, 0, 0, 1); */
+  /* background-color: transparent; */
+  /* background-color: white; */
+  /*   background-color: #000e13; */
+  /* background-color: #005c6b; */
+  /*   border: 10px solid transparent; */
+  /* opacity: 0; */
+  /*   box-shadow: inset 0px 0px 300px 300px rgba(0, 0, 0, 1); */
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
-/*   display: none; */
-    mask-image: linear-gradient(
+  /*   display: none; */
+  mask-image: linear-gradient(
     0deg, 
     rgba(0,0,0,1) 0%, 
     rgba(0,0,0,1) 10%, 
@@ -1438,8 +1451,21 @@ main:after {
     rgba(0,0,0,0) 80%, 
     rgba(0,0,0,0) 90%, 
     rgba(0,0,0,0) 100%);
-
-
+    -webkit-mask-image: linear-gradient(
+    0deg, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,1) 10%, 
+    rgba(0,0,0,0.9) 20%, 
+    rgba(0,0,0,0.92) 25%, 
+    rgba(0,0,0,0.5) 33%,
+    rgba(0,0,0,0) 33%, 
+    rgba(0,0,0,0) 40%, 
+    rgba(0,0,0,0) 50%, 
+    rgba(0,0,0,0) 60%, 
+    rgba(0,0,0,0) 70%, 
+    rgba(0,0,0,0) 80%, 
+    rgba(0,0,0,0) 90%, 
+    rgba(0,0,0,0) 100%);
 }
 
 

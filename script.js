@@ -258,10 +258,11 @@ for(const navButton of navButs) {
   navButton.addEventListener('click', (event) => {
     event.preventDefault()
     // console.log(event.target.classList)
-    if(event.target.classList[1].includes("navbar-name")) {
+    if(event.target.classList[1] != undefined && event.target.classList[1].includes("navbar-name")) {
       $(window).scrollTop(1)
     }
-    let target = event.target.innerHTML
+    let target = event.target.children[0].innerHTML
+    // console.log(event.target.children[0].innerHTML)
     changeTarget(target)
   })
 }
@@ -274,15 +275,15 @@ function changeTarget(target) {
     $(window).scrollTop(1)
   }
   else if(target === "Projects") {
-    $(window).scrollTop(0.265 * bodyHeight)
+    $(window).scrollTop(0.165 * bodyHeight)
 
   }
   else if(target === "About") {
-    $(window).scrollTop(0.62 * bodyHeight)
+    $(window).scrollTop(0.52 * bodyHeight)
 
   }
   else if(target === "Contact") {
-    $(window).scrollTop(.9 * bodyHeight)
+    $(window).scrollTop(.79 * bodyHeight)
 
   }
 }
