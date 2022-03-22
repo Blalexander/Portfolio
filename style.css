@@ -516,10 +516,10 @@ main:after {
 
 .fixed-navbar {
   position: fixed;
-  top: 1em;
+  top: 1rem;
   right: 0;
   z-index: 13;
-  padding-right: 2vw;
+  padding-right: 1rem;
   height: 5.5vh;
 /*   padding-top: 0.25vh; */
   width: 100%;
@@ -539,13 +539,13 @@ main:after {
 }
 
 .navbar-name {
-  line-height: 5vh;
+  line-height: 48px;
   font-size: 1.5em;
 /*   color: white; */
 /*   text-shadow: 2px 2px 3px rgba(176, 224, 230, 0.7); */
   position: fixed;
-  top: 1em;
-  left: 1em;
+  top: 1rem;
+  left: 1rem;
   display: flex;
   flex-flow: row nowrap;
   z-index: 20;
@@ -639,6 +639,8 @@ main:after {
   background-color: transparent;
   position: relative;
 /*   color: white; */
+  overflow: hidden;
+  transform: skewX(-20deg);
 }
 
 .nav-buttons button p {
@@ -651,11 +653,31 @@ main:after {
 
 .nav-button p {
   color: white;
-    font-family: 'Rubik', sans-serif;
+  font-family: 'Rubik', sans-serif;
+  transform: skewX(20deg);
 }
 
 .nav-button:hover {
   cursor: pointer;
+}
+
+.nav-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+/*   opacity: 0; */
+  height: 100%;
+  width: 100%;
+  background-color: #f77f00;
+  transition: 0.3s;
+  transform: translate3d(-110%, 0, 0) skewX(0deg);
+  transform-origin: left;
+}
+
+.nav-button:hover:before  {
+  transform: translate3d(110%, 0, 0) skewX(0deg);
+  opacity: 1;
 }
 
 .show-projects:after {
@@ -666,7 +688,7 @@ main:after {
   height: 40%;
   width: 1%;
   background-color: white;
-  transform: skewX(-20deg);
+  transform: skewX(0deg);
 }
 
 .show-about-me:after {
@@ -677,7 +699,7 @@ main:after {
   height: 40%;
   width: 1%;
   background-color: white;
-  transform: skewX(-20deg);
+  transform: skewX(0deg);
 }
 
 .nav-svg {
@@ -1431,7 +1453,7 @@ main:after {
   /*   background-color: #000e13; */
   /* background-color: #005c6b; */
   /*   border: 10px solid transparent; */
-  /* opacity: 0; */
+  opacity: 0;
   /*   box-shadow: inset 0px 0px 300px 300px rgba(0, 0, 0, 1); */
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.05, 0.30, 0.48, 1);
@@ -1726,24 +1748,31 @@ main:after {
     margin-top: unset;
   }
 }  */
-/* @media only screen and (max-width:1000px) and (min-width:800px) {
-  .landing-name-holder {
-    top: 10vh;
-    left: 5vw;
-  }
-  .letter {
-    font-size: 8em;
-  }
-  .landing-title {
-    top: 75vh;
-  }
-  .landing-title div {
-    font-size: 8em;
-  }
-} */
 
+@media only screen and (max-width:800px) and (min-width:350px) {
+  .nav-buttons {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+  .nav-button {
+    width: 34%;
+  }
+  .landing-introduction {
+/*     padding-right: 20px; */
+    left: 10vw;
+  }
+  .introduction {
+    font-size: 20px;
+    white-space: nowrap;
+  }
+  .project-one-container, .project-two-container, .project-three-container {
+    left: 10vw;
+  }
+}
 
-@media only screen and (max-width:1300px) {
+@media only screen and (max-width:1300px) and (min-width:800px) {
   .landing-name-holder {
     top: 10vh;
     left: 5vw;
@@ -1787,7 +1816,7 @@ main:after {
     margin-top: 5%;
   }
   .proj-title-line {
-    top: 40%;
+    top: 50%;
   }
   .project-buttons-container {
     align-items: flex-end;
@@ -1800,5 +1829,18 @@ main:after {
     margin-top: 0;
   }
 }
+
+@media only screen and (max-height:500px) {
+/*   .navbar-name p {
+    line-height: 48px;
+  } */
+  .about-me-label {
+    font-size: 2em;
+  }
+  .am-sentence {
+    font-size: 1.5em;
+  }
+}
+
 
 /*  */
